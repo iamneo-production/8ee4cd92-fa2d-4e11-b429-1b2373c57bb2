@@ -23,7 +23,7 @@ const WorkoutForm = () => {
 
     try {
 
-      const response = await axios.post(`http://localhost:8081/users/${id}/workouts`, workout);
+      const response = await axios.post(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`, workout);
       console.log(response); // Handle the response as needed
       setWorkout({
         user_id: id,
@@ -75,11 +75,11 @@ const WorkoutForm = () => {
           onChange={onInputChange}
         >
           <option value="">Select a workout</option>
-          <option value="1">Push-ups</option>
-          <option value="2">Sit-ups</option>
-          <option value="3">Squats</option>
-          <option value="4">Jumping jacks</option>
-          <option value="5">Lunges</option>
+            <option value="1">Cardiovascular Workouts</option>
+            <option value="2">Strength Training</option>
+            <option value="3">Group Fitness</option>
+            <option value="4">Outdoor Activities</option>
+            <option value="5">Mind-Body Exercises</option>
         </select>
       </div>
       <div className="mb-3">

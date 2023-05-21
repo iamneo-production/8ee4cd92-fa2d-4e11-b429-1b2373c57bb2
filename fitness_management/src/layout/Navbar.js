@@ -3,11 +3,12 @@ import '../style/header.css'
 import logo from '../assets/img/dumble.png'
 import { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Navbar = () => {
+  const notify = () => toast("Successfully Logged Out");
   const headerRef = useRef(null)
   const navigate = useNavigate()
 
@@ -29,11 +30,14 @@ const Navbar = () => {
   }, [])
 
   const handleLogout = () => {
+    notify();
     localStorage.removeItem('user');
-    toast("Successfully Logged Out")
-    navigate('/');
+    navigate('/login');
+    
     // redirect to login page or homepage
   }
+
+  
 
   return (
     <>

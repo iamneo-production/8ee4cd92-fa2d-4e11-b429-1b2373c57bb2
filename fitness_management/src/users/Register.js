@@ -26,7 +26,7 @@ setUser({...user,[e.target.name]: e.target.value});
     const onSubmit=async (e)=>{
         alert("User is Succesfully Registered")
         e.preventDefault();
-        await axios.post("http://localhost:8081/users",user)
+        await axios.post("https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users",user)
         navigate("/Login") ;
     }
   return (

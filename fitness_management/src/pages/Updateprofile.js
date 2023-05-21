@@ -21,7 +21,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
-    axios.get(`http://localhost:8081/users/${id}`)
+    axios.get(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}`)
       .then(res => {
         const { name, email, height, weight, age, gender } = res.data;
         setUser({ ...user, name, email, height, weight, age, gender });
