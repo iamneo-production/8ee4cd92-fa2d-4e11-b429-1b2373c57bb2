@@ -9,7 +9,7 @@ const Home = () => {
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get("http://localhost:8080/users");
+    const result = await axios.get("https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users");
     setUsers(result.data);
   }
 

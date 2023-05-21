@@ -11,6 +11,7 @@ import { EffectCards } from 'swiper'
 import avatar01 from '../assets/img/avatar01.png'
 import avatar02 from '../assets/img/avatar02.png'
 
+
 export default function Testimonials() {
   return (
     <>
@@ -33,7 +34,7 @@ export default function Testimonials() {
                   <img src={avatar01} alt='' />
                 </div>
 
-                <h4>Jane, 28</h4>
+                <h4>Jack, 28</h4>
                 <p>
                 Fitbody has been a game-changer for me.
                  I've never been so motivated to exercise and track my progress. 
