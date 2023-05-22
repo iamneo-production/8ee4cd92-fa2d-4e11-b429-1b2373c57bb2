@@ -30,17 +30,17 @@ public class UserController {
 	@Autowired
 	WorkoutRepo wr;
 	
-	@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
 		return ur.findAll();
 	}
-	@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
 	@PostMapping("/users")
 	public ResponseEntity<User> addUser(@RequestBody User u){
 		return new ResponseEntity<>(ur.save(u),HttpStatus.CREATED);
 	}
-	@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
 	@GetMapping("/users/{id}")
 	public ResponseEntity<User> getAnUser(@PathVariable int id){
 		Optional<User> o=ur.findById(id);
@@ -51,7 +51,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io//")
 	@PutMapping("/users/{id}")
 	public ResponseEntity<User> updateUser(@RequestBody User u, @PathVariable int id){
 		Optional<User> o=ur.findById(id);
@@ -71,7 +71,7 @@ public class UserController {
 		}
 		
 	}
-	@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io//")
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable int id){
 		Optional<User> o=ur.findById(id);
@@ -83,7 +83,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io//")
 	@GetMapping("/users/{id}/workouts")
 	public List<Workout> workoutsOfSpecificUser(@PathVariable int id){
 		Optional<User> o=ur.findById(id);
@@ -99,7 +99,7 @@ public class UserController {
 		}
 		return null;
 	}
-	@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io//")
 	@PostMapping("/users/{id}/workouts")
 	public ResponseEntity<Void> workoutsOfSpecificUser(@PathVariable int id,@RequestBody Workout w){
 		Optional<User> o=ur.findById(id);

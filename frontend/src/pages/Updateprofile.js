@@ -21,7 +21,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
-    axios.get(`http://localhost:8081/users/${id}`)
+    axios.get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}`)
       .then(res => {
         const { name, email, height, weight, age, gender } = res.data;
         setUser({ ...user, name, email, height, weight, age, gender });
@@ -39,7 +39,7 @@ const UpdateProfile = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
     e.preventDefault();
-    await axios.put(`http://localhost:8081/users/${id}`, { name, email, height, weight, age, gender})
+    await axios.put(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}`, { name, email, height, weight, age, gender})
     alert("Profile Updated Successfully");  
     navigate("/user-dashboard");
   }
