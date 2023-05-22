@@ -3,10 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../layout/Header';
 import "../style/login.css"
+import {  toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 const Login = () => {
 
+  const notify = () => toast("Login Sucessfully!");
   let navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
@@ -17,7 +21,7 @@ const Login = () => {
   const [dbData, setdbData] = useState([]);
 
   const fetchData = async () => {
-    const res = await axios.get("http://localhost:8081/users");
+    const res = await axios.get("https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users");
     console.log(res['data']);
     setdbData(res['data']);
   }
@@ -42,12 +46,14 @@ const Login = () => {
       if (dbData[i]['email'] === user['emailID'] && dbData[i]['password'] === user['password']) {
         // Store user information in local storage
         localStorage.setItem('user', JSON.stringify(dbData[i]));
+        notify();
         navigate('/user-dashboard');
         found = true;
         break;
       }
     }
     if (!found) {
+      notify();
       document.getElementById("msg").hidden = false;
     }
   };
