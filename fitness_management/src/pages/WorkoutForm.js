@@ -75,11 +75,12 @@ const WorkoutForm = () => {
           onChange={onInputChange}
         >
           <option value="">Select a workout</option>
-            <option value="1">Cardiovascular Workouts</option>
-            <option value="2">Strength Training</option>
-            <option value="3">Group Fitness</option>
-            <option value="4">Outdoor Activities</option>
-            <option value="5">Mind-Body Exercises</option>
+            <option value="${id}1">Cardiovascular Workouts</option>
+            <option value="${id}2">Strength Training</option>
+            <option value="${id}3">Flexibility and Mobility</option>
+            <option value="${id}4">Group Fitness</option>
+            <option value="${id}5">Outdoor Activities</option>
+            <option value="6">Mind-Body Exercises</option>
         </select>
       </div>
       <div className="mb-3">
