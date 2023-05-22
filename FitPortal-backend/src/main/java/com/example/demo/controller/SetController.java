@@ -17,12 +17,13 @@ import com.example.demo.entity.Set_;
 import com.example.demo.entity.User;
 import com.example.demo.repo.SetRepo;
 
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
 @RestController
 public class SetController {
 
 	@Autowired
 	SetRepo sr;
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/8081")
+
 	@GetMapping("/sets/{id}")
 	public ResponseEntity<Set_> getASet(@PathVariable int id){
 		Optional<Set_> o=sr.findById(id);
@@ -33,7 +34,7 @@ public class SetController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/8081")
+	
 	@PutMapping("/sets/{id}")
 	public ResponseEntity<Set_> updateSet(@RequestBody Set_ u, @PathVariable int id){
 		Optional<Set_> o=sr.findById(id);
@@ -50,7 +51,7 @@ public class SetController {
 		}
 		
 	}
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/8081")
+	
 	@DeleteMapping("/sets/{id}")
 	public ResponseEntity<Void> deleteSet(@PathVariable int id){
 		Optional<Set_> o=sr.findById(id);

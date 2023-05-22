@@ -3,10 +3,12 @@ import axios from 'axios';
 import Navbar from '../layout/Navbar';
 
 const WorkoutForm = () => {
+  let dic = { "Cardiovascular Workouts":"1","Strength Training":"2", "Flexibility and Mobility":"3","Group Fitness":"4","Outdoor Activities":"5","Mind-Body Exercises":"6" }
+  
   const user = JSON.parse(localStorage.getItem('user'));
-  const id = user.id;
+  const uid = user.id;
   const [workout, setWorkout] = useState({
-    user_id: id,
+    user_id: uid,
     id: '',
     date: '',
     duration: '',
@@ -14,20 +16,27 @@ const WorkoutForm = () => {
   });
 
   const onInputChange = (e) => {
-    setWorkout({ ...workout, [e.target.name]: e.target.value });
+    if(e.target.name==='notes'){
+
+      setWorkout({ ...workout, ["id"]: parseInt(String(uid)+dic[e.target.value]), [e.target.name]: e.target.value});
+    }
+    else{
+      setWorkout({ ...workout, [e.target.name]: e.target.value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      console.log(workout)
       const response = await axios.post(
-        `https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`,
+        `https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`,
         workout
       );
       console.log(response); // Handle the response as needed
       setWorkout({
-        user_id: id,
+        user_id: uid,
         id: '',
         date: '',
         duration: '',
@@ -58,7 +67,7 @@ const WorkoutForm = () => {
                   className='form-control'
                   id='id'
                   name='id'
-                  value={id}
+                  value={uid}
                   readOnly={true}
                 />
               </div>
@@ -108,6 +117,9 @@ const WorkoutForm = () => {
                   <option value='Outdoor Activities'>Outdoor Activities</option>
                   <option value='Flexibility and Mobility'>
                   Flexibility and Mobility
+                  </option>
+                  <option value='Mind-Body Exercises'>
+                  Mind-Body Exercises
                   </option>
                 </select>
               </div>

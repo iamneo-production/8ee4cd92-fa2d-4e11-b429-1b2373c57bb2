@@ -22,6 +22,7 @@ import com.example.demo.entity.Workout;
 import com.example.demo.repo.ExerciseRepo;
 import com.example.demo.repo.WorkoutRepo;
 
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
 @RestController
 public class WorkoutController {
 
@@ -31,7 +32,6 @@ public class WorkoutController {
 	@Autowired
 	ExerciseRepo er;
 	
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
 	@GetMapping("/workouts/{id}")
 	public ResponseEntity<Workout> getAWorkout(@PathVariable int id){
 		Optional<Workout> o=wr.findById(id);
@@ -42,7 +42,7 @@ public class WorkoutController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
+
 	@PutMapping("/workouts/{id}")
 	public ResponseEntity<Workout> updateWorkout(@RequestBody Workout u, @PathVariable int id){
 		Optional<Workout> o=wr.findById(id);
@@ -59,7 +59,6 @@ public class WorkoutController {
 		}
 		
 	}
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
 	@DeleteMapping("/workouts/{id}")
 	public ResponseEntity<Void> deleteWorkout(@PathVariable int id){
 		Optional<Workout> o=wr.findById(id);
@@ -73,7 +72,6 @@ public class WorkoutController {
 	}
 	
 	
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
 	@GetMapping("/workouts/{id}/exercises")
 	public List<Exercise> exercisesOfSpecificWorkout(@PathVariable int id){
 		Optional<Workout> o=wr.findById(id);
@@ -89,7 +87,7 @@ public class WorkoutController {
 		}
 		return null;
 	}
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
+	
 	@PostMapping("/workouts/{id}/exercises")
 	public ResponseEntity<Void> exercisesOfSpecificWorkout(@PathVariable int id,@RequestBody Exercise e){
 		Optional<Workout> o=wr.findById(id);

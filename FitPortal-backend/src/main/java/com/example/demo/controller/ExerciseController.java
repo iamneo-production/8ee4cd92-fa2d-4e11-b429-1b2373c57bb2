@@ -24,6 +24,7 @@ import com.example.demo.entity.Workout;
 import com.example.demo.repo.ExerciseRepo;
 import com.example.demo.repo.SetRepo;
 
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
 @RestController
 public class ExerciseController {
 
@@ -32,7 +33,8 @@ public class ExerciseController {
 	
 	@Autowired
 	SetRepo sr;
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/8081")
+	
+
 	@GetMapping("/exercises/{id}")
 	public ResponseEntity<Exercise> getAnExercise(@PathVariable int id){
 		Optional<Exercise> o=er.findById(id);
@@ -43,7 +45,8 @@ public class ExerciseController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/8081")
+	
+
 	@PutMapping("/exercises/{id}")
 	public ResponseEntity<Exercise> updateExercise(@RequestBody Exercise u, @PathVariable int id){
 		Optional<Exercise> o=er.findById(id);
@@ -59,7 +62,8 @@ public class ExerciseController {
 		}
 		
 	}
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/8081")
+	
+
 	@DeleteMapping("/exercises/{id}")
 	public ResponseEntity<Void> deleteExercise(@PathVariable int id){
 		Optional<Exercise> o=er.findById(id);
@@ -72,7 +76,7 @@ public class ExerciseController {
 		}
 	}
 	
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/8081")
+	
 	@GetMapping("/exercises/{id}/sets")
 	public List<Set_> SetssOfSpecificExercise(@PathVariable int id){
 		Optional<Exercise> o=er.findById(id);
@@ -88,7 +92,8 @@ public class ExerciseController {
 		}
 		return null;
 	}
-	@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/8081")
+	
+
 	@PostMapping("/exercises/{id}/sets")
 	public ResponseEntity<Void> newSetForAnExercise(@PathVariable int id,@RequestBody Set_ s){
 		Optional<Exercise> o=er.findById(id);

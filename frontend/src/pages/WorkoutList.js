@@ -22,7 +22,7 @@ const WorkoutList = () => {
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const response = await axios.get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${userId}/workouts`);
+        const response = await axios.get(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users/${userId}/workouts`);
         setWorkouts(response.data);
       } catch (error) {
         console.error(error);
@@ -34,7 +34,7 @@ const WorkoutList = () => {
 
   const handleShowExercises = async (workoutId) => {
     try {
-      const response = await axios.get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}/exercises`);
+      const response = await axios.get(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}/exercises`);
       setExercises(response.data);
       setSelectedWorkout(workouts.find((workout) => workout.id === workoutId));
       setShowModal(true);
@@ -45,7 +45,7 @@ const WorkoutList = () => {
 
   const handleShowSets = async (exerciseId) => {
     try {
-      const response = await axios.get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${exerciseId}/sets`);
+      const response = await axios.get(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${exerciseId}/sets`);
       setSets(response.data);
       setSelectedExercise(exercises.find((exercise) => exercise.id === exerciseId));
       setShowSetsModal(true);
@@ -84,7 +84,7 @@ const WorkoutList = () => {
     };
 
     try {
-      await axios.post(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
+      await axios.post(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
       setSelectedWorkout(null);
       setShowModal(false);
       setExerciseName('');
@@ -105,7 +105,7 @@ const WorkoutList = () => {
     };
 
     try {
-      await axios.post(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${selectedExercise.id}/sets`, set);
+      await axios.post(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${selectedExercise.id}/sets`, set);
       setSelectedExercise(null);
       setShowSetsModal(false);
       setReps('');
