@@ -22,7 +22,7 @@ import com.example.demo.entity.Workout;
 import com.example.demo.repo.ExerciseRepo;
 import com.example.demo.repo.WorkoutRepo;
 
-@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+@CrossOrigin(origins="https://8081-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/")
 @RestController
 public class WorkoutController {
 

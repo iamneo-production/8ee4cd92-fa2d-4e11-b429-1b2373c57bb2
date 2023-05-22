@@ -27,7 +27,7 @@ setUser({...user,[e.target.name]: e.target.value});
         alert("User is Succesfully Registered")
         e.preventDefault();
         console.log(user)
-        await axios.post("https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users",user)
+        await axios.post("https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users",user)
         navigate("/Login") ;
     }
   return (
