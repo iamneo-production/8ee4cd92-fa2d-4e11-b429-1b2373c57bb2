@@ -212,7 +212,7 @@ const History = () => {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Your Workout {selectedWorkout && selectedWorkout.notes}</Modal.Title>
+          <Modal.Title>Update Your Workout</Modal.Title>
         </Modal.Header>
         <Modal.Body>
   <Form onSubmit={handleUpdate}>
