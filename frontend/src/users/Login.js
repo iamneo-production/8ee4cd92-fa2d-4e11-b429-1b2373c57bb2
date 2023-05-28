@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
-  const notify = () => toast("Login Sucessfully!");
+  const notifylogin = () => toast("LoggedIn Sucessfully!");
   let navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
@@ -46,14 +46,14 @@ const Login = () => {
       if (dbData[i]['email'] === user['emailID'] && dbData[i]['password'] === user['password']) {
         // Store user information in local storage
         localStorage.setItem('user', JSON.stringify(dbData[i]));
-        notify();
+        notifylogin();
         navigate('/user-dashboard');
         found = true;
         break;
       }
     }
     if (!found) {
-      notify();
+      notifylogin();
       document.getElementById("msg").hidden = false;
     }
   };

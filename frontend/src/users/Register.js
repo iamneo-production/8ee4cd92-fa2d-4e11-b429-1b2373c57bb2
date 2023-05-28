@@ -2,8 +2,11 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../layout/Header';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
+  const notifyregister = () => toast("Registration Successful, You can login now!");
 
     let navigate=useNavigate()
 
@@ -24,11 +27,15 @@ setUser({...user,[e.target.name]: e.target.value});
     };
 
     const onSubmit=async (e)=>{
-        alert("User is Succesfully Registered")
+
         e.preventDefault();
-        console.log(user)
+
         await axios.post("https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users",user)
+        notifyregister();
         navigate("/Login") ;
+
+
+
     }
   return (
     <div>
@@ -152,6 +159,7 @@ setUser({...user,[e.target.name]: e.target.value});
               Cancel
             </Link>
             </form>
+            
                 </div>
                 </div>
         </div>
