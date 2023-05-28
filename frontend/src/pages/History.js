@@ -18,7 +18,7 @@ const History = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id = user.id;
     axios
-      .get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`)
+      .get(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`)
       .then((res) => {
         setWorkoutData(res.data);
       })
@@ -45,7 +45,7 @@ const History = () => {
 
   const handleDeleteWorkout = (id) => {
     axios
-      .delete(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${id}`)
+      .delete(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${id}`)
       .then((res) => {
         const updatedWorkoutData = workoutData.filter((item) => item.id !== id);
         setWorkoutData(updatedWorkoutData);
@@ -65,7 +65,7 @@ const History = () => {
     };
 
     try {
-      await axios.post(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
+      await axios.post(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
       setSelectedWorkout(null);
       setShowModal(false);
       setExerciseName('');

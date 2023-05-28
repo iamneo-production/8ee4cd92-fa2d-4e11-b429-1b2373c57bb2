@@ -18,6 +18,8 @@ const decount = () => {
 let work = []
 let exercises = []
 let dic = { 1: "Cardiovascular Workouts", 2: "Strength Training", 3: "Flexibility and Mobility", 4: "Group Fitness", 5: "Outdoor Activities", 6: "Mind-Body Exercises" }
+let val = { "Cardiovascular Workouts":1, "Strength Training":2, "Flexibility and Mobility":3, "Group Fitness":4, "Outdoor Activities":5, "Mind-Body Exercises":6 }
+let workoutids={}
 let exercise_list = {
   1: ["Running/jogging on a treadmill or outdoors", "Cycling (indoor or outdoor)", "Jumping rope", "High-intensity interval training (HIIT)", "Stair climbing", "Rowing"],
   2: ["Weightlifting (using dumbbells, barbells, or weight machines)", "Bodyweight exercises (push-ups, squats, lunges, planks)", "Resistance band exercises", "Kettlebell workouts", "Circuit training", "Powerlifting", "CrossFit-style workouts"],
@@ -46,8 +48,8 @@ function AddExercises(props) {
       c += 1
       option = `<option value="">Select a workout</option>`
       for (let i of work) {
-
-        option += `<option value=${i.id}>${dic[String(i.id).slice(1, 2)]}</option>`
+        
+        option += `<option value=${String(i.id)+"#"+String(val[i.notes])}>${i.notes}</option>`
       }
       document.getElementById(e.target.name).innerHTML = option
     }
@@ -57,10 +59,9 @@ function AddExercises(props) {
 
   useEffect(() => {
 
-    axios.get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`)
+    axios.get(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`)
       .then(res => {
         work = res.data
-        console.log(work)
       })
       .catch(err => console.log(err));
   }, []);
@@ -68,23 +69,22 @@ function AddExercises(props) {
 
 
   const onInputChange = (e) => {
-    if (e.target.name === "name") {
-      let vals = e.target.value.split("#")
-      setexercise({ ...exercise, ['id']: exercise.workout_id + String(vals[1]), [e.target.name]: vals[0] });
+    if (e.target.name==="workout_id"){
+   setexercise({ ...exercise, [e.target.name]: e.target.value.split("#")[0] })
     }
-    else {
-      setexercise({ ...exercise, [e.target.name]: e.target.value }
-      )
+    else{
+      setexercise({ ...exercise, [e.target.name]: e.target.value })
     }
-
+  
   };
 
   const addexercise = (e) => {
     let temp = `<option value="">Select a Exercise</option>`
-    console.log(e.target.name)
-    let l = exercise_list[String(e.target.value).slice(1, 2)].length
+    console.log(parseInt(e.target.value.split("#")[1]))
+    var j=parseInt(e.target.value.split("#")[1])
+    let l = exercise_list[j].length
     for (let i = 0; i < l; i++) {
-      temp += `<option value='${exercise_list[String(e.target.value).slice(1, 2)][i] + "#" + String(i + 1)}'>${exercise_list[String(e.target.value).slice(1, 2)][i]}</option>`
+      temp += `<option value='${exercise_list[j][i]}'>${exercise_list[j][i]}</option>`
     }
     document.getElementById('name').innerHTML = temp
 
@@ -92,11 +92,11 @@ function AddExercises(props) {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
-    const w_id = exercise.workout_id
+    console.log(exercise)
     try {
 
       const response = await axios.post(
-        `https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${w_id}/exercises`,
+        `https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${exercise.workout_id}/exercises`,
         exercise);
       setexercise({ ...exercise, ['description']: "" });
       console.log(response);// Handle the response as needed
@@ -184,13 +184,13 @@ function AddExercises(props) {
 
 
 function ExerciseDisplay(props) {
-  let status = 0;
+  var status = 0;
   const [updateShow, setUpdateShow] = useState({
     uShow: false,
     updateId: ""
   });
 
-  let option = ``
+  var option = ``
 
   const addopt = (e) => {
     if (c=== 0) {
@@ -198,7 +198,7 @@ function ExerciseDisplay(props) {
       option = `<option value="">Select a workout</option>`
       for (let i of work) {
 
-        option += `<option value=${i.id}>${dic[String(i.id).slice(1, 2)]}</option>`
+        option += `<option value=${String(i.id)+"#"+String(val[i.notes])}>${i.notes}</option>`
       }
       document.getElementById(e.target.name).innerHTML = option
     }
@@ -211,12 +211,12 @@ function ExerciseDisplay(props) {
 
   const removeExercise = async (e) => {
     let temp = e.target.id.split("#")
-    axios.delete(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${temp[1]}`);
+    axios.delete(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${temp[1]}`);
     status = 1
     let select = document.getElementById("workout_id");
-    let option;
-    for(const element of select.options) {
-      option = element;
+    var option;
+    for (var i = 0; i < select.options.length; i++) {
+      option = select.options[i];
 
       if (option.value == temp[1]) {
         option.setAttribute('selected', true);
@@ -235,8 +235,8 @@ function ExerciseDisplay(props) {
       alert("Exercise Deleted")
       status = 0
     }
-
-    axios.get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${e.target.value}/exercises`)
+    var workid=parseInt(e.target.value.split("#")[0])
+    axios.get(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workid}/exercises`)
       .then(res => {
         exercises = res.data
         console.log(exercises)
@@ -324,6 +324,7 @@ function ExerciseDisplay(props) {
 }
 
 let updatex = {}
+let workid={}
 function UpdateExercise(props) {
 
   for (let i of exercises) {
@@ -331,6 +332,16 @@ function UpdateExercise(props) {
       updatex = i
     }
   }
+
+  
+  for (let i of work) {
+      if (i.id==updatex.workout_id){
+          workid=i
+      }
+
+  }
+  
+  console.log(workid)
 
   let list = []
   let index = String(updatex.workout_id).slice(1, 2)
@@ -351,7 +362,7 @@ function UpdateExercise(props) {
 
 
   const saveChanges = () => {
-    let updatelist = { 'workout_id': updatex.workout_id, }
+    let updatelist = { 'workout_id': workid.id, }
     updatelist['id'] = updatex.id
     updatelist['name'] = updatex.name
 
@@ -363,7 +374,7 @@ function UpdateExercise(props) {
       updatelist['description'] = updateExercise.description
     }
     console.log(updatelist)
-    axios.put(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${updatex.id}`, updatelist);
+    axios.put(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${updatex.id}`, updatelist);
     alert("updated")
     setUpdateExercise({ ...updateExercise, ['description']: '' })
 
@@ -387,7 +398,7 @@ function UpdateExercise(props) {
                 <input
                   type={"text"}
                   className="form-control"
-                  value={dic[String(updatex.workout_id).slice(1, 2)]}
+                  value={workid.notes}
                   readOnly={true}
                 />
               </div>
