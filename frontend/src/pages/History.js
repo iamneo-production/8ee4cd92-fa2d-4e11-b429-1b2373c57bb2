@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../layout/Navbar';
 import axios from 'axios';
 import './History.css';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Tab } from 'react-bootstrap';
+
 
 const History = () => {
   const [workoutData, setWorkoutData] = useState([]);
@@ -27,7 +28,7 @@ const History = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id = user.id;
     axios
-      .get(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`)
+      .get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`)
       .then((res) => {
         setWorkoutData(res.data);
       })
@@ -50,6 +51,7 @@ const History = () => {
     setSelectedDate(new Date(e.target.value));
   };
 
+
   const fetchWorkoutData = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id = user.id;
@@ -60,11 +62,11 @@ const History = () => {
       })
       .catch((err) => console.log(err));
   };
-
+  
   useEffect(() => {
     fetchWorkoutData();
   }, []);
-
+  
   const handleUpdateWorkout = (workout) => {
     setUpdateWorkout(workout); // Set the workout to be updated
     setShowModal(true); // Show the modal for updating the workout
@@ -73,7 +75,7 @@ const History = () => {
 
   const handleDeleteWorkout = (id) => {
     axios
-      .delete(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${id}`)
+      .delete(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${id}`)
       .then((res) => {
         const updatedWorkoutData = workoutData.filter((item) => item.id !== id);
         setWorkoutData(updatedWorkoutData);
@@ -93,7 +95,7 @@ const History = () => {
     };
 
     try {
-      await axios.post(`https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
+      await axios.post(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
       setSelectedWorkout(null);
       setShowModal(false);
       setExerciseName('');
@@ -108,7 +110,7 @@ const History = () => {
   
     try {
       const response = await axios.put(
-        `http://localhost:8081/workouts/${updateWorkout.id}`,
+        `https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${updateWorkout.id}`,
         updatedWorkout
       );
       const updatedWorkoutData = workoutData.map((item) =>
@@ -121,6 +123,9 @@ const History = () => {
       console.error(error);
     }
   };
+  
+
+  
 
   const handleCloseModal = () => {
     setSelectedWorkout(null);
@@ -212,7 +217,7 @@ const History = () => {
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Update Your Workout</Modal.Title>
+          <Modal.Title>Update Your Workout {selectedWorkout && selectedWorkout.notes}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
   <Form onSubmit={handleUpdate}>

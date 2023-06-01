@@ -21,7 +21,7 @@ const Login = () => {
   const [dbData, setdbData] = useState([]);
 
   const fetchData = async () => {
-    const res = await axios.get("https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users");
+    const res = await axios.get("https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users");
     console.log(res['data']);
     setdbData(res['data']);
   }
