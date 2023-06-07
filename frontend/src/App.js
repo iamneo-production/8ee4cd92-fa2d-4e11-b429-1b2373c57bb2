@@ -17,6 +17,10 @@ import WorkoutBase from './pages/WorkoutBase';
 import NutritionHome from './pages/NutritionHome';
 import NutritionWeightLoss from './pages/NutritionWeightLoss';
 import NutritionWeightLossPlanMonday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanMonday';
+import NutritionWeightLossPlanTuesday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanTuesday';
+import NutritionWeightLossPlanWednesday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanFriday.js';
+import NutritionWeightLossPlanThursday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanThursday';
+import NutritionWeightLossPlanFriday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanFriday';
 
 
 function App() {
@@ -42,6 +46,10 @@ function App() {
           <Route exact path='/nutritionHome' element={<NutritionHome />} />
           <Route exact path='/nutritionWeightLoss' element={<NutritionWeightLoss />} />
           <Route exact path='/nutritionWeightLossPlanMonday' element={<NutritionWeightLossPlanMonday />} />
+          <Route exact path='/nutritionWeightLossPlanTuesday' element={<NutritionWeightLossPlanTuesday />} />
+          <Route exact path='/nutritionWeightLossPlanWednesday' element={<NutritionWeightLossPlanWednesday />} />
+          <Route exact path='/nutritionWeightLossPlanThursday' element={<NutritionWeightLossPlanThursday />} />
+          <Route exact path='/nutritionWeightLossPlanFriday' element={<NutritionWeightLossPlanFriday />} />
           
         </Routes>
       </Router>
