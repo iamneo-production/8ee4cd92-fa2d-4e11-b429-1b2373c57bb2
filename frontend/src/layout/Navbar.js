@@ -64,6 +64,15 @@ const Navbar = () => {
             </div>
 
             <div className="nav_right">
+              <Link className="btn" to="/nutritionHome">
+                Nutrition Recommandations
+              </Link>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+
+            <div className="nav_right">
               <Link className="btn" to="/goal-setting">
                 Goal Setting
               </Link>
