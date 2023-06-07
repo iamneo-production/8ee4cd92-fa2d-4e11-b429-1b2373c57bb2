@@ -51,7 +51,7 @@ const WorkoutBase = () => {
 
     try {
       console.log(workout);
-      const response = await axios.post(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`, workout);
+      const response = await axios.post(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`, workout);
       console.log(response); // Handle the response as needed
       setWorkout({
         user_id: uid,
@@ -68,7 +68,7 @@ const WorkoutBase = () => {
 
   const fetchWorkouts = async () => {
     try {
-      const response = await axios.get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`);
+      const response = await axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`);
       const sortedWorkouts = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
       setAllWorkouts(sortedWorkouts);
     } catch (error) {
@@ -79,7 +79,7 @@ const WorkoutBase = () => {
   
   const deleteWorkout = async (workoutId) => {
     try {
-      await axios.delete(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}`);
+      await axios.delete(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}`);
       setAllWorkouts(allWorkouts.filter((workout) => workout.id !== workoutId));
       alert('Workout Deleted Successfully');
     } catch (error) {

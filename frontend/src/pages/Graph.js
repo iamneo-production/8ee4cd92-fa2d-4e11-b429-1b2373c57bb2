@@ -72,7 +72,7 @@ const Graph =()=> {
     useEffect(() => {
         const fetchWorkouts = async () => {
             try {
-                const response = await axios.get(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users/${userId}/workouts`);
+                const response = await axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${userId}/workouts`);
                 const data = response.data.sort(function (first, second) {
                     return (first.date < second.date ? -1 : 1);
                 });
@@ -103,7 +103,7 @@ const Graph =()=> {
 
         try {
             const response = await axios.put(
-                `https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${updateWorkout.id}`,
+                `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${updateWorkout.id}`,
                 updatedWorkout
             );
             const updatedWorkoutData = workoutData.map((item) =>
@@ -119,7 +119,7 @@ const Graph =()=> {
 
     const handleDeleteWorkout = (id) => {
         axios
-            .delete(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${id}`)
+            .delete(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${id}`)
             .then((res) => {
                 const updatedWorkoutData = workoutData.filter((item) => item.id !== id);
                 setWorkoutData(updatedWorkoutData);
@@ -137,7 +137,7 @@ const Graph =()=> {
         };
 
         try {
-            await axios.post(`https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
+            await axios.post(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
             setSelectedWorkout(null);
             setShowUpdateModal(false);
             setExerciseName('');

@@ -30,7 +30,7 @@ setUser({...user,[e.target.name]: e.target.value});
 
         e.preventDefault();
 
-        await axios.post("https://8080-dbffddaabecbdcdefbebfbcddfeaeaadbdbabf.project.examly.io/users",user)
+        await axios.post("https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users",user)
         notifyregister();
         navigate("/Login") ;
 
