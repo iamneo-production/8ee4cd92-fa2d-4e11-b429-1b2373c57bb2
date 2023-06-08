@@ -21,7 +21,7 @@ import com.example.demo.entity.Workout;
 import com.example.demo.repo.UserRepo;
 import com.example.demo.repo.WorkoutRepo;
 
-@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/")
+@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/")
 @RestController
 public class UserController {
 

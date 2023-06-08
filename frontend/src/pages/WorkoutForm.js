@@ -27,7 +27,7 @@ const WorkoutForm = () => {
     try {
       console.log(workout)
       const response = await axios.post(
-        `https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`,
+        `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`,
         workout
       );
       console.log(response); // Handle the response as needed

@@ -10,9 +10,9 @@ import Setting from './pages/Setting';
 import Creator from './pages/Creator';
 import UserDashboard from './pages/UserDashboard';
 import UpdateProfile from './pages/Updateprofile';
-import Workoutform from './pages/WorkoutForm';
-import WorkoutList from './pages/WorkoutList';
-import ExerciseList from './pages/ExerciseList';
+import WorkoutForm from './pages/WorkoutForm';
+import Graph from './pages/Graph';
+import WorkoutBase from './pages/WorkoutBase';
 
 
 function App() {
@@ -26,14 +26,15 @@ function App() {
           <Route exact path='/Register' element={<Register />} />
           <Route exact path='/Dashboard' element={<Dashboard />} />
           <Route exact path='/UpdateProfile' element={<UpdateProfile/>}/>
-          <Route exact path='/WorkoutForm' element={<Workoutform/>}/>
+          <Route exact path='/WorkoutForm' element={<WorkoutForm/>}/>
           <Route exact path='/workout-history' element={<History />} />
           <Route exact path='/exercise-tracking' element={<Tracking />} />
           <Route exact path='/goal-setting' element={<Setting />} />
           <Route exact path='/workout-plan-creator' element={<Creator />} />
           <Route exact path='/user-dashboard' element={<UserDashboard />} />
-          <Route exact path='/add-exercises' element={<WorkoutList />} />
-          <Route exact path="/show-exercises" element={<ExerciseList />} /> 
+          <Route exact path='/WorkoutBase' element={<WorkoutBase />} />
+          <Route exact path='/workout-track' element={<Graph />} />
+          
         </Routes>
       </Router>
     </div>
