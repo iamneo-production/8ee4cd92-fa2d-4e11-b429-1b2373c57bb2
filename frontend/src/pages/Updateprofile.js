@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../layout/Navbar';
-
+import { api } from '../APIConnect';
 
 const UpdateProfile = () => {
 
@@ -21,7 +21,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
-    axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}`)
+    axios.get(`${api}users/${id}`)
       .then(res => {
         const { name, email, height, weight, age, gender } = res.data;
         setUser({ ...user, name, email, height, weight, age, gender });
@@ -39,7 +39,7 @@ const UpdateProfile = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
     e.preventDefault();
-    await axios.put(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}`, { name, email, height, weight, age, gender})
+    await axios.put(`${api}users/${id}`, { name, email, height, weight, age, gender})
     alert("Profile Updated Successfully");  
     navigate("/user-dashboard");
   }

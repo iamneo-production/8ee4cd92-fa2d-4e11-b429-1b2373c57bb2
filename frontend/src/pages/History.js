@@ -3,6 +3,7 @@ import Navbar from '../layout/Navbar';
 import axios from 'axios';
 import './History.css';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { api } from '../APIConnect';
 
 const History = () => {
   const [workoutData, setWorkoutData] = useState([]);
@@ -23,7 +24,7 @@ const History = () => {
         const user = JSON.parse(localStorage.getItem('user'));
         const id = user.id;
         const response = await axios.get(
-          `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`
+          `${api}users/${id}/workouts`
         );
         setWorkoutData(response.data);
       } catch (error) {
@@ -63,7 +64,7 @@ const History = () => {
 
   const handleDeleteWorkout = (workoutId) => {
     axios
-      .delete(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}`)
+      .delete(`${api}workouts/${workoutId}`)
       .then((res) => {
         const updatedWorkoutData = filteredData.filter((item) => item.id !== workoutId);
         setFilteredData(updatedWorkoutData);
@@ -82,7 +83,7 @@ const History = () => {
 
     try {
       const response = await axios.put(
-        `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${updatedWorkout.id}`,
+        `${api}workouts/${updatedWorkout.id}`,
         updatedWorkout
       );
       const updatedWorkoutData = workoutData.map((item) =>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import { api } from '../APIConnect';
 
 const Home = () => {
   const [users, setUsers] = useState([]);
@@ -9,7 +10,7 @@ const Home = () => {
   }, []);
 
   const loadUsers = async () => {
-    const result = await axios.get("https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users");
+    const result = await axios.get(`${api}users`);
     setUsers(result.data);
   }
 

@@ -21,8 +21,9 @@ import com.example.demo.entity.User;
 import com.example.demo.entity.Workout;
 import com.example.demo.repo.ExerciseRepo;
 import com.example.demo.repo.WorkoutRepo;
+import com.example.demo.ConnectApi;
 
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/")
+@CrossOrigin(origins=api)
 @RestController
 public class WorkoutController {
 
