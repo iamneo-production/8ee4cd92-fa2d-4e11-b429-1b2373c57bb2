@@ -11,7 +11,6 @@ import { api } from '../APIConnect';
 
 
 const Login = () => {
-
   const notifylogin = () => toast("LoggedIn Sucessfully!");
   let navigate = useNavigate();
   const [user, setUser] = useState({

@@ -1,1 +1,6 @@
-export const api='https://8080-cabacffafefbebfbcddfeaeaadbdbabf.project.examly.io/';
+var api;
+function change(i){
+    api=i.replace('8081',8080);
+}
+
+export {api,change};
