@@ -14,6 +14,9 @@ import WorkoutForm from './pages/WorkoutForm';
 import Graph from './pages/Graph';
 import WorkoutBase from './pages/WorkoutBase';
 
+import NutritionHome from './pages/NutritionHome';
+import NutritionWeightLoss from './pages/NutritionWeightLoss';
+
 
 function App() {
   return (
@@ -34,6 +37,9 @@ function App() {
           <Route exact path='/user-dashboard' element={<UserDashboard />} />
           <Route exact path='/WorkoutBase' element={<WorkoutBase />} />
           <Route exact path='/workout-track' element={<Graph />} />
+
+          <Route exact path='/nutritionHome' element={<NutritionHome />} />
+          <Route exact path='/nutritionWeightLoss' element={<NutritionWeightLoss />} />
           
         </Routes>
       </Router>
