@@ -1,7 +1,6 @@
 var api;
 function change(i){
-    var c=i.replace('8081',8080);
-    api=c
+    api=i.replace('8081',8080);
 }
 
 export {api,change};
