@@ -1,0 +1,13 @@
+.addButton{
+    padding-left: 80%;
+  }
+
+.dietPreparation{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    text-align: left; 
+}
+.dietImages{
+  padding-left: 8%;
+}
