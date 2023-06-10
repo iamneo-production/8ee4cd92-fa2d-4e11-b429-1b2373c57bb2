@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react';
-import { useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Toast } from 'react-bootstrap';
 import '../style/header.css';
@@ -43,6 +42,15 @@ const Navbar = () => {
                 <img src={logo} alt="" />
               </div>
               <h2>SweatSync</h2>
+            </div>
+
+            <div className="nav_right">
+              <Link className="btn" to="/workout-track">
+                Workout Track
+              </Link>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
             </div>
 
             <div className="nav_right">
