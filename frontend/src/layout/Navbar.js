@@ -3,12 +3,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Toast } from 'react-bootstrap';
 import '../style/header.css';
 import logo from '../assets/img/dumble.png';
+import profile from '../assets/img/profile.png';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+
+
 
 const Navbar = () => {
   const headerRef = useRef(null);
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false); // State for toast visibility
-
+  const user = JSON.parse(localStorage.getItem('user'));
   const headerFunc = () => {
     if (
       document.body.scrollTop > 80 ||
@@ -22,7 +27,6 @@ const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', headerFunc);
-
     return () => window.removeEventListener('scroll', headerFunc);
   }, []);
 
@@ -97,24 +101,43 @@ const Navbar = () => {
                 <i className="ri-menu-line"></i>
               </span>
             </div>
+            
 
-            <div className="nav_right">
-              <Link className="btn" to="/UpdateProfile">
-                Update Profile
-              </Link>
+
+            <div className="nav_left">
+              <div>
+                <NavDropdown
+                  id="nav-dropdown-dark-example"
+                  title={user.name}
+                >
+                  <NavDropdown.Item as={Link} to="/UpdateProfile"  className="btn">
+                    Update Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as='button' className="btn" onClick={handleLogout} >
+                      Logout
+                  </NavDropdown.Item>
+
+                </NavDropdown>
+
+              </div>
+
               <span className="mobile_menu">
                 <i className="ri-menu-line"></i>
               </span>
             </div>
 
-            <div className="nav_right">
-              <button className="btn" onClick={handleLogout}>
-                Logout
-              </button>
+
+
+
+            <div className="nav_left">
+              <div className="logo_avtar">
+                <img src={profile} alt="" />
+              </div>
               <span className="mobile_menu">
                 <i className="ri-menu-line"></i>
               </span>
             </div>
+
           </div>
         </div>
       </header>
