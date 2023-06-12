@@ -23,16 +23,21 @@ const History = () => {
       try {
         const user = JSON.parse(localStorage.getItem('user'));
         const id = user.id;
-        const response = await axios.get(
-          `${api}users/${id}/workouts`
-        );
-        setWorkoutData(response.data);
+        const response = await axios.get(`${api}users/${id}/workouts`);
+        const data = response.data;
+        setWorkoutData(data);
+        localStorage.setItem('workoutData', JSON.stringify(data));
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchWorkoutData();
+    const storedWorkoutData = localStorage.getItem('workoutData');
+    if (storedWorkoutData) {
+      setWorkoutData(JSON.parse(storedWorkoutData));
+    } else {
+      fetchWorkoutData();
+    }
   }, []);
 
   useEffect(() => {
@@ -46,6 +51,7 @@ const History = () => {
     });
     setFilteredData(filtered);
   }, [selectedDate, workoutData]);
+  
 
   const handleDateChange = (e) => {
     setSelectedDate(new Date(e.target.value));
