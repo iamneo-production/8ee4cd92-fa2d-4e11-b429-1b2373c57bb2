@@ -51,7 +51,19 @@ const History = () => {
     });
     setFilteredData(filtered);
   }, [selectedDate, workoutData]);
-  
+
+  const fetchWorkoutData = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const id = user.id;
+      const response = await axios.get(`${api}users/${id}/workouts`);
+      const data = response.data;
+      setWorkoutData(data);
+      localStorage.setItem('workoutData', JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleDateChange = (e) => {
     setSelectedDate(new Date(e.target.value));
@@ -72,8 +84,7 @@ const History = () => {
     axios
       .delete(`${api}workouts/${workoutId}`)
       .then((res) => {
-        const updatedWorkoutData = filteredData.filter((item) => item.id !== workoutId);
-        setFilteredData(updatedWorkoutData);
+        fetchWorkoutData(); // Fetch updated workout data from the server
         console.log(`Workout with ID ${workoutId} deleted successfully. Status: ${res.status}`);
         alert('Workout deleted successfully');
       })
@@ -92,16 +103,15 @@ const History = () => {
         `${api}workouts/${updatedWorkout.id}`,
         updatedWorkout
       );
-      const updatedWorkoutData = workoutData.map((item) =>
-        item.id === updatedWorkout.id ? response.data : item
-      );
-      setWorkoutData(updatedWorkoutData);
+
+      fetchWorkoutData(); // Fetch updated workout data from the server
       alert('Workout Updated Successfully');
       handleCloseModal();
     } catch (error) {
       console.error(error);
     }
   };
+
 
   const workoutNames = [
     'Cardiovascular Workouts',
