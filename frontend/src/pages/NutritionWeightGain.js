@@ -4,194 +4,194 @@ import Modal from "react-bootstrap/Modal";
 import "./NutritionRecommandation.css";
 import { Link, useNavigate } from "react-router-dom";
 
-const NutritionWeightLoss = () => {
+const NutritionWeightGain = () => {
   const morningFoodData = [
     {
-      food: "Boiled Egg (1 cup)",
+      food: "Wheat parathas and Paneer",
       calories: "200",
-      id: "boiledEgg",
+      id: "wheatParathas",
     },
     {
-      food: "Brown Bread (4 slices)",
+      food: "Oats and Milk",
       calories: "220",
-      id: "brownBread",
+      id: "oatMilk",
     },
     {
-      food: "Roti/Chappathi (3 pieces)",
+      food: "Stuffed parathas and Potatoes",
       calories: "250",
-      id: "roti/chappathi",
+      id: "parathasPotatoes",
     },
     {
-      food: "Idli (3 pieces)",
+      food: "Rice with Mixed Vegetables",
       calories: "190",
-      id: "idli",
+      id: "riceVegetables",
     },
     {
-      food: "Ripe Bananas (3 pieces)",
+      food: "Eggs (4)",
       calories: "230",
-      id: "ripeBanana",
+      id: "eggs",
     },
     {
-      food: "Oat Meal (1 cup)",
+      food: "Upma with Mixed Vegetables",
       calories: "300",
-      id: "oatMeal",
+      id: "upmaVegetables",
     },
     {
-      food: "Upma with Vegetables (1 cup)",
+      food: "Dosa (3 pieces)",
       calories: "180",
-      id: "upmaVegetables",
+      id: "dosa",
     },
   ];
 
   const morningMidFoodData = [
     {
-      food: "Roasted Chickpeas",
+      food: "Mixed nuts and Banana",
       calories: "200",
-      id: "rostedChickpeas",
+      id: "nutsBanana",
     },
     {
-      food: "Fruit Salad (1 cup)",
+      food: "Mango Milkshake",
       calories: "220",
-      id: "fruitSalad",
+      id: "mangoMilkshake",
     },
     {
-      food: "Sprouted Moong (1 cup)",
+      food: "Cashew nuts (1 cup)",
       calories: "250",
-      id: "sproutedMoong",
+      id: "cashewNuts",
     },
     {
-      food: "Water Melon (1cup)",
+      food: "Banana Smoothie",
       calories: "190",
-      id: "watermelon",
+      id: "bananaSmoothie",
     },
     {
-      food: "Roasted Peanuts",
+      food: "Almonds (1 cup)",
       calories: "230",
-      id: "peanunts",
+      id: "almonds",
     },
     {
-      food: "Chopped cucumber (1cup)",
+      food: "Mango Lassi with Yogurt",
       calories: "300",
-      id: "cucumber",
+      id: "mangoLassi",
     },
     {
-      food: "Nuts And Seeds (1cup)",
+      food: "Walnuts (1cup)",
       calories: "180",
-      id: "nuts",
+      id: "walnuts",
     },
   ];
 
   const lunchFoodData = [
     {
-      food: "Spinach Daal and brown rice",
+      food: "Rice and dal (1cup)",
       calories: "200",
-      id: "spinachDaal",
+      id: "riceDal",
     },
     {
-      food: "Grilled Chicken",
+      food: "Chicken Briyani",
       calories: "220",
-      id: "grilledChicken",
+      id: "chickenBriyani",
     },
     {
-      food: "Grilled Fish",
+      food: "Rice and Rajma (1cup)",
       calories: "250",
-      id: "grilledFish",
+      id: "riceRajma",
     },
     {
-      food: "Vegetable Salad",
+      food: "Parathas and Potatoes",
       calories: "190",
-      id: "vegetableSalad",
+      id: "parathasPotatoes",
     },
     {
-      food: "Grilled Panner and rice",
+      food: "Vegetable Pulao and Vegetable Salad",
       calories: "300",
-      id: "grilledPanner",
+      id: "vegetablePualo",
     },
     {
-      food: "Soya Chunks and rice",
+      food: "Parathas and ChickPeas",
       calories: "180",
-      id: "soyaChunks",
+      id: "parathasChickpeas",
     },
     {
-      food: "Vegtable Briyani",
+      food: "Rice and Sambhar (1cup)",
       calories: "230",
-      id: "vegtableBriyani",
+      id: "riceSambhar",
     },
   ];
 
   const eveningFoodData = [
     {
-      food: "Fruit Salad",
+      food: "Vegetable Samosa",
       calories: "200",
-      id: "fruitSalad",
+      id: "vegetableSamosa",
     },
     {
-      food: "Vegetable soup (1cup)",
+      food: "Peanut butter Sandwich",
       calories: "220",
-      id: "vegetableSoup",
+      id: "peanutButterSandwich",
     },
     {
-      food: "Roasted makhana (foxnuts)",
+      food: "Vegetable Cutlets",
       calories: "250",
-      id: "roastedMakhana",
+      id: "vegetableCutlets",
     },
     {
-      food: "Greek yogurt (1 cup)",
+      food: "Besan",
       calories: "190",
-      id: "greenYogurt",
+      id: "besan",
     },
     {
-      food: "Cucumber and Carrot Slices",
+      food: "Bread Pakoras ",
       calories: "300",
-      id: "cucumberCarrot",
+      id: "breadPakoras ",
     },
     {
-      food: "Moong Dal (1 small cup)",
+      food: "Cheese and Vegetable Sandwich",
       calories: "180",
-      id: "moongDal",
+      id: "vegetableSandwich",
     },
     {
-      food: "Sprouted Green Gram (1 small cup)",
+      food: "Vegetable Spring Rolls",
       calories: "230",
-      id: "greenGram",
+      id: "vegetableSpringRolls",
     },
   ];
 
   const dinnerFoodData = [
     {
-      food: "Vegetable Fry (1 cup)",
+      food: "Rotis and Chicken",
       calories: "200",
-      id: "vegetableFry",
+      id: "rotisChicken",
     },
     {
-      food: "Palak and Roti",
+      food: "Rotis and Paneeer",
       calories: "220",
-      id: "palakRoti",
+      id: "rotiPaneer",
     },
     {
-      food: "Vegetable Khichdi",
+      food: "Rotis and Mutton",
       calories: "250",
-      id: "vegetableKhichdi",
+      id: "rotisMutton",
     },
     {
-      food: "Egg Curry",
+      food: "Rotis and Fish",
       calories: "190",
-      id: "eggCurry",
+      id: "rotiFish",
     },
     {
-      food: "Vegetable Pulao (1 cup)",
+      food: "Rotis and Palak Paneer",
       calories: "300",
-      id: "vegetablePulao",
+      id: "rotisPalak",
     },
     {
-      food: "Oat Meal (1 cup)",
+      food: "Rotis and Chicken Tikka Masala",
       calories: "180",
-      id: "oatMeal",
+      id: "rotisChhickenTikka",
     },
     {
-      food: "Egg Dosa (3 pieces)",
+      food: "Rotis and Paneer Butter Masala",
       calories: "230",
-      id: "eggDosa",
+      id: "rotisPaneerButter",
     },
   ];
 
@@ -229,37 +229,42 @@ const NutritionWeightLoss = () => {
   };
 
   const onSelectChangeMorning = (e) => {
+    console.log(e.target.id);
     const { name, value } = e.target;
     const res = onSelectChangeFind(morningFoodData, value);
-
+    console.log(res);
     setDiet({ ...diet, morningMeal: res });
   };
 
   const onSelectChangeMidMorning = (e) => {
+    console.log(e.target.id);
     const { name, value } = e.target;
     const res = onSelectChangeFind(morningMidFoodData, value);
-
+    console.log(res);
     setDiet({ ...diet, morningSnack: res });
   };
 
   const onSelectChangeLunch = (e) => {
+    console.log(e.target.id);
     const { name, value } = e.target;
     const res = onSelectChangeFind(lunchFoodData, value);
-
+    console.log(res);
     setDiet({ ...diet, lunch: res });
   };
 
   const onSelectChangeEveSnack = (e) => {
+    console.log(e.target.id);
     const { name, value } = e.target;
     const res = onSelectChangeFind(eveningFoodData, value);
-
+    console.log(res);
     setDiet({ ...diet, eveningSnack: res });
   };
 
   const onSelectChangeDinner = (e) => {
+    console.log(e.target.id);
     const { name, value } = e.target;
     const res = onSelectChangeFind(dinnerFoodData, value);
-
+    console.log(res);
     setDiet({ ...diet, dinner: res });
   };
 
@@ -277,24 +282,25 @@ const NutritionWeightLoss = () => {
   };
 
   const handleTodaysDiet = () => {
-    const d = new Date();
-    let day = d.getDay();
+    // const d = new Date();
+    // let day = d.getDay();
 
-    if (day == 0) {
-      navigate("/nutritionWeightLossPlanSunday");
-    } else if (day == 1) {
-      navigate("/nutritionWeightLossPlanMonday");
-    } else if (day == 2) {
-      navigate("/nutritionWeightLossPlanTuesday");
-    } else if (day == 3) {
-      navigate("/nutritionWeightLossPlanWednesday");
-    } else if (day == 4) {
-      navigate("/nutritionWeightLossPlanThursday");
-    } else if (day == 5) {
-      navigate("/nutritionWeightLossPlanFriday");
-    } else if (day == 6) {
-      navigate("/nutritionWeightLossPlanSaturday");
-    }
+    // if (day == 0) {
+    //   navigate("/nutritionWeightLossPlanSunday");
+    // } else if (day == 1) {
+    //   navigate("/nutritionWeightLossPlanMonday");
+    // } else if (day == 2) {
+    //   navigate("/nutritionWeightLossPlanTuesday");
+    // } else if (day == 3) {
+    //   navigate("/nutritionWeightLossPlanWednesday");
+    // } else if (day == 4) {
+    //   navigate("/nutritionWeightLossPlanThursday");
+    // } else if (day == 5) {
+    //   navigate("/nutritionWeightLossPlanFriday");
+    // } else if (day == 6) {
+    //   navigate("/nutritionWeightLossPlanSaturday");
+    // }
+    navigate("/nutritionWeightGainPlanThursday")
   };
 
   return (
@@ -326,34 +332,33 @@ const NutritionWeightLoss = () => {
                   <option value="" id="">
                     Select your Morning meal
                   </option>
-                  <option value="boiledEgg" id="Boiled Egg (1 cup)">
-                    Boiled Egg (1 cup)
+                  <option value="wheatParathas" id="Wheat parathas and Paneer">
+                    Wheat parathas and Paneer
                   </option>
-                  <option value="brownBread" id="Brown Bread (4 slices)">
-                    Brown Bread (4 slices)
+                  <option value="oatMilk" id="Oats and Milk">
+                  Oats and Milk
                   </option>
                   <option
-                    value="roti/chappathii"
-                    id="Roti/Chappathi (3 pieces)"
+                    value="parathasPotatoes"
+                    id="Stuffed parathas and Potatoes"
                   >
-                    Roti/Chappathi (3 pieces)
+                   Stuffed parathas and Potatoes
                   </option>
-                  <option value="idli" id="Idli (3 pieces)">
-                    Idli (3 pieces)
+                  <option value="riceVegetables" id="Rice with Mixed Vegetables">
+                  Rice with Mixed Vegetables
                   </option>
-                  <option value="ripeBanana" id="Ripe Bananas (3 pieces)">
-                    Ripe Bananas (3 pieces)
+                  <option value="eggs" id="Eggs (4)">
+                  Eggs (4)
                   </option>
-                  <option value="oatMeal" id="Oat Meal (1 cup)">
-                    Oat Meal (1 cup)
+                  <option value="upmaVegetables" id="Upma with Mixed Vegetables">
+                  dosa
                   </option>
                   <option
                     value="upmaVegetables"
-                    id="Upma with Vegetables (1 cup)"
+                    id="Dosa (3 pieces)"
                   >
-                    Upma with Vegetables (1 cup)
+                    Dosa (3 pieces)
                   </option>
-                  <option value="Others">Others</option>
                 </select>
                 {/* <div>
                   <input placeholder="Enter meal"></input>
@@ -373,13 +378,13 @@ const NutritionWeightLoss = () => {
                   onChange={onSelectChangeMidMorning}
                 >
                   <option value="">Select your Snack</option>
-                  <option value="rostedChickpeas">Roasted Chickpeas</option>
-                  <option value="fruitSalad">Fruit Salad (1 cup)</option>
-                  <option value="sproutedMoong">Sprouted Moong (1 cup)</option>
-                  <option value="watermelon">Water Melon (1cup)</option>
-                  <option value="peanunts">Roasted Peanuts</option>
-                  <option value="cucumber">Chopped cucumber (1cup)</option>
-                  <option value="nuts">Nuts And Seeds (1cup)</option>
+                  <option value="nutsBanana">Mixed nuts and Banana</option>
+                  <option value="mangoMilkshake">Mango Milkshake</option>
+                  <option value="cashewNuts">Cashew nuts (1 cup) </option>
+                  <option value="bananaSmoothie">Banana Smoothie</option>
+                  <option value="almonds">Almonds (1 cup)</option>
+                  <option value="mangoLassi">Mango Lassi with Yogurt</option>
+                  <option value="walnuts">Walnuts (1cup)</option>
                 </select>
               </div>
 
@@ -395,15 +400,15 @@ const NutritionWeightLoss = () => {
                   onChange={onSelectChangeLunch}
                 >
                   <option value="">Select your Lunch</option>
-                  <option value="spinachDaal">
-                    Spinach Daal and brown rice
+                  <option value="riceDal">
+                  Rice and dal (1cup)
                   </option>
-                  <option value="grilledChicken">Grilled Chicken</option>
-                  <option value="grilledFish">Grilled Fish</option>
-                  <option value="vegetableSalad">Vegetable Salad</option>
-                  <option value="grilledPanner">Grilled Panner and rice</option>
-                  <option value="soyaChunks">Soya Chunks and rice</option>
-                  <option value="vegtableBriyani">Vegtable Briyani</option>
+                  <option value="chickenBriyani">Chicken Briyani</option>
+                  <option value="riceRajma">Rice and Rajma (1cup)</option>
+                  <option value="parathasPotatoes">Parathas and Potatoes</option>
+                  <option value="vegetablePualo">Vegetable Pulao and Vegetable Salad</option>
+                  <option value="parathasChickpeas">Parathas and ChickPeas</option>
+                  <option value="riceSambhar">Rice and Sambhar (1cup)</option>
                 </select>
               </div>
 
@@ -419,18 +424,18 @@ const NutritionWeightLoss = () => {
                   onChange={onSelectChangeEveSnack}
                 >
                   <option value="">Select your Snack</option>
-                  <option value="fruitSalad">Fruit Salad</option>
-                  <option value="vegetableSoup">Vegetable soup (1cup)</option>
-                  <option value="roastedMakhana">
-                    Roasted makhana (foxnuts)
+                  <option value="vegetableSamosa">Vegetable Samosa</option>
+                  <option value="peanutButterSandwich">Peanut butter Sandwich</option>
+                  <option value="vegetableCutlets">
+                  Vegetable Cutlets
                   </option>
-                  <option value="greenYogurt">Greek yogurt (1 cup)</option>
-                  <option value="cucumberCarrot">
-                    Cucumber and Carrot Slices
+                  <option value="besan">Besan</option>
+                  <option value="breadPakoras">
+                  Bread Pakoras
                   </option>
-                  <option value="moongDal">Moong Dal (1 small cup)</option>
-                  <option value="greenGram">
-                    Sprouted Green Gram (1 small cup)
+                  <option value="vegetableSandwich">Cheese and Vegetable Sandwich</option>
+                  <option value="vegetableSpringRolls">
+                  Vegetable Spring Rolls
                   </option>
                 </select>
               </div>
@@ -447,15 +452,15 @@ const NutritionWeightLoss = () => {
                   onChange={onSelectChangeDinner}
                 >
                   <option value="">Select your Dinner</option>
-                  <option value="vegetableFry">Vegetable Fry (1 cup)</option>
-                  <option value="palakRoti">Palak and Roti</option>
-                  <option value="vegetableKhichdi">Vegetable Khichdi</option>
-                  <option value="eggCurry">Egg Curry</option>
-                  <option value="vegetablePulao">
-                    Vegetable Pulao (1 cup)
+                  <option value="rotisChicken">Rotis and Chicken</option>
+                  <option value="rotiPaneer">Rotis and Paneeer</option>
+                  <option value="rotisMutton">Rotis and Mutton</option>
+                  <option value="rotiFish">Rotis and Fish</option>
+                  <option value="rotisPalak">
+                  Rotis and Palak Paneer
                   </option>
-                  <option value="oatMeal">Oat Meal (1 cup)</option>
-                  <option value="eggDosa">Egg Dosa (3 pieces)</option>
+                  <option value="rotisChhickenTikka">Rotis and Chicken Tikka Masala</option>
+                  <option value="rotisPaneerButter">Rotis and Paneer Butter Masala</option>
                 </select>
               </div>
 
@@ -554,4 +559,4 @@ const NutritionWeightLoss = () => {
   );
 };
 
-export default NutritionWeightLoss;
+export default NutritionWeightGain;
