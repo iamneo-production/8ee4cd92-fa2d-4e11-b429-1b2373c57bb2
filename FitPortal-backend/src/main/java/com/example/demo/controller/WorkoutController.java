@@ -51,7 +51,7 @@ public class WorkoutController {
 		Optional<Workout> o=wr.findById(id);
 		
 		if(o.isPresent()) {
-			o.get().setUser_id(u.getUser_id());
+			Workout workout = o.get();
 			o.get().setDate(u.getDate());
 			o.get().setDuration(u.getDuration());
 			o.get().setNotes(u.getNotes());

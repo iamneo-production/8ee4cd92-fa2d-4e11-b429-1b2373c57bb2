@@ -285,7 +285,30 @@ const NutritionWeightLoss = () => {
   };
 
   const handleTodaysDiet = () =>{
-    navigate('/nutritionWeightLossPlanMonday');
+    const d = new Date();
+    let day = d.getDay();
+    
+    if(day == 0){
+      navigate("/nutritionWeightLossPlanSunday");
+    }
+    else if(day==1){
+      navigate("/nutritionWeightLossPlanMonday");
+    }
+    else if(day==2){
+      navigate("/nutritionWeightLossPlanTuesday");
+    }
+    else if(day==3){
+      navigate("/nutritionWeightLossPlanWednesday");
+    }
+    else if(day==4){
+      navigate("/nutritionWeightLossPlanThursday");
+    }
+    else if(day==5){
+      navigate("/nutritionWeightLossPlanFriday");
+    }
+    else if(day==6){
+      navigate("/nutritionWeightLossPlanSaturday");
+    }
   }
 
   return (
