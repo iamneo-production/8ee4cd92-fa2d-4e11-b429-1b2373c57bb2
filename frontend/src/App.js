@@ -24,6 +24,8 @@ import NutritionWeightLossPlanFriday from './pages/NutritionWeightLossPlan/Nutri
 import NutritionWeightLossPlanSaturday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanSaturday';
 import NutritionWeightLossPlanSunday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanSunday';
 
+import NutritionWeightGain from './pages/NutritionWeightGain';
+
 
 function App() {
   return (
@@ -54,6 +56,8 @@ function App() {
           <Route exact path='/nutritionWeightLossPlanFriday' element={<NutritionWeightLossPlanFriday />} />
           <Route exact path='/nutritionWeightLossPlanSaturday' element={<NutritionWeightLossPlanSaturday />} />
           <Route exact path='/nutritionWeightLossPlanSunday' element={<NutritionWeightLossPlanSunday />} />
+
+          <Route exact path='/nutritionWeightGain' element={<NutritionWeightGain />} />
           
         </Routes>
       </Router>
