@@ -20,8 +20,11 @@ import com.example.demo.entity.User;
 import com.example.demo.entity.Workout;
 import com.example.demo.repo.UserRepo;
 import com.example.demo.repo.WorkoutRepo;
+import com.example.demo.apiconnect.ConnectApi;
 
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/")
+
+
+@CrossOrigin(origins=ConnectApi.api)
 @RestController
 public class UserController {
 

@@ -4,6 +4,7 @@ import axios from 'axios';
 import Navbar from '../layout/Navbar';
 import gymVideo1 from '../assets/vid/gym.mp4';
 import gymVideo2 from '../assets/vid/gym1.mp4';
+import { api } from '../APIConnect';
 
 const WorkoutBase = () => {
   const [showModal, setShowModal] = useState(false);
@@ -51,7 +52,7 @@ const WorkoutBase = () => {
 
     try {
       console.log(workout);
-      const response = await axios.post(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`, workout);
+      const response = await axios.post(`${api}users/${uid}/workouts`, workout);
       console.log(response); // Handle the response as needed
       setWorkout({
         user_id: uid,
@@ -68,7 +69,7 @@ const WorkoutBase = () => {
 
   const fetchWorkouts = async () => {
     try {
-      const response = await axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`);
+      const response = await axios.get(`${api}users/${uid}/workouts`);
       const sortedWorkouts = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
       setAllWorkouts(sortedWorkouts);
     } catch (error) {
@@ -79,7 +80,7 @@ const WorkoutBase = () => {
   
   const deleteWorkout = async (workoutId) => {
     try {
-      await axios.delete(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}`);
+      await axios.delete(`${api}workouts/${workoutId}`);
       setAllWorkouts(allWorkouts.filter((workout) => workout.id !== workoutId));
       alert('Workout Deleted Successfully');
     } catch (error) {

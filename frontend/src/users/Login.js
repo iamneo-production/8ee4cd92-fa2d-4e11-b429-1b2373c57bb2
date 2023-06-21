@@ -5,11 +5,12 @@ import Header from '../layout/Header';
 import "../style/login.css"
 import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { api } from '../APIConnect';
+
 
 
 
 const Login = () => {
-
   const notifylogin = () => toast("LoggedIn Sucessfully!");
   let navigate = useNavigate();
   const [user, setUser] = useState({
@@ -21,7 +22,7 @@ const Login = () => {
   const [dbData, setdbData] = useState([]);
 
   const fetchData = async () => {
-    const res = await axios.get("https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users");
+    const res = await axios.get(`${api}users`);
     console.log(res['data']);
     setdbData(res['data']);
   }

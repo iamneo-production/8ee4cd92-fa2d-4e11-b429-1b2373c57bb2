@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../layout/Navbar';
-
+import { api } from '../APIConnect';
 const WorkoutForm = () => {
   let dic = { "Cardiovascular Workouts":"1","Strength Training":"2", "Flexibility and Mobility":"3","Group Fitness":"4","Outdoor Activities":"5","Mind-Body Exercises":"6" }
   
@@ -27,7 +27,7 @@ const WorkoutForm = () => {
     try {
       console.log(workout)
       const response = await axios.post(
-        `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`,
+        `${api}users/${uid}/workouts`,
         workout
       );
       console.log(response); // Handle the response as needed

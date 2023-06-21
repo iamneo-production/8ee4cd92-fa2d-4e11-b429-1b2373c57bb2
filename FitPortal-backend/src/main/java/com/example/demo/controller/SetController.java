@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Set_;
 import com.example.demo.entity.User;
 import com.example.demo.repo.SetRepo;
+import com.example.demo.apiconnect.ConnectApi;
 
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/")
+
+
+@CrossOrigin(origins=ConnectApi.api)
 @RestController
 public class SetController {
 

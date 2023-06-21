@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../layout/Navbar';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { api } from '../APIConnect';
 
 const WorkoutList = () => {
   const [workouts, setWorkouts] = useState([]);
@@ -22,7 +23,7 @@ const WorkoutList = () => {
   useEffect(() => {
     const fetchWorkouts = async () => {
       try {
-        const response = await axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${userId}/workouts`);
+        const response = await axios.get(`${api}users/${userId}/workouts`);
         setWorkouts(response.data);
       } catch (error) {
         console.error(error);
@@ -34,7 +35,7 @@ const WorkoutList = () => {
 
   const handleShowExercises = async (workoutId) => {
     try {
-      const response = await axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}/exercises`);
+      const response = await axios.get(`${api}workouts/${workoutId}/exercises`);
       setExercises(response.data);
       setSelectedWorkout(workouts.find((workout) => workout.id === workoutId));
       setShowModal(true);
@@ -45,7 +46,7 @@ const WorkoutList = () => {
 
   const handleShowSets = async (exerciseId) => {
     try {
-      const response = await axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${exerciseId}/sets`);
+      const response = await axios.get(`${api}exercises/${exerciseId}/sets`);
       setSets(response.data);
       setSelectedExercise(exercises.find((exercise) => exercise.id === exerciseId));
       setShowSetsModal(true);
@@ -84,7 +85,7 @@ const WorkoutList = () => {
     };
 
     try {
-      await axios.post(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${selectedWorkout.id}/exercises`, exercise);
+      await axios.post(`${api}workouts/${selectedWorkout.id}/exercises`, exercise);
       setSelectedWorkout(null);
       setShowModal(false);
       setExerciseName('');
@@ -105,7 +106,7 @@ const WorkoutList = () => {
     };
 
     try {
-      await axios.post(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${selectedExercise.id}/sets`, set);
+      await axios.post(`${api}exercises/${selectedExercise.id}/sets`, set);
       setSelectedExercise(null);
       setShowSetsModal(false);
       setReps('');
