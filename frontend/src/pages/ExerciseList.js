@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from '../layout/Navbar';
+import { api } from '../APIConnect';
 
 const ExerciseList = () => {
   const [exercises, setExercises] = useState([]);
@@ -8,7 +9,7 @@ const ExerciseList = () => {
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-        const response = await axios.get('https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/exercises');
+        const response = await axios.get(`${api}exercises`);
         setExercises(response.data);
       } catch (error) {
         console.error(error);

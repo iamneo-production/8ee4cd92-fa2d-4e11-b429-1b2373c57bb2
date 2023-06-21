@@ -3,6 +3,7 @@ import Navbar from '../layout/Navbar';
 import axios from 'axios';
 import './History.css';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { api } from '../APIConnect';
 
 const History = () => {
   const [workoutData, setWorkoutData] = useState([]);
@@ -22,16 +23,21 @@ const History = () => {
       try {
         const user = JSON.parse(localStorage.getItem('user'));
         const id = user.id;
-        const response = await axios.get(
-          `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`
-        );
-        setWorkoutData(response.data);
+        const response = await axios.get(`${api}users/${id}/workouts`);
+        const data = response.data;
+        setWorkoutData(data);
+        localStorage.setItem('workoutData', JSON.stringify(data));
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchWorkoutData();
+    const storedWorkoutData = localStorage.getItem('workoutData');
+    if (storedWorkoutData) {
+      setWorkoutData(JSON.parse(storedWorkoutData));
+    } else {
+      fetchWorkoutData();
+    }
   }, []);
 
   useEffect(() => {
@@ -45,6 +51,19 @@ const History = () => {
     });
     setFilteredData(filtered);
   }, [selectedDate, workoutData]);
+
+  const fetchWorkoutData = async () => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const id = user.id;
+      const response = await axios.get(`${api}users/${id}/workouts`);
+      const data = response.data;
+      setWorkoutData(data);
+      localStorage.setItem('workoutData', JSON.stringify(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleDateChange = (e) => {
     setSelectedDate(new Date(e.target.value));
@@ -63,10 +82,9 @@ const History = () => {
 
   const handleDeleteWorkout = (workoutId) => {
     axios
-      .delete(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}`)
+      .delete(`${api}workouts/${workoutId}`)
       .then((res) => {
-        const updatedWorkoutData = filteredData.filter((item) => item.id !== workoutId);
-        setFilteredData(updatedWorkoutData);
+        fetchWorkoutData(); // Fetch updated workout data from the server
         console.log(`Workout with ID ${workoutId} deleted successfully. Status: ${res.status}`);
         alert('Workout deleted successfully');
       })
@@ -82,19 +100,18 @@ const History = () => {
 
     try {
       const response = await axios.put(
-        `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${updatedWorkout.id}`,
+        `${api}workouts/${updatedWorkout.id}`,
         updatedWorkout
       );
-      const updatedWorkoutData = workoutData.map((item) =>
-        item.id === updatedWorkout.id ? response.data : item
-      );
-      setWorkoutData(updatedWorkoutData);
+
+      fetchWorkoutData(); // Fetch updated workout data from the server
       alert('Workout Updated Successfully');
       handleCloseModal();
     } catch (error) {
       console.error(error);
     }
   };
+
 
   const workoutNames = [
     'Cardiovascular Workouts',
