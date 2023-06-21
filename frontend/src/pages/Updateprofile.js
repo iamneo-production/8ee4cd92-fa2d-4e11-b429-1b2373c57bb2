@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../layout/Navbar';
 import { api } from '../APIConnect';
 
+
 const UpdateProfile = () => {
 
   let navigate = useNavigate()
@@ -61,7 +62,7 @@ const UpdateProfile = () => {
                   type={"text"}
                   className="form-control"
                   name="name"
-                  value={name}
+                  value={user.name}
                   readOnly={true}
                 />
               </div>
@@ -74,7 +75,7 @@ const UpdateProfile = () => {
                   type={"text"}
                   className="form-control"
                   name="email"
-                  value={email}
+                  value={user.email}
                   readOnly={true}
                 />
               </div>
@@ -128,7 +129,7 @@ const UpdateProfile = () => {
                 <input
                   className="form-select"
                   name="gender"
-                  value={gender}
+                  value={user.gender}
                   readOnly={true}
                 />
               </div>
@@ -145,4 +146,5 @@ const UpdateProfile = () => {
             </div>
             );
             };
+            
 export default UpdateProfile;
