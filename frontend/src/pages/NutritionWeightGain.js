@@ -37,7 +37,7 @@ const NutritionWeightGain = () => {
       id: "upmaVegetables",
     },
     {
-      food: "Dosa (3 pieces)",
+      food: "Egg Dosa (3 pieces)",
       calories: "180",
       id: "dosa",
     },
@@ -203,6 +203,7 @@ const NutritionWeightGain = () => {
 
   const [popupShow, setPopupShow] = React.useState(false);
   const [finalCalorie, setFinalCalorie] = React.useState("0");
+  const [water, setWater] = React.useState(0);
 
   const [diet, setDiet] = useState({
     morningMeal: null,
@@ -281,26 +282,37 @@ const NutritionWeightGain = () => {
     dietProgressPopup();
   };
 
-  const handleTodaysDiet = () => {
-    // const d = new Date();
-    // let day = d.getDay();
+  const handleWaterMinus = () =>{
+    setWater(prevState => prevState - 1);
+    
+  }
+  const handleWaterPlus = () =>{
+    setWater(prevState => prevState + 1);
+    if(water == 9){
+      alert("Congrats!!! Water level reached")
+    }
+  
+  }
 
-    // if (day == 0) {
-    //   navigate("/nutritionWeightLossPlanSunday");
-    // } else if (day == 1) {
-    //   navigate("/nutritionWeightLossPlanMonday");
-    // } else if (day == 2) {
-    //   navigate("/nutritionWeightLossPlanTuesday");
-    // } else if (day == 3) {
-    //   navigate("/nutritionWeightLossPlanWednesday");
-    // } else if (day == 4) {
-    //   navigate("/nutritionWeightLossPlanThursday");
-    // } else if (day == 5) {
-    //   navigate("/nutritionWeightLossPlanFriday");
-    // } else if (day == 6) {
-    //   navigate("/nutritionWeightLossPlanSaturday");
-    // }
-    navigate("/nutritionWeightGainPlanThursday")
+  const handleTodaysDiet = () => {
+    const d = new Date();
+    let day = d.getDay();
+
+    if (day == 0) {
+      navigate("/nutritionWeightGainPlanSunday");
+    } else if (day == 1) {
+      navigate("/nutritionWeightGainPlanMonday");
+    } else if (day == 2) {
+      navigate("/nutritionWeightGainPlanTuesday");
+    } else if (day == 3) {
+      navigate("/nutritionWeightGainPlanWednesday");
+    } else if (day == 4) {
+      navigate("/nutritionWeightGainPlanThursday");
+    } else if (day == 5) {
+      navigate("/nutritionWeightGainPlanFriday");
+    } else if (day == 6) {
+      navigate("/nutritionWeightGainPlanSaturday");
+    }
   };
 
   return (
@@ -351,20 +363,16 @@ const NutritionWeightGain = () => {
                   Eggs (4)
                   </option>
                   <option value="upmaVegetables" id="Upma with Mixed Vegetables">
-                  dosa
+                  Upma with Mixed Vegetables
                   </option>
                   <option
-                    value="upmaVegetables"
+                    value="dosa"
                     id="Dosa (3 pieces)"
                   >
-                    Dosa (3 pieces)
+                    Egg Dosa (3 pieces)
                   </option>
                 </select>
-                {/* <div>
-                  <input placeholder="Enter meal"></input>
-                  <input placeholder="Enter meal"></input>
-                  <button>OK</button>
-                </div> */}
+                
               </div>
 
               <div className="mb-3">
@@ -503,12 +511,20 @@ const NutritionWeightGain = () => {
           <div className="col-md-4">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">Water Calculation</h5>
-                <br></br>
+              <h5 className="card-title">Water Calculation</h5>
+                <div className="rowItems">
+                  <div className="minusButton">
+                    <button className="btn btn-primary" onClick={handleWaterMinus}>-</button>
+                  </div>
+                  <p>
+                    <b>{water}/10 </b>
+                  </p>
+                  <div className="plusButton">
+                    <button className="btn btn-primary" onClick={handleWaterPlus}>+</button>
+                  </div>
+                </div>
+                
 
-                <p>
-                  <b>0/9 </b>
-                </p>
                 <p>Glasses of water per day</p>
               </div>
             </div>

@@ -203,6 +203,7 @@ const NutritionWeightLoss = () => {
 
   const [popupShow, setPopupShow] = React.useState(false);
   const [finalCalorie, setFinalCalorie] = React.useState("0");
+  const [water, setWater] = React.useState(0);
 
   const [diet, setDiet] = useState({
     morningMeal: null,
@@ -275,6 +276,18 @@ const NutritionWeightLoss = () => {
     setFinalCalorie(final);
     dietProgressPopup();
   };
+
+  const handleWaterMinus = () =>{
+    setWater(prevState => prevState - 1);
+    
+  }
+  const handleWaterPlus = () =>{
+    setWater(prevState => prevState + 1);
+    if(water == 9){
+      alert("Congrats!!! Water level reached")
+    }
+  
+  }
 
   const handleTodaysDiet = () => {
     const d = new Date();
@@ -498,12 +511,20 @@ const NutritionWeightLoss = () => {
           <div className="col-md-4">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">Water Calculation</h5>
-                <br></br>
+              <h5 className="card-title">Water Calculation</h5>
+                <div className="rowItems">
+                  <div className="minusButton">
+                    <button className="btn btn-primary" onClick={handleWaterMinus}>-</button>
+                  </div>
+                  <p>
+                    <b>{water}/10 </b>
+                  </p>
+                  <div className="plusButton">
+                    <button className="btn btn-primary" onClick={handleWaterPlus}>+</button>
+                  </div>
+                </div>
+                
 
-                <p>
-                  <b>0/9 </b>
-                </p>
                 <p>Glasses of water per day</p>
               </div>
             </div>
