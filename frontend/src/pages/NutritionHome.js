@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import avatar01 from "../assets/img/im3.jpg";
 import Jogging from "../assets/img/jogging.jpg";
 import MuscleGain from "../assets/img/muscleGain.jpg"
 import { Link, useNavigate } from 'react-router-dom';
-import avatar03 from "../assets/img/im1.jpg";
-import Modal from 'react-bootstrap/Modal';
-import axios from 'axios';
+
+
 
 
 
@@ -21,6 +19,10 @@ const NutritionHome = () => {
 
   const handleWeightLoss = () =>{
     navigate('/nutritionWeightLoss');
+  }
+
+  const handleWeightGain = () =>{
+    navigate('/nutritionWeightGain');
   }
 
 
@@ -55,7 +57,8 @@ const NutritionHome = () => {
               <Card.Text style={{ fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>
                 "The only way to define your limits<br></br> <b>is by going beyond them</b>"
               </Card.Text>
-              <Card.Text style={{ textAlign: 'left', marginTop: '50px', marginLeft: '20px' }}><Button variant="primary">To Gain Muscle</Button>
+              <Card.Text style={{ textAlign: 'left', marginTop: '50px', marginLeft: '20px' }}>
+                <Button variant="primary"  onClick={handleWeightGain}>To Gain Muscle</Button>
               </Card.Text>
             </Card.ImgOverlay>
           </Card>

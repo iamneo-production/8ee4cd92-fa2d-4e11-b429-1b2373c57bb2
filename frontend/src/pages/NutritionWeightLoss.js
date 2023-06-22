@@ -2,85 +2,82 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../layout/Navbar";
 import Modal from "react-bootstrap/Modal";
 import "./NutritionRecommandation.css";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 
 const NutritionWeightLoss = () => {
-
-
   const morningFoodData = [
     {
       food: "Boiled Egg (1 cup)",
       calories: "200",
-      id:"boiledEgg"
+      id: "boiledEgg",
     },
     {
       food: "Brown Bread (4 slices)",
       calories: "220",
-      id:"brownBread"
+      id: "brownBread",
     },
     {
       food: "Roti/Chappathi (3 pieces)",
       calories: "250",
-      id:"roti/chappathi"
+      id: "roti/chappathi",
     },
     {
       food: "Idli (3 pieces)",
       calories: "190",
-      id:"idli"
+      id: "idli",
     },
     {
       food: "Ripe Bananas (3 pieces)",
       calories: "230",
-      id:"ripeBanana"
+      id: "ripeBanana",
     },
     {
       food: "Oat Meal (1 cup)",
       calories: "300",
-      id:"oatMeal"
+      id: "oatMeal",
     },
     {
       food: "Upma with Vegetables (1 cup)",
       calories: "180",
-      id:"upmaVegetables"
+      id: "upmaVegetables",
     },
   ];
-
 
   const morningMidFoodData = [
     {
       food: "Roasted Chickpeas",
       calories: "200",
-      id:"rostedChickpeas"
+      id: "rostedChickpeas",
     },
     {
       food: "Fruit Salad (1 cup)",
       calories: "220",
-      id:"fruitSalad"
+      id: "fruitSalad",
     },
     {
       food: "Sprouted Moong (1 cup)",
       calories: "250",
-      id:"sproutedMoong"
+      id: "sproutedMoong",
     },
     {
       food: "Water Melon (1cup)",
       calories: "190",
-      id:"watermelon"
+      id: "watermelon",
     },
     {
       food: "Roasted Peanuts",
       calories: "230",
-      id:"peanunts"
+      id: "peanunts",
     },
     {
       food: "Chopped cucumber (1cup)",
       calories: "300",
-      id:"cucumber"
+      id: "cucumber",
     },
     {
       food: "Nuts And Seeds (1cup)",
       calories: "180",
-      id:"nuts"
+      id: "nuts",
     },
   ];
 
@@ -88,37 +85,37 @@ const NutritionWeightLoss = () => {
     {
       food: "Spinach Daal and brown rice",
       calories: "200",
-      id:"spinachDaal"
+      id: "spinachDaal",
     },
     {
       food: "Grilled Chicken",
       calories: "220",
-      id:"grilledChicken"
+      id: "grilledChicken",
     },
     {
       food: "Grilled Fish",
       calories: "250",
-      id:"grilledFish"
+      id: "grilledFish",
     },
     {
       food: "Vegetable Salad",
       calories: "190",
-      id:"vegetableSalad"
+      id: "vegetableSalad",
     },
     {
       food: "Grilled Panner and rice",
       calories: "300",
-      id:"grilledPanner"
+      id: "grilledPanner",
     },
     {
       food: "Soya Chunks and rice",
       calories: "180",
-      id:"soyaChunks"
+      id: "soyaChunks",
     },
     {
       food: "Vegtable Briyani",
       calories: "230",
-      id:"vegtableBriyani"
+      id: "vegtableBriyani",
     },
   ];
 
@@ -126,37 +123,37 @@ const NutritionWeightLoss = () => {
     {
       food: "Fruit Salad",
       calories: "200",
-      id:"fruitSalad"
+      id: "fruitSalad",
     },
     {
       food: "Vegetable soup (1cup)",
       calories: "220",
-      id:"vegetableSoup"
+      id: "vegetableSoup",
     },
     {
       food: "Roasted makhana (foxnuts)",
       calories: "250",
-      id:"roastedMakhana"
+      id: "roastedMakhana",
     },
     {
       food: "Greek yogurt (1 cup)",
       calories: "190",
-      id:"greenYogurt"
+      id: "greenYogurt",
     },
     {
       food: "Cucumber and Carrot Slices",
       calories: "300",
-      id:"cucumberCarrot"
+      id: "cucumberCarrot",
     },
     {
       food: "Moong Dal (1 small cup)",
       calories: "180",
-      id:"moongDal"
+      id: "moongDal",
     },
     {
       food: "Sprouted Green Gram (1 small cup)",
       calories: "230",
-      id:"greenGram"
+      id: "greenGram",
     },
   ];
 
@@ -164,51 +161,49 @@ const NutritionWeightLoss = () => {
     {
       food: "Vegetable Fry (1 cup)",
       calories: "200",
-      id:"vegetableFry"
+      id: "vegetableFry",
     },
     {
       food: "Palak and Roti",
       calories: "220",
-      id:"palakRoti"
+      id: "palakRoti",
     },
     {
       food: "Vegetable Khichdi",
       calories: "250",
-      id:"vegetableKhichdi"
+      id: "vegetableKhichdi",
     },
     {
       food: "Egg Curry",
       calories: "190",
-      id:"eggCurry"
+      id: "eggCurry",
     },
     {
       food: "Vegetable Pulao (1 cup)",
       calories: "300",
-      id:"vegetablePulao"
+      id: "vegetablePulao",
     },
     {
       food: "Oat Meal (1 cup)",
       calories: "180",
-      id:"oatMeal"
+      id: "oatMeal",
     },
     {
       food: "Egg Dosa (3 pieces)",
       calories: "230",
-      id:"eggDosa"
+      id: "eggDosa",
     },
   ];
-
-
-
 
   const onSelectChangeFind = (array, id) => {
     return array.find((element) => {
       return element.id === id;
-    })
-  }
+    });
+  };
 
   const [popupShow, setPopupShow] = React.useState(false);
   const [finalCalorie, setFinalCalorie] = React.useState("0");
+  const [water, setWater] = React.useState(0);
 
   const [diet, setDiet] = useState({
     morningMeal: null,
@@ -235,81 +230,85 @@ const NutritionWeightLoss = () => {
   };
 
   const onSelectChangeMorning = (e) => {
-    console.log(e.target.id);
     const { name, value } = e.target;
-    const res =  onSelectChangeFind(morningFoodData,value);
-    console.log(res);
+    const res = onSelectChangeFind(morningFoodData, value);
+
     setDiet({ ...diet, morningMeal: res });
   };
 
   const onSelectChangeMidMorning = (e) => {
-    console.log(e.target.id);
     const { name, value } = e.target;
-    const res =  onSelectChangeFind(morningMidFoodData,value);
-    console.log(res);
+    const res = onSelectChangeFind(morningMidFoodData, value);
+
     setDiet({ ...diet, morningSnack: res });
   };
 
   const onSelectChangeLunch = (e) => {
-    console.log(e.target.id);
     const { name, value } = e.target;
-    const res =  onSelectChangeFind(lunchFoodData,value);
-    console.log(res);
+    const res = onSelectChangeFind(lunchFoodData, value);
+
     setDiet({ ...diet, lunch: res });
   };
 
   const onSelectChangeEveSnack = (e) => {
-    console.log(e.target.id);
     const { name, value } = e.target;
-    const res =  onSelectChangeFind(eveningFoodData,value);
-    console.log(res);
+    const res = onSelectChangeFind(eveningFoodData, value);
+
     setDiet({ ...diet, eveningSnack: res });
   };
 
   const onSelectChangeDinner = (e) => {
-    console.log(e.target.id);
     const { name, value } = e.target;
-    const res =  onSelectChangeFind(dinnerFoodData,value);
-    console.log(res);
+    const res = onSelectChangeFind(dinnerFoodData, value);
+
     setDiet({ ...diet, dinner: res });
   };
 
   let final = 0;
   const handleCalculateCalorie = (e) => {
     e.preventDefault();
-    final += (Number(diet.morningMeal.calories) + Number(diet.morningSnack.calories) + 
-    Number(diet.lunch.calories) + Number(diet.eveningSnack.calories) + Number(diet.dinner.calories))
+    final +=
+      Number(diet.morningMeal.calories) +
+      Number(diet.morningSnack.calories) +
+      Number(diet.lunch.calories) +
+      Number(diet.eveningSnack.calories) +
+      Number(diet.dinner.calories);
     setFinalCalorie(final);
     dietProgressPopup();
-  
   };
 
-  const handleTodaysDiet = () =>{
+  const handleWaterMinus = () =>{
+    setWater(prevState => prevState - 1);
+    
+  }
+  const handleWaterPlus = () =>{
+    setWater(prevState => prevState + 1);
+    if(water == 9){
+      alert("Congrats!!! Water level reached")
+    }
+  
+  }
+
+  const handleTodaysDiet = () => {
     const d = new Date();
     let day = d.getDay();
-    
-    if(day == 0){
+
+    if (day == 0) {
       navigate("/nutritionWeightLossPlanSunday");
-    }
-    else if(day==1){
+    } else if (day == 1) {
       navigate("/nutritionWeightLossPlanMonday");
-    }
-    else if(day==2){
+    } else if (day == 2) {
       navigate("/nutritionWeightLossPlanTuesday");
-    }
-    else if(day==3){
+    } else if (day == 3) {
       navigate("/nutritionWeightLossPlanWednesday");
-    }
-    else if(day==4){
+    } else if (day == 4) {
       navigate("/nutritionWeightLossPlanThursday");
-    }
-    else if(day==5){
+    } else if (day == 5) {
       navigate("/nutritionWeightLossPlanFriday");
-    }
-    else if(day==6){
+    } else if (day == 6) {
       navigate("/nutritionWeightLossPlanSaturday");
     }
-  }
+  };
 
   return (
     <div>
@@ -337,14 +336,36 @@ const NutritionWeightLoss = () => {
                   name="morningMeal"
                   onChange={onSelectChangeMorning}
                 >
-                  <option value="" id="">Select your Morning meal</option>
-                  <option value="boiledEgg" id="Boiled Egg (1 cup)">Boiled Egg (1 cup)</option>
-                  <option value="brownBread" id="Brown Bread (4 slices)">Brown Bread (4 slices)</option>
-                  <option value="roti/chappathii" id="Roti/Chappathi (3 pieces)">Roti/Chappathi (3 pieces)</option>
-                  <option value="idli" id="Idli (3 pieces)">Idli (3 pieces)</option>
-                  <option value="ripeBanana" id="Ripe Bananas (3 pieces)">Ripe Bananas (3 pieces)</option>
-                  <option value="oatMeal" id="Oat Meal (1 cup)">Oat Meal (1 cup)</option>
-                  <option value="upmaVegetables" id="Upma with Vegetables (1 cup)">Upma with Vegetables (1 cup)</option>
+                  <option value="" id="">
+                    Select your Morning meal
+                  </option>
+                  <option value="boiledEgg" id="Boiled Egg (1 cup)">
+                    Boiled Egg (1 cup)
+                  </option>
+                  <option value="brownBread" id="Brown Bread (4 slices)">
+                    Brown Bread (4 slices)
+                  </option>
+                  <option
+                    value="roti/chappathii"
+                    id="Roti/Chappathi (3 pieces)"
+                  >
+                    Roti/Chappathi (3 pieces)
+                  </option>
+                  <option value="idli" id="Idli (3 pieces)">
+                    Idli (3 pieces)
+                  </option>
+                  <option value="ripeBanana" id="Ripe Bananas (3 pieces)">
+                    Ripe Bananas (3 pieces)
+                  </option>
+                  <option value="oatMeal" id="Oat Meal (1 cup)">
+                    Oat Meal (1 cup)
+                  </option>
+                  <option
+                    value="upmaVegetables"
+                    id="Upma with Vegetables (1 cup)"
+                  >
+                    Upma with Vegetables (1 cup)
+                  </option>
                   <option value="Others">Others</option>
                 </select>
                 {/* <div>
@@ -363,7 +384,6 @@ const NutritionWeightLoss = () => {
                   id="morningsnack"
                   name="morningSnack"
                   onChange={onSelectChangeMidMorning}
-                  
                 >
                   <option value="">Select your Snack</option>
                   <option value="rostedChickpeas">Roasted Chickpeas</option>
@@ -386,17 +406,17 @@ const NutritionWeightLoss = () => {
                   id="lunch"
                   name="lunch"
                   onChange={onSelectChangeLunch}
-                  
                 >
                   <option value="">Select your Lunch</option>
-                  <option value="spinachDaal">Spinach Daal and brown rice</option>
+                  <option value="spinachDaal">
+                    Spinach Daal and brown rice
+                  </option>
                   <option value="grilledChicken">Grilled Chicken</option>
                   <option value="grilledFish">Grilled Fish</option>
                   <option value="vegetableSalad">Vegetable Salad</option>
                   <option value="grilledPanner">Grilled Panner and rice</option>
                   <option value="soyaChunks">Soya Chunks and rice</option>
                   <option value="vegtableBriyani">Vegtable Briyani</option>
-
                 </select>
               </div>
 
@@ -410,16 +430,21 @@ const NutritionWeightLoss = () => {
                   id="eveningSnack"
                   name="eveningSnack"
                   onChange={onSelectChangeEveSnack}
-                  
                 >
                   <option value="">Select your Snack</option>
                   <option value="fruitSalad">Fruit Salad</option>
                   <option value="vegetableSoup">Vegetable soup (1cup)</option>
-                  <option value="roastedMakhana">Roasted makhana (foxnuts)</option>
+                  <option value="roastedMakhana">
+                    Roasted makhana (foxnuts)
+                  </option>
                   <option value="greenYogurt">Greek yogurt (1 cup)</option>
-                  <option value="cucumberCarrot">Cucumber and Carrot Slices</option>
+                  <option value="cucumberCarrot">
+                    Cucumber and Carrot Slices
+                  </option>
                   <option value="moongDal">Moong Dal (1 small cup)</option>
-                  <option value="greenGram">Sprouted Green Gram (1 small cup)</option>
+                  <option value="greenGram">
+                    Sprouted Green Gram (1 small cup)
+                  </option>
                 </select>
               </div>
 
@@ -433,14 +458,15 @@ const NutritionWeightLoss = () => {
                   id="dinner"
                   name="dinner"
                   onChange={onSelectChangeDinner}
-                  
                 >
                   <option value="">Select your Dinner</option>
                   <option value="vegetableFry">Vegetable Fry (1 cup)</option>
                   <option value="palakRoti">Palak and Roti</option>
                   <option value="vegetableKhichdi">Vegetable Khichdi</option>
                   <option value="eggCurry">Egg Curry</option>
-                  <option value="vegetablePulao">Vegetable Pulao (1 cup)</option>
+                  <option value="vegetablePulao">
+                    Vegetable Pulao (1 cup)
+                  </option>
                   <option value="oatMeal">Oat Meal (1 cup)</option>
                   <option value="eggDosa">Egg Dosa (3 pieces)</option>
                 </select>
@@ -466,7 +492,9 @@ const NutritionWeightLoss = () => {
                 <h5 className="card-title">Calories Calculation</h5>
                 <br></br>
                 <p>
-                  <b>{finalCalorie}/{calories} taken</b>
+                  <b>
+                    {finalCalorie}/{calories} taken
+                  </b>
                 </p>
                 <div className="addButton">
                   <button
@@ -483,12 +511,20 @@ const NutritionWeightLoss = () => {
           <div className="col-md-4">
             <div className="card">
               <div className="card-body">
-                <h5 className="card-title">Water Calculation</h5>
-                <br></br>
+              <h5 className="card-title">Water Calculation</h5>
+                <div className="rowItems">
+                  <div className="minusButton">
+                    <button className="btn btn-primary" onClick={handleWaterMinus}>-</button>
+                  </div>
+                  <p>
+                    <b>{water}/10 </b>
+                  </p>
+                  <div className="plusButton">
+                    <button className="btn btn-primary" onClick={handleWaterPlus}>+</button>
+                  </div>
+                </div>
+                
 
-                <p>
-                  <b>0/9 </b>
-                </p>
                 <p>Glasses of water per day</p>
               </div>
             </div>
@@ -527,7 +563,9 @@ const NutritionWeightLoss = () => {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Diet Plan for Weight Loss</h5>
-                <button className="btn btn-primary" onClick={handleTodaysDiet}>Click for today's Diet Plan</button>
+                <button className="btn btn-primary" onClick={handleTodaysDiet}>
+                  Click for today's Diet Plan
+                </button>
               </div>
             </div>
           </div>
