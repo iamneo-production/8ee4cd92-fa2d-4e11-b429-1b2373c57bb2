@@ -5,6 +5,7 @@ import '../style/header.css';
 import logo from '../assets/img/dumble.png';
 import maleAvatar from '../assets/img/male.png';
 import femaleAvatar from '../assets/img/female.png';
+import profile from '../assets/img/profile2.png';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
