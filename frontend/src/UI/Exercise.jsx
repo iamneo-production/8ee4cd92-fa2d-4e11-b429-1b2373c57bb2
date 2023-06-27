@@ -23,8 +23,7 @@ const Exercise = () => {
         <div className='exercise_wrapper'>
           <div
             className='exercise_item'
-            data-aos='zoom-in'
-            data-aos-duration='1500'
+            
           >
             <span className='exercise_icon'>
               <img src={lunges} alt='' />
@@ -41,8 +40,6 @@ const Exercise = () => {
 
           <div
             className='exercise_item'
-            data-aos='zoom-in'
-            data-aos-duration='1500'
           >
             <span className='exercise_icon'>
               <img src={yoga} alt='' />
@@ -59,8 +56,6 @@ const Exercise = () => {
 
           <div
             className='exercise_item'
-            data-aos='zoom-in'
-            data-aos-duration='1500'
           >
             <span className='exercise_icon'>
               <img src={extended} alt='' />
