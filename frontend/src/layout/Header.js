@@ -59,12 +59,12 @@ const Header = () => {
           {/* ==== LOGO ==== */}
 
           <Link className="btn mx-2" to="/">
-            
+
           <div className='logo'>
             <div className='logo_img'>
               <img src={logo} alt='' />
             </div>
-            <h2>SweatSync</h2>
+            <h2>FitBody</h2>
           </div>
           </Link>
 
@@ -87,7 +87,7 @@ const Header = () => {
           <div className='nav_right'>
             <Link className='btn btn-primary' to='/Login'>Login</Link>
             <span className='mobile_menu'>
-              <i class='ri-menu-line'></i>
+              <i className='ri-menu-line'></i>
             </span>
           </div>
         </div>
