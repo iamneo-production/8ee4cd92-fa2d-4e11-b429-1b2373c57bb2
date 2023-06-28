@@ -3,6 +3,7 @@ import Navbar from "../layout/Navbar";
 import Modal from "react-bootstrap/Modal";
 import "./NutritionRecommandation.css";
 import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import { api } from '../APIConnect';
 
 const NutritionWeightLoss = () => {
