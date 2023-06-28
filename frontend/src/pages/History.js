@@ -23,7 +23,7 @@ const History = () => {
       try {
         const user = JSON.parse(localStorage.getItem('user'));
         const id = user.id;
-        const response = await axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${id}/workouts`);
+        const response = await axios.get(`${api}users/${id}/workouts`);
         const data = response.data;
         setWorkoutData(data);
         setFilteredData(data); // Set the filtered data to the latest fetched data
@@ -65,7 +65,7 @@ const History = () => {
 
   const handleDeleteWorkout = (workoutId) => {
     axios
-      .delete(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workoutId}`)
+      .delete(`${api}workouts/${workoutId}`)
       .then((res) => {
         const updatedWorkoutData = workoutData.filter((item) => item.id !== workoutId);
         setWorkoutData(updatedWorkoutData);
@@ -88,7 +88,7 @@ const History = () => {
 
     try {
       const response = await axios.put(
-        `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${updatedWorkout.id}`,
+        `${api}workouts/${updatedWorkout.id}`,
         updatedWorkout
       );
       const updatedWorkoutData = workoutData.map((item) =>
