@@ -8,22 +8,21 @@ import Hero from '../UI/Hero';
 import Testimonials from '../UI/Testimonials';
 import { useEffect } from 'react'
 import Header from '../layout/Header';
-import { change } from '../APIConnect';
 
 
 function Dashboard() {
   useEffect(() => {
     Aos.init()
-    change(window.location.href)  
   }, [])
   return (
     <>
+    <div>
     <Header/>
     <Hero />
     <Exercise/>
     <Testimonials />
     <Footer/>
-
+    </div>
     </>
   );
 };

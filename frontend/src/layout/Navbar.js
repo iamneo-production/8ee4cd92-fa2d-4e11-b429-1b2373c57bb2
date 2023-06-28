@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Toast } from 'react-bootstrap';
 import '../style/header.css';
 import logo from '../assets/img/dumble.png';
-import profile from '../assets/img/profile.png';
+import maleAvatar from '../assets/img/male.png';
+import femaleAvatar from '../assets/img/female.png';
+import profile from '../assets/img/profile2.png';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
@@ -35,6 +37,16 @@ const Navbar = () => {
     setShowToast(true); // Show the toast message
     navigate('/');
   };
+  const renderAvatar = () => {
+    if (user.gender === 'male') {
+      return <img src={maleAvatar} alt="Male Avatar" />;
+    } else if (user.gender === 'female') {
+      return <img src={femaleAvatar} alt="Female Avatar" />;
+    } else {
+      return <img src={profile} alt="Default Avatar" />;
+    }
+  };
+  
 
   return (
     <>
@@ -116,9 +128,7 @@ const Navbar = () => {
                   <NavDropdown.Item as='button' className="btn" onClick={handleLogout} >
                       Logout
                   </NavDropdown.Item>
-
                 </NavDropdown>
-
               </div>
 
               <span className="mobile_menu">
@@ -129,9 +139,10 @@ const Navbar = () => {
 
 
 
+
             <div className="nav_left">
               <div className="logo_avtar">
-                <img src={profile} alt="" />
+              {renderAvatar()}
               </div>
               <span className="mobile_menu">
                 <i className="ri-menu-line"></i>
@@ -147,7 +158,7 @@ const Navbar = () => {
         show={showToast}
         onClose={() => setShowToast(false)}
         className="logout-toast"
-        delay={3000} // Adjust the delay as needed
+        delay={3000} 
         autohide
       >
         <Toast.Body>Logged out successfully!</Toast.Body>

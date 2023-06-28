@@ -5,7 +5,7 @@ import logo from '../assets/img/dumble.png'
 const Footer = () => {
   const year = new Date().getFullYear()
   return (
-    <footer className='footer' data-aos='fade-up' data-aos-duration='1500'>
+    <footer className='footer'>
       <div className='container'>
         <div className='footer_wrapper'>
           <div className='footer_box'>
