@@ -60,7 +60,7 @@ function AddExercises(props) {
 
   useEffect(() => {
 
-    axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${uid}/workouts`)
+    axios.get(`${api}users/${uid}/workouts`)
       .then(res => {
         work = res.data
       })
@@ -97,7 +97,7 @@ function AddExercises(props) {
     try {
 
       const response = await axios.post(
-        `https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${exercise.workout_id}/exercises`,
+        `${api}workouts/${exercise.workout_id}/exercises`,
         exercise);
       setexercise({ ...exercise, ['description']: "" });
       console.log(response);// Handle the response as needed
@@ -212,7 +212,7 @@ function ExerciseDisplay(props) {
 
   const removeExercise = async (e) => {
     let temp = e.target.id.split("#")
-    axios.delete(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/exercises/${temp[1]}`);
+    axios.delete(`${api}exercises/${temp[1]}`);
     status = 1
     let select = document.getElementById("workout_id");
     var option;
@@ -237,7 +237,7 @@ function ExerciseDisplay(props) {
       status = 0
     }
     var workid=parseInt(e.target.value.split("#")[0])
-    axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/workouts/${workid}/exercises`)
+    axios.get(`${api}workouts/${workid}/exercises`)
       .then(res => {
         exercises = res.data
         console.log(exercises)

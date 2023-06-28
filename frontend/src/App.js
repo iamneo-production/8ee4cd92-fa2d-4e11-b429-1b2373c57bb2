@@ -23,12 +23,17 @@ import NutritionWeightLossPlanThursday from './pages/NutritionWeightLossPlan/Nut
 import NutritionWeightLossPlanFriday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanFriday';
 import NutritionWeightLossPlanSaturday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanSaturday';
 import NutritionWeightLossPlanSunday from './pages/NutritionWeightLossPlan/NutritionWeightLossPlanSunday';
+import NutritionWeightLossProgress from './pages/NutritionWeightLossProgress';
 
 import NutritionWeightGain from './pages/NutritionWeightGain';
 import NutritionWeightGainPlanMonday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanMonday';
 import NutritionWeightGainPlanTuesday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanTuesday';
 import NutritionWeightGainPlanWednesday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanWednesday';
 import NutritionWeightGainPlanThursday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanThursday';
+import NutritionWeightGainPlanFriday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanFriday';
+import NutritionWeightGainPlanSaturday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanSaturday';
+import NutritionWeightGainPlanSunday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanSunday';
+import NutritionWeightGainProgress from './pages/NutritionWeightGainProgress';
 
 
 function App() {
@@ -60,12 +65,17 @@ function App() {
           <Route exact path='/nutritionWeightLossPlanFriday' element={<NutritionWeightLossPlanFriday />} />
           <Route exact path='/nutritionWeightLossPlanSaturday' element={<NutritionWeightLossPlanSaturday />} />
           <Route exact path='/nutritionWeightLossPlanSunday' element={<NutritionWeightLossPlanSunday />} />
+          <Route exact path='/nutritionWeightLossProgress' element={<NutritionWeightLossProgress />} />
 
           <Route exact path='/nutritionWeightGain' element={<NutritionWeightGain />} />
           <Route exact path='/nutritionWeightGainPlanMonday' element={<NutritionWeightGainPlanMonday />} />
           <Route exact path='/nutritionWeightGainPlanTuesday' element={<NutritionWeightGainPlanTuesday />} />
           <Route exact path='/nutritionWeightGainPlanWednesday' element={<NutritionWeightGainPlanWednesday />} />
           <Route exact path='/nutritionWeightGainPlanThursday' element={<NutritionWeightGainPlanThursday />} />
+          <Route exact path='/nutritionWeightGainPlanFriday' element={<NutritionWeightGainPlanFriday />} />
+          <Route exact path='/nutritionWeightGainPlanSaturday' element={<NutritionWeightGainPlanSaturday />} />
+          <Route exact path='/nutritionWeightGainPlanSunday' element={<NutritionWeightGainPlanSunday />} />
+          <Route exact path='/nutritionWeightGainProgress' element={<NutritionWeightGainProgress />} />
           
         </Routes>
       </Router>
