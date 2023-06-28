@@ -3,42 +3,43 @@ import Navbar from "../layout/Navbar";
 import Modal from "react-bootstrap/Modal";
 import "./NutritionRecommandation.css";
 import { Link, useNavigate } from "react-router-dom";
+import { api } from '../APIConnect';
 
 const NutritionWeightLoss = () => {
   const morningFoodData = [
     {
       food: "Boiled Egg (1 cup)",
-      calories: "200",
+      calories: 200,
       id: "boiledEgg",
     },
     {
       food: "Brown Bread (4 slices)",
-      calories: "220",
+      calories: 220,
       id: "brownBread",
     },
     {
       food: "Roti/Chappathi (3 pieces)",
-      calories: "250",
+      calories: 250,
       id: "roti/chappathi",
     },
     {
       food: "Idli (3 pieces)",
-      calories: "190",
+      calories: 190,
       id: "idli",
     },
     {
       food: "Ripe Bananas (3 pieces)",
-      calories: "230",
+      calories: 230,
       id: "ripeBanana",
     },
     {
       food: "Oat Meal (1 cup)",
-      calories: "300",
+      calories: 300,
       id: "oatMeal",
     },
     {
       food: "Upma with Vegetables (1 cup)",
-      calories: "180",
+      calories: 180,
       id: "upmaVegetables",
     },
   ];
@@ -46,37 +47,37 @@ const NutritionWeightLoss = () => {
   const morningMidFoodData = [
     {
       food: "Roasted Chickpeas",
-      calories: "200",
+      calories: 200,
       id: "rostedChickpeas",
     },
     {
       food: "Fruit Salad (1 cup)",
-      calories: "220",
+      calories: 220,
       id: "fruitSalad",
     },
     {
       food: "Sprouted Moong (1 cup)",
-      calories: "250",
+      calories: 250,
       id: "sproutedMoong",
     },
     {
       food: "Water Melon (1cup)",
-      calories: "190",
+      calories: 190,
       id: "watermelon",
     },
     {
       food: "Roasted Peanuts",
-      calories: "230",
+      calories: 230,
       id: "peanunts",
     },
     {
       food: "Chopped cucumber (1cup)",
-      calories: "300",
+      calories: 300,
       id: "cucumber",
     },
     {
       food: "Nuts And Seeds (1cup)",
-      calories: "180",
+      calories: 180,
       id: "nuts",
     },
   ];
@@ -84,37 +85,37 @@ const NutritionWeightLoss = () => {
   const lunchFoodData = [
     {
       food: "Spinach Daal and brown rice",
-      calories: "200",
+      calories: 200,
       id: "spinachDaal",
     },
     {
       food: "Grilled Chicken",
-      calories: "220",
+      calories: 220,
       id: "grilledChicken",
     },
     {
       food: "Grilled Fish",
-      calories: "250",
+      calories: 250,
       id: "grilledFish",
     },
     {
       food: "Vegetable Salad",
-      calories: "190",
+      calories: 190,
       id: "vegetableSalad",
     },
     {
       food: "Grilled Panner and rice",
-      calories: "300",
+      calories: 300,
       id: "grilledPanner",
     },
     {
       food: "Soya Chunks and rice",
-      calories: "180",
+      calories: 180,
       id: "soyaChunks",
     },
     {
       food: "Vegtable Briyani",
-      calories: "230",
+      calories: 230,
       id: "vegtableBriyani",
     },
   ];
@@ -122,37 +123,37 @@ const NutritionWeightLoss = () => {
   const eveningFoodData = [
     {
       food: "Fruit Salad",
-      calories: "200",
+      calories: 200,
       id: "fruitSalad",
     },
     {
       food: "Vegetable soup (1cup)",
-      calories: "220",
+      calories: 220,
       id: "vegetableSoup",
     },
     {
       food: "Roasted makhana (foxnuts)",
-      calories: "250",
+      calories: 250,
       id: "roastedMakhana",
     },
     {
       food: "Greek yogurt (1 cup)",
-      calories: "190",
+      calories: 190,
       id: "greenYogurt",
     },
     {
       food: "Cucumber and Carrot Slices",
-      calories: "300",
+      calories: 300,
       id: "cucumberCarrot",
     },
     {
       food: "Moong Dal (1 small cup)",
-      calories: "180",
+      calories: 180,
       id: "moongDal",
     },
     {
       food: "Sprouted Green Gram (1 small cup)",
-      calories: "230",
+      calories: 230,
       id: "greenGram",
     },
   ];
@@ -160,37 +161,37 @@ const NutritionWeightLoss = () => {
   const dinnerFoodData = [
     {
       food: "Vegetable Fry (1 cup)",
-      calories: "200",
+      calories: 200,
       id: "vegetableFry",
     },
     {
       food: "Palak and Roti",
-      calories: "220",
+      calories: 220,
       id: "palakRoti",
     },
     {
       food: "Vegetable Khichdi",
-      calories: "250",
+      calories: 250,
       id: "vegetableKhichdi",
     },
     {
       food: "Egg Curry",
-      calories: "190",
+      calories: 190,
       id: "eggCurry",
     },
     {
       food: "Vegetable Pulao (1 cup)",
-      calories: "300",
+      calories: 300,
       id: "vegetablePulao",
     },
     {
       food: "Oat Meal (1 cup)",
-      calories: "180",
+      calories: 180,
       id: "oatMeal",
     },
     {
       food: "Egg Dosa (3 pieces)",
-      calories: "230",
+      calories: 230,
       id: "eggDosa",
     },
   ];
@@ -264,17 +265,55 @@ const NutritionWeightLoss = () => {
     setDiet({ ...diet, dinner: res });
   };
 
+  const d = new Date();
+  let date = d.getDate();
+  let month = d.getMonth() + 1;
+  if (month < 10) month = "0" + month;
+
+  let year = d.getFullYear();
+  let res = year + "-" + month + "-" + date;
+
   let final = 0;
-  const handleCalculateCalorie = (e) => {
+  const handleCalculateCalorie = async (e) => {
     e.preventDefault();
     final +=
-      Number(diet.morningMeal.calories) +
-      Number(diet.morningSnack.calories) +
-      Number(diet.lunch.calories) +
-      Number(diet.eveningSnack.calories) +
-      Number(diet.dinner.calories);
+      diet.morningMeal.calories +
+      diet.morningSnack.calories +
+      diet.lunch.calories +
+      diet.eveningSnack.calories +
+      diet.dinner.calories;
     setFinalCalorie(final);
     dietProgressPopup();
+    
+
+    const dietDetail = {
+      date: "2023-06-26",
+      breakfast: diet.morningMeal.food,
+      breakfast_calories: diet.morningMeal.calories,
+      mid_morning_snack: diet.morningSnack.food,
+      mid_morning_calories: diet.morningSnack.calories,
+      lunch: diet.lunch.food,
+      lunch_calories: diet.lunch.calories,
+      evening_snack: diet.eveningSnack.food,
+      evening_calories: diet.eveningSnack.calories,
+      dinner: diet.dinner.food,
+      dinner_calories: diet.dinner.calories,
+      total_calories: final,
+      type:"WeightLoss",
+    };
+
+    try {
+      console.log(dietDetail);
+      console.log(final);
+      const response = await axios.post(`${api}nutritionWeightloss/${user.id}/insert`,
+        dietDetail
+      );
+
+
+      alert("Nutrition Added Successfully");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleWaterMinus = () =>{
@@ -288,6 +327,10 @@ const NutritionWeightLoss = () => {
     }
   
   }
+
+  const handleDietProgress = () => {
+    navigate("/nutritionWeightLossProgress");
+  };
 
   const handleTodaysDiet = () => {
     const d = new Date();
@@ -368,11 +411,7 @@ const NutritionWeightLoss = () => {
                   </option>
                   <option value="Others">Others</option>
                 </select>
-                {/* <div>
-                  <input placeholder="Enter meal"></input>
-                  <input placeholder="Enter meal"></input>
-                  <button>OK</button>
-                </div> */}
+               
               </div>
 
               <div className="mb-3">
@@ -523,8 +562,6 @@ const NutritionWeightLoss = () => {
                     <button className="btn btn-primary" onClick={handleWaterPlus}>+</button>
                   </div>
                 </div>
-                
-
                 <p>Glasses of water per day</p>
               </div>
             </div>
@@ -534,12 +571,18 @@ const NutritionWeightLoss = () => {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Read data</h5>
-                <br></br>
                 <p>
-                  <b>0/{calories} taken</b>
+                  <b>
+                    Tracking your progress helps you from falling off the wagon.
+                  </b>
                 </p>
-                <div className="addButton">
-                  <button className="btn btn-primary">Add</button>
+                <div>
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleDietProgress}
+                  >
+                    To know your progress
+                  </button>
                 </div>
               </div>
             </div>
