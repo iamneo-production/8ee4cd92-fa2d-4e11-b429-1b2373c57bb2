@@ -4,6 +4,7 @@ import Navbar from '../layout/Navbar';
 import axios from 'axios';
 import './WorkoutTrack.css';
 import { Chart, ArcElement } from 'chart.js/auto';
+import { api } from '../APIConnect'
 
 Chart.register(ArcElement);
 
@@ -42,7 +43,7 @@ const WorkoutTrack = () => {
     try {
       const user = JSON.parse(localStorage.getItem('user'));
       const userId = user.id;
-      const response = await axios.get(`https://8080-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/users/${userId}/workouts`);
+      const response = await axios.get(`${api}users/${userId}/workouts`);
       setWorkouts(response.data);
     } catch (error) {
       console.error(error);
