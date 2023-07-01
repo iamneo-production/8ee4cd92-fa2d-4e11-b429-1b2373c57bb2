@@ -32,6 +32,12 @@ public class WorkoutController {
 	ExerciseRepository er;
 	
 	@CrossOrigin(origins="http://localhost:3000")
+	@GetMapping("/workout")
+	public List<Workout> getAWorkout(){
+		return wr.findAll();
+	}
+	
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping("/workout/{id}")
 	public ResponseEntity<Workout> getAWorkout(@PathVariable Long id){
 		Optional<Workout> o=wr.findById(id);
@@ -39,7 +45,7 @@ public class WorkoutController {
 			return new ResponseEntity<>(o.get(),HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
 	@CrossOrigin(origins="http://localhost:3000")
@@ -55,7 +61,7 @@ public class WorkoutController {
 			return new ResponseEntity<>(wr.save(o.get()),HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		
 	}
@@ -68,7 +74,7 @@ public class WorkoutController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
 	
@@ -97,9 +103,9 @@ public class WorkoutController {
 		if(o.isPresent()) {
 			e.setWorkoutId(id);
 			er.save(e);
-			return new ResponseEntity<>(HttpStatus.OK);
+//			return new ResponseEntity<>(HttpStatus.OK);
 		}
 
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
