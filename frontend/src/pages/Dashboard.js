@@ -14,16 +14,17 @@ import { change } from '../APIConnect';
 function Dashboard() {
   useEffect(() => {
     Aos.init()
-    change(window.location.href)  
+    change(window.location.href)
   }, [])
   return (
     <>
+    <div>
     <Header/>
     <Hero />
     <Exercise/>
     <Testimonials />
     <Footer/>
-
+    </div>
     </>
   );
 };
