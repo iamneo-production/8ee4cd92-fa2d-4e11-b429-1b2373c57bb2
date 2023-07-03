@@ -22,7 +22,9 @@ import com.example.springapp.model.Workout;
 import com.example.springapp.repository.ExerciseRepository;
 import com.example.springapp.repository.WorkoutRepository;
 
+
 @RestController
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfdffccbebc.project.examly.io/")
 public class WorkoutController {
 
 	@Autowired
@@ -31,13 +33,13 @@ public class WorkoutController {
 	@Autowired
 	ExerciseRepository er;
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@GetMapping("/workout")
 	public List<Workout> getAWorkout(){
 		return wr.findAll();
 	}
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@GetMapping("/workout/{id}")
 	public ResponseEntity<Workout> getAWorkout(@PathVariable Long id){
 		Optional<Workout> o=wr.findById(id);
@@ -48,7 +50,7 @@ public class WorkoutController {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@PutMapping("/workouts/{id}")
 	public ResponseEntity<Workout> updateWorkout(@RequestBody Workout u, @PathVariable Long id){
 		Optional<Workout> o=wr.findById(id);
@@ -65,7 +67,7 @@ public class WorkoutController {
 		}
 		
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@DeleteMapping("/workout/{id}")
 	public ResponseEntity<Void> deleteWorkout(@PathVariable Long id){
 		Optional<Workout> o=wr.findById(id);
@@ -79,7 +81,7 @@ public class WorkoutController {
 	}
 	
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@GetMapping("/workouts/{id}/exercises")
 	public List<Exercise> exercisesOfSpecificWorkout(@PathVariable Long id){
 		Optional<Workout> o=wr.findById(id);
@@ -95,7 +97,7 @@ public class WorkoutController {
 		}
 		return null;
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@PostMapping("/workouts/{id}/exercises")
 	public ResponseEntity<Void> exercisesOfSpecificWorkout(@PathVariable Long id,@RequestBody Exercise e){
 		Optional<Workout> o=wr.findById(id);
@@ -103,7 +105,6 @@ public class WorkoutController {
 		if(o.isPresent()) {
 			e.setWorkoutId(id);
 			er.save(e);
-//			return new ResponseEntity<>(HttpStatus.OK);
 		}
 
 		return new ResponseEntity<>(HttpStatus.OK);

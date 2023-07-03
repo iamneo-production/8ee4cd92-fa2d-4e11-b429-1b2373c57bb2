@@ -17,19 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.springapp.model.Set;
 import com.example.springapp.repository.SetRepository;
 
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfdffccbebc.project.examly.io/")
 @RestController
 public class SetController {
 
 	@Autowired
 	SetRepository sr;
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@GetMapping("/set")
 	public List<Set> getAllSet(){
 		return sr.findAll();
 	}
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@GetMapping("/set/{id}")
 	public ResponseEntity<Set> getASet(@PathVariable Long id){
 		Optional<Set> o=sr.findById(id);
@@ -40,7 +41,7 @@ public class SetController {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@PutMapping("/set/{id}")
 	public ResponseEntity<Set> updateSet(@RequestBody Set u, @PathVariable Long id){
 		Optional<Set> o=sr.findById(id);
@@ -57,7 +58,7 @@ public class SetController {
 		}
 		
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@DeleteMapping("/set/{id}")
 	public ResponseEntity<Void> deleteSet(@PathVariable String id){
 		Optional<Set> o=sr.findById(Long.parseLong(id));

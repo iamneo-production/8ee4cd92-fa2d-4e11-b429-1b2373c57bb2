@@ -21,6 +21,7 @@ import com.example.springapp.model.Set;
 import com.example.springapp.repository.ExerciseRepository;
 import com.example.springapp.repository.SetRepository;
 
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfdffccbebc.project.examly.io/")
 @RestController
 public class ExerciseController {
 
@@ -31,13 +32,13 @@ public class ExerciseController {
 	SetRepository sr;
 	
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@GetMapping("/exercise")
 	public List<Exercise> getAllExercises(){
 		return er.findAll();
 	}
 	
-	@CrossOrigin(origins="http://localhost:3000")
+
 	@GetMapping("/exercise/{id}")
 	public ResponseEntity<Exercise> getAnExercise(@PathVariable Long id){
 		Optional<Exercise> o=er.findById(id);
@@ -48,7 +49,7 @@ public class ExerciseController {
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@PutMapping("/exercise/{id}")
 	public ResponseEntity<Exercise> updateExercise(@RequestBody Exercise u, @PathVariable Long id){
 		Optional<Exercise> o=er.findById(id);
@@ -64,7 +65,7 @@ public class ExerciseController {
 		}
 		
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@DeleteMapping("/exercise/{id}")
 	public ResponseEntity<Void> deleteExercise(@PathVariable Long id){
 		Optional<Exercise> o=er.findById(id);
@@ -77,7 +78,6 @@ public class ExerciseController {
 		}
 	}
 	
-	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping("/exercise/{id}/sets")
 	public List<Set> SetssOfSpecificExercise(@PathVariable Long id){
 		Optional<Exercise> o=er.findById(id);
@@ -92,7 +92,7 @@ public class ExerciseController {
 			return l1;
 		}return null;
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@PostMapping("/exercise/{id}/sets")
 	public ResponseEntity<Void> newSetForAnExercise(@PathVariable Long id,@RequestBody Set s){
 		Optional<Exercise> o=er.findById(id);
