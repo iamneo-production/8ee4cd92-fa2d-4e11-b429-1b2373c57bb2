@@ -21,6 +21,7 @@ import com.example.springapp.model.Workout;
 import com.example.springapp.repository.UserRepository;
 import com.example.springapp.repository.WorkoutRepository;
 
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfdffccbebc.project.examly.io/")
 @RestController
 public class UserController {
 
@@ -30,17 +31,17 @@ public class UserController {
 	@Autowired
 	WorkoutRepository wr;
 	
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@GetMapping("/user")
 	public List<User> getAllUsers() {
 		return ur.findAll();
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@PostMapping("/user/register")
 	public ResponseEntity<User> addUser(@RequestBody User u){
 		return new ResponseEntity<>(ur.save(u),HttpStatus.CREATED);
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@GetMapping("/user/{id}")
 	public ResponseEntity<User> getAnUser(@PathVariable Long id){
 		Optional<User> o=ur.findById(id);
@@ -51,7 +52,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+
 	@PutMapping("/user")
 	public ResponseEntity<User> updateUser(@RequestBody User u){
 		Optional<User> o=ur.findById(u.getId());
@@ -71,7 +72,7 @@ public class UserController {
 		}
 		
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<Void> deleteUser(@PathVariable Long id){
 		Optional<User> o=ur.findById(id);
@@ -83,7 +84,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+
 	@GetMapping("/users/{id}/workouts")
 	public List<Workout> workoutsOfSpecificUser(@PathVariable Long id){
 		Optional<User> o=ur.findById(id);
@@ -99,7 +100,7 @@ public class UserController {
 		}
 		return null;
 	}
-	@CrossOrigin(origins="http://localhost:3000")
+	
 	@PostMapping("/users/{id}/workouts")
 	public ResponseEntity<Void> workoutsOfSpecificUser(@PathVariable Long id,@RequestBody Workout w){
 		Optional<User> o=ur.findById(id);

@@ -1,6 +1,8 @@
 package com.example.springapp.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -59,6 +61,13 @@ public class Workout {
 		super();
 		this.user_id = user_id;
 		this.LocalDate = LocalDate;
+		this.duration = duration;
+		this.notes = notes;
+	}
+	public Workout(Long id,User user_id, LocalDate LocalDate, String duration, String notes) {
+		super();
+		this.user_id = user_id.getId();
+		this.LocalDate = Date.valueOf(LocalDate);
 		this.duration = duration;
 		this.notes = notes;
 	}
