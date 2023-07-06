@@ -21,16 +21,16 @@ import com.example.springapp.model.User;
 import com.example.springapp.model.Workout;
 import com.example.springapp.repository.UserRepository;
 import com.example.springapp.repository.WorkoutRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+// import org.springframework.security.crypto.password.PasswordEncoder;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @CrossOrigin(origins="https://8081-cabacffafefbebfbcddfdffccbebc.project.examly.io/")
 @RestController
 public class UserController {
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	// @Autowired
+	// private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	UserRepository ur;
@@ -46,8 +46,8 @@ public class UserController {
 	
 	@PostMapping("/user/register")
 	public ResponseEntity<User> addUser(@RequestBody User u){
-		String encodedPassword = passwordEncoder.encode(u.getPassword());
-		u.setPassword(encodedPassword);
+		// String encodedPassword = passwordEncoder.encode(u.getPassword());
+		// u.setPassword(encodedPassword);
 		return new ResponseEntity<>(ur.save(u),HttpStatus.CREATED);
 	}
 	
@@ -122,8 +122,8 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 
-	@Bean
-	public PasswordEncoder appPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+	// @Bean
+	// public PasswordEncoder appPasswordEncoder() {
+	// 	return new BCryptPasswordEncoder();
+	// }
 }
