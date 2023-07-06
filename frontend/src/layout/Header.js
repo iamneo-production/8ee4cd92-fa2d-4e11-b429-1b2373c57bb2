@@ -5,20 +5,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 
-const nav_links = [
-  {
-    path: '#home',
-    display: 'Home',
-  },
-  {
-    path: '#services',
-    display: 'Services',
-  },
-  {
-    path: '#testimonials',
-    display: 'Testimonials',
-  },
-]
+
 
 const Header = () => {
   const headerRef = useRef(null)
@@ -59,7 +46,7 @@ const Header = () => {
           {/* ==== LOGO ==== */}
 
           <Link className="btn mx-2" to="/">
-            
+
           <div className='logo'>
             <div className='logo_img'>
               <img src={logo} alt='' />
@@ -68,26 +55,12 @@ const Header = () => {
           </div>
           </Link>
 
-          {/* ====== Navigation menu ======= */}
-
-          <div className='navigation'>
-            <ul className='menu'>
-              {nav_links.map((item) => (
-                <li className='nav__item'>
-                  <a onClick={handleClick} href={item.path}>
-                    {item.display}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* ======= nav right ======= */}
 
           <div className='nav_right'>
             <Link className='btn btn-primary' to='/Login'>Login</Link>
             <span className='mobile_menu'>
-              <i class='ri-menu-line'></i>
+              <i className='ri-menu-line'></i>
             </span>
           </div>
         </div>

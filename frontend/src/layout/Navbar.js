@@ -1,96 +1,170 @@
-import React, { useRef } from 'react'
-import '../style/header.css'
-import logo from '../assets/img/dumble.png'
-import { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import React, { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Toast } from 'react-bootstrap';
+import '../style/header.css';
+import logo from '../assets/img/dumble.png';
+import maleAvatar from '../assets/img/male.png';
+import femaleAvatar from '../assets/img/female.png';
+import profile from '../assets/img/profile2.png';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
+
 
 
 const Navbar = () => {
-  const headerRef = useRef(null)
-  const navigate = useNavigate()
-
+  const headerRef = useRef(null);
+  const navigate = useNavigate();
+  const [showToast, setShowToast] = useState(false); // State for toast visibility
+  const user = JSON.parse(localStorage.getItem('user'));
   const headerFunc = () => {
     if (
       document.body.scrollTop > 80 ||
       document.documentElement.scrollTop > 80
     ) {
-      headerRef.current.classList.add('sticky_header')
+      headerRef.current.classList.add('sticky_header');
     } else {
-      headerRef.current.classList.remove('sticky_header')
+      headerRef.current.classList.remove('sticky_header');
     }
-  }
+  };
 
   useEffect(() => {
-    window.addEventListener('scroll', headerFunc)
-
-    return () => window.removeEventListener('scroll', headerFunc)
-  }, [])
+    window.addEventListener('scroll', headerFunc);
+    return () => window.removeEventListener('scroll', headerFunc);
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    toast("Successfully Logged Out")
+    setShowToast(true); // Show the toast message
     navigate('/');
-    // redirect to login page or homepage
-  }
+  };
+  const renderAvatar = () => {
+    if (user.gender === 'male') {
+      return <img src={maleAvatar} alt="Male Avatar" />;
+    } else if (user.gender === 'female') {
+      return <img src={femaleAvatar} alt="Female Avatar" />;
+    } else {
+      return <img src={profile} alt="Default Avatar" />;
+    }
+  };
+  
 
   return (
     <>
-    <header className='header' ref={headerRef}>
-      <div className='container'>
-        <div className='nav_wrapper'>
-          {/* ==== LOGO ==== */}
-          <div className='logo'>
-            <div className='logo_img'>
-              <img src={logo} alt='' />
+      <header className="header" ref={headerRef}>
+        <div className="container">
+          <div className="nav_wrapper">
+            <div className="logo">
+              <div className="logo_img">
+                <img src={logo} alt="" />
+              </div>
+              <h2>SweatSync</h2>
             </div>
-            <h2>FitBody</h2>
-          </div>
-          {/* ====== Navigation menu ======= */}
-          {/* ======= nav right ======= */}
-          <div className='nav_right'>
-            <Link className='btn' to='/workout-history'>Workout History</Link>
-            <span className='mobile_menu'>
-              <i class='ri-menu-line'></i>
-            </span>
-          </div>
-          <div className='nav_right'>
-            <Link className='btn' to='/exercise-tracking'>Exercise Tracking</Link>
-            <span className='mobile_menu'>
-              <i class='ri-menu-line'></i>
-            </span>
-          </div>
-          <div className='nav_right'>
-            <Link className='btn' to='/goal-setting'>Goal Setting</Link>
-            <span className='mobile_menu'>
-              <i class='ri-menu-line'></i>
-            </span>
-          </div>
-          <div className='nav_right'>
-            <Link className='btn' to='/WorkoutForm'>Workout Plan Creator</Link>
-            <span className='mobile_menu'>
-              <i class='ri-menu-line'></i>
-            </span>
-          </div>
-          <div className='nav_right'>
-            <Link className='btn' to='/UpdateProfile'>Update Profile</Link>
-            <span className='mobile_menu'>
-              <i class='ri-menu-line'></i>
-            </span>
-          </div>
-          <div className='nav_right'>
-            <button className='btn' onClick={handleLogout}>Logout</button>        
-              <span className='mobile_menu'>
-              <i class='ri-menu-line'></i>
-            </span>
+
+            <div className="nav_right">
+              <Link className="btn" to="/workout-track">
+                Workout Track
+              </Link>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+
+            <div className="nav_right">
+              <Link className="btn" to="/workout-history">
+                Workout History
+              </Link>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+
+            <div className="nav_right">
+              <Link className="btn" to="/exercise-tracking">
+                Exercise Tracking
+              </Link>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+
+            <div className="nav_right">
+              <Link className="btn" to="/nutritionHome">
+                Nutrition Recommandations
+              </Link>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+
+            <div className="nav_right">
+              <Link className="btn" to="/goal-setting">
+                Goal Setting
+              </Link>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+
+            <div className="nav_right">
+              <Link className="btn" to="/WorkoutBase">
+                Plan your workouts
+              </Link>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+            
+
+
+            <div className="nav_left">
+              <div>
+                <NavDropdown
+                  id="nav-dropdown-dark-example"
+                  title={user.name}
+                >
+                  <NavDropdown.Item as={Link} to="/UpdateProfile"  className="btn">
+                    Update Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as='button' className="btn" onClick={handleLogout} >
+                      Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </div>
+
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+
+
+
+
+
+            <div className="nav_left">
+              <div className="logo_avtar">
+              {renderAvatar()}
+              </div>
+              <span className="mobile_menu">
+                <i className="ri-menu-line"></i>
+              </span>
+            </div>
+
           </div>
         </div>
-      </div>
-    </header>
-    <ToastContainer />
-    </>
-  )
-}
+      </header>
 
-export default Navbar
+      {/* Toast component */}
+      <Toast
+        show={showToast}
+        onClose={() => setShowToast(false)}
+        className="logout-toast"
+        delay={3000} 
+        autohide
+      >
+        <Toast.Body>Logged out successfully!</Toast.Body>
+      </Toast>
+    </>
+  );
+};
+
+export default Navbar;

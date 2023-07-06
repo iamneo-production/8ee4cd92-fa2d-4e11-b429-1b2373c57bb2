@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../layout/Navbar';
+import { api } from '../APIConnect';
 
 
 const UpdateProfile = () => {
@@ -21,7 +22,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
-    axios.get(`http://localhost:8081/users/${id}`)
+    axios.get(`${api}users/${id}`)
       .then(res => {
         const { name, email, height, weight, age, gender } = res.data;
         setUser({ ...user, name, email, height, weight, age, gender });
@@ -39,7 +40,7 @@ const UpdateProfile = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
     e.preventDefault();
-    await axios.put(`http://localhost:8081/users/${id}`, { name, email, height, weight, age, gender})
+    await axios.put(`${api}users/${id}`, { name, email, height, weight, age, gender})
     alert("Profile Updated Successfully");  
     navigate("/user-dashboard");
   }
@@ -61,7 +62,7 @@ const UpdateProfile = () => {
                   type={"text"}
                   className="form-control"
                   name="name"
-                  value={name}
+                  value={user.name}
                   readOnly={true}
                 />
               </div>
@@ -74,7 +75,7 @@ const UpdateProfile = () => {
                   type={"text"}
                   className="form-control"
                   name="email"
-                  value={email}
+                  value={user.email}
                   readOnly={true}
                 />
               </div>
@@ -128,7 +129,7 @@ const UpdateProfile = () => {
                 <input
                   className="form-select"
                   name="gender"
-                  value={gender}
+                  value={user.gender}
                   readOnly={true}
                 />
               </div>
@@ -145,4 +146,5 @@ const UpdateProfile = () => {
             </div>
             );
             };
+            
 export default UpdateProfile;
