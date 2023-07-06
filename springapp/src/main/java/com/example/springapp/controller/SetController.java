@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.springapp.model.Set;
 import com.example.springapp.repository.SetRepository;
@@ -59,16 +60,19 @@ public class SetController {
 		
 	}
 	
-	@DeleteMapping("/set/{id}")
-	public ResponseEntity<Void> deleteSet(@PathVariable String id){
-		Optional<Set> o=sr.findById(Long.parseLong(id));
-		if(o.isPresent()) {
-			sr.deleteById(Long.parseLong(id));
-			
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-		else {
-			return new ResponseEntity<>(HttpStatus.OK);
+	@DeleteMapping("/set")
+	public ResponseEntity<Void> deleteSet(@RequestParam("id") String id) {
+		try {
+			Long setId = Long.parseLong(id);
+			Optional<Set> o = sr.findById(setId);
+			if (o.isPresent()) {
+				sr.deleteById(setId);
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+		} catch (NumberFormatException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	
