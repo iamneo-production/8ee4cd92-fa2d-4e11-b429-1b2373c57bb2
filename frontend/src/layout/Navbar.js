@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Toast } from 'react-bootstrap';
 import '../style/header.css';
-import logo from '../assets/img/dumble.png';
+import logo from '../assets/img/logo1.png';
 import maleAvatar from '../assets/img/male.png';
 import femaleAvatar from '../assets/img/female.png';
 import profile from '../assets/img/profile2.png';
@@ -53,12 +53,11 @@ const Navbar = () => {
       <header className="header" ref={headerRef}>
         <div className="container">
           <div className="nav_wrapper">
-            <div className="logo">
-              <div className="logo_img">
-                <img src={logo} alt="" />
-              </div>
-              <h2>SweatSync</h2>
-            </div>
+            <div className='logo'>
+              <img src={logo} width="30%" alt='' />
+          
+          </div>
+            
 
             <div className="nav_right">
               <Link className="btn" to="/workout-track">

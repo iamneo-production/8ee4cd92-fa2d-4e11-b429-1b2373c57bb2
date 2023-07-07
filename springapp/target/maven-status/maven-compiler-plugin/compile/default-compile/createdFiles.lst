@@ -1,0 +1,17 @@
+com/example/springapp/SpringappApplication.class
+com/example/springapp/model/Exercise.class
+com/example/springapp/model/Set.class
+com/example/springapp/service/ExerciseServiceInterface.class
+com/example/springapp/controller/SetController.class
+com/example/springapp/repository/UserRepository.class
+com/example/springapp/controller/WorkoutController.class
+com/example/springapp/service/SetServiceInterface.class
+com/example/springapp/model/User.class
+com/example/springapp/repository/ExerciseRepository.class
+com/example/springapp/repository/SetRepository.class
+com/example/springapp/service/WorkoutServiceInterface.class
+com/example/springapp/controller/ExerciseController.class
+com/example/springapp/repository/WorkoutRepository.class
+com/example/springapp/service/UserServiceInterface.class
+com/example/springapp/controller/UserController.class
+com/example/springapp/model/Workout.class

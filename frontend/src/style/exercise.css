@@ -15,7 +15,7 @@
 }
 
 .exercise_wrapper {
-  background: var(--bg-gradient);
+  background: #71d1cc;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
