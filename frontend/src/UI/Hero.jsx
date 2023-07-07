@@ -1,3 +1,5 @@
+
+
 import React from 'react'
 import heroImg from '../assets/img/gym-02.png'
 import dumbleIcon from '../assets/img/dumble.png'
@@ -57,13 +59,6 @@ const Hero = () => {
 
 
 
-              <div
-                className='dumble_icon'
-                data-aos='fade-down'
-                data-aos-duration='1500'
-              >
-                <img src={dumbleIcon} alt='' />
-              </div>
             </div>
           </div>
         </div>
@@ -73,3 +68,8 @@ const Hero = () => {
 }
 
 export default Hero
+
+
+
+
+
