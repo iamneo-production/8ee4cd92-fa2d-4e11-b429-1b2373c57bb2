@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 import heroImg from '../assets/img/gym-02.png'
 import dumbleIcon from '../assets/img/dumble.png'
@@ -44,12 +42,13 @@ const Hero = () => {
           </div>
 
           {/* ======= hero img ====== */}
-          <div className='hero_img'>
+          <div className='hero_img'data-aos='fade-left'
+              data-aos-duration='1500'>
             <div className='hero_img-wrapper'>
               <div className='box-01'>
                 <div className='box-2'>
                   <div className='box-3'>
-                    <div className='box_img'>
+                    <div className='box_img' >
                       <img src={heroImg} alt='' />
                     </div>
                   </div>
