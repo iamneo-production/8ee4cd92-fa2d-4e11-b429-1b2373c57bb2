@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import '../style/header.css'
-import logo from '../assets/img/dumble.png'
+import logo from '../assets/img/logo1.png'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -48,17 +48,15 @@ const Header = () => {
           <Link className="btn mx-2" to="/">
 
           <div className='logo'>
-            <div className='logo_img'>
-              <img src={logo} alt='' />
-            </div>
-            <h2>FitBody</h2>
+              <img src={logo} width="30%" alt='' />
+          
           </div>
           </Link>
 
           {/* ======= nav right ======= */}
 
           <div className='nav_right'>
-            <Link className='btn btn-primary' to='/Login'>Login</Link>
+            <Link className='btn btncolor' to='/Login'>Login</Link>
             <span className='mobile_menu'>
               <i className='ri-menu-line'></i>
             </span>

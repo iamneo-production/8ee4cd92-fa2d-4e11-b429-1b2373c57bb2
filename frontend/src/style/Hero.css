@@ -13,7 +13,7 @@
 }
 
 .highlights {
-  color: var(--primary-color);
+  color:#71d1cc;
 }
 
 .hero_content p {
@@ -182,11 +182,15 @@ h6 {
   width: 100%;
 }
 .hero_img {
-  margin-top: -60px; /* Adjust the value as per your requirement */
+  margin-top: -100px; /* Adjust the value as per your requirement */
 }
 
 .box_img {
   top: -15%; /* Adjust the value as per your requirement */
+}
+
+.btncolor{
+  background-color:#13abec;
 }
 
 
