@@ -1,3 +1,4 @@
+
 .hero_wrapper {
   display: flex;
   justify-content: space-between;
@@ -56,21 +57,21 @@
   width: 400px;
   height: 400px;
   border-radius: 100%;
-  border: 25px solid rgba(141, 141, 235, 1);
+  
 }
 
 .box-2 {
   width: 350px;
   height: 350px;
   border-radius: 100%;
-  border: 25px solid #b5a9f3;
+  
 }
 
 .box-3 {
   width: 300px;
   height: 300px;
   border-radius: 100%;
-  border: 25px solid #d3cef2;
+  
 }
 
 .hero_img-wrapper {
@@ -180,3 +181,15 @@ h6 {
 .dumble_icon img {
   width: 100%;
 }
+.hero_img {
+  margin-top: -60px; /* Adjust the value as per your requirement */
+}
+
+.box_img {
+  top: -15%; /* Adjust the value as per your requirement */
+}
+
+
+
+
+
