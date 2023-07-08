@@ -1,44 +1,56 @@
-import React from 'react'
-import '../style/testimonials.css'
-import { Swiper, SwiperSlide } from 'swiper/react'
 
-
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/effect-cards'
-
-// import required modules
-import { EffectCards } from 'swiper'
-import b from '../assets/img/b.jpg'
-import c from '../assets/img/c.jpg'
-import d from '../assets/img/d.jpg'
-import e from '../assets/img/e.jpg'
-
+import React, { useState } from 'react';
+import '../style/testimonials.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-cards';
+import { EffectCards } from 'swiper';
+import b from '../assets/img/b.jpg';
+import c from '../assets/img/c.jpg';
+import d from '../assets/img/d.jpg';
+import e from '../assets/img/e.jpg';
 
 export default function Testimonials() {
+  const [showSwipeText, setShowSwipeText] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowSwipeText(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowSwipeText(false);
+  };
+
   return (
     <>
-      <section id='testimonials'>
-        <div
-          className='container sliders'
-        >
-          <h2 className='section_title'>Testimonials</h2>
+      <section id="testimonials">
+        <div className="container sliders">
+          <h2 className="section_title">Testimonials</h2>
           <Swiper
-            effect={'cards'}
+            effect="cards"
             grabCursor={true}
             modules={[EffectCards]}
-            className='mySwiper'
+            className="mySwiper"
           >
             <SwiperSlide>
-              <div className='slide_item'>
-                <div className='slide_img-01'>
-                  <img src={b} alt='' />
+              <div
+                className="slide_item"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <div className="slide_img-01">
+                  <img src={b} alt="" />
                 </div>
 
                 <h4>Lisa, 28</h4>
                 <p>
-                "I have been using the Fitness Tracking Portal for the past few months, and it has completely transformed my fitness journey. The app is easy to use, and I love being able to track my workouts and see my progress over time. It keeps me motivated and helps me stay on track towards my goals." 
+                  "I have been using the Fitness Tracking Portal for the past
+                  few months, and it has completely transformed my fitness
+                  journey. The app is easy to use, and I love being able to
+                  track my workouts and see my progress over time. It keeps me
+                  motivated and helps me stay on track towards my goals."
                 </p>
+                {showSwipeText && <div className="hover_text">Swipe to see other!</div>}
               </div>
             </SwiperSlide>
 
@@ -87,3 +99,4 @@ export default function Testimonials() {
     </>
   )
 }
+

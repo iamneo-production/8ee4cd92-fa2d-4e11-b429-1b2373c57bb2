@@ -42,12 +42,13 @@ const Hero = () => {
           </div>
 
           {/* ======= hero img ====== */}
-          <div className='hero_img'>
+          <div className='hero_img'data-aos='fade-left'
+              data-aos-duration='1500'>
             <div className='hero_img-wrapper'>
               <div className='box-01'>
                 <div className='box-2'>
                   <div className='box-3'>
-                    <div className='box_img'>
+                    <div className='box_img' >
                       <img src={heroImg} alt='' />
                     </div>
                   </div>
@@ -57,13 +58,6 @@ const Hero = () => {
 
 
 
-              <div
-                className='dumble_icon'
-                data-aos='fade-down'
-                data-aos-duration='1500'
-              >
-                <img src={dumbleIcon} alt='' />
-              </div>
             </div>
           </div>
         </div>
@@ -73,3 +67,8 @@ const Hero = () => {
 }
 
 export default Hero
+
+
+
+
+
