@@ -25,8 +25,9 @@ import com.example.springapp.repository.WorkoutRepository;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/")
+
 @RestController
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfdffccbebc.project.examly.io/")
 public class UserController {
 
 	// @Autowired

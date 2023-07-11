@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../layout/Header';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
+
 const Register = () => {
 
   let navigate = useNavigate()
@@ -47,17 +49,18 @@ const Register = () => {
     }
   };
 
-  const onSubmit = async (e) => {
-    alert("User is Succesfully Registered")
+  const onSubmit = (e) => {
     e.preventDefault();
     if (validated) {
-      document.getElementById("error").hidden = true;
-      await axios.post(`${api}users`, user)
+      axios.post(`${api}user/register`, user).then((r)=>{
+        toast.success("Registration Successful")
       navigate("/Login");
+      })
+      .catch((e)=>{
+        toast.error("Registration Failed")
+      })
     }
-    else {
-      document.getElementById("error").hidden = false;
-    }
+    
   }
   const validate = (e) => {
     var p = e.target.value
@@ -247,10 +250,6 @@ const Register = () => {
                   required
 
                 />
-              </div>
-
-              <div id='error' className='erro' style={{ fontSize: '15px', color: 'red' }} hidden={true}>
-                Please complete all the sections to register !
               </div>
 
               <button type="submit" className="btn btn-outline-primary">

@@ -1,20 +1,20 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Toast } from 'react-bootstrap';
 import '../style/header.css';
 import logo from '../assets/img/logo1.png';
 import maleAvatar from '../assets/img/male.png';
 import femaleAvatar from '../assets/img/female.png';
 import profile from '../assets/img/profile2.png';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { toast } from 'react-toastify';
+
 
 
 
 
 const Navbar = () => {
   const headerRef = useRef(null);
-  const navigate = useNavigate();
-  const [showToast, setShowToast] = useState(false); // State for toast visibility
+  const navigate = useNavigate()// State for toast visibility
   const user = JSON.parse(localStorage.getItem('user'));
   const headerFunc = () => {
     if (
@@ -34,7 +34,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    setShowToast(true); // Show the toast message
+    toast.warning("LogOut Successful")// Show the toast message
     navigate('/');
   };
   const renderAvatar = () => {
@@ -151,17 +151,6 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-
-      {/* Toast component */}
-      <Toast
-        show={showToast}
-        onClose={() => setShowToast(false)}
-        className="logout-toast"
-        delay={3000} 
-        autohide
-      >
-        <Toast.Body>Logged out successfully!</Toast.Body>
-      </Toast>
     </>
   );
 };
