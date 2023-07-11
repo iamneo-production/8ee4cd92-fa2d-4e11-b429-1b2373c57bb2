@@ -56,7 +56,7 @@ const Register = () => {
         toast.success("Registration Successful")
       navigate("/Login");
       })
-      .catch((e)=>{
+      .catch((err)=>{
         toast.error("Registration Failed")
       })
     }
