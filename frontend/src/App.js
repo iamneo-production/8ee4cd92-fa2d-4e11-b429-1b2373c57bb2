@@ -1,6 +1,9 @@
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {  ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Register from "./users/Register";
 import Login from './users/Login';
 import Dashboard from './pages/Dashboard';
@@ -39,6 +42,7 @@ import NutritionWeightGainProgress from './pages/NutritionWeightGainProgress';
 function App() {
   return (
     <div className="App">
+      <ToastContainer/>
       <Router>
         
         <Routes>

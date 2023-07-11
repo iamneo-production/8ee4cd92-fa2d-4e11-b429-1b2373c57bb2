@@ -3,15 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../layout/Header';
 import "../style/login.css"
-import {  toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 import { api } from '../APIConnect';
 
 
 
 
 const Login = () => {
-  const notifylogin = () => toast("LoggedIn Sucessfully!");
+  const notifyError = () => toast.error("Incorrect Email or Password");
   let navigate = useNavigate();
   const [user, setUser] = useState({
     name: "",
@@ -22,7 +21,7 @@ const Login = () => {
   const [dbData, setdbData] = useState([]);
 
   const fetchData = async () => {
-    const res = await axios.get(`${api}users`);
+    const res = await axios.get(`${api}user`);
     console.log(res['data']);
     setdbData(res['data']);
   }
@@ -45,23 +44,24 @@ const Login = () => {
     for (let i = 0; i < dbData.length; i++) {
       console.log(dbData[i]['email'], user['emailID'], dbData[i]['password'], user['password']);
       if (dbData[i]['email'] === user['emailID'] && dbData[i]['password'] === user['password']) {
+        toast.success("Login Successful");
         // Store user information in local storage
         localStorage.setItem('user', JSON.stringify(dbData[i]));
-        notifylogin();
         navigate('/user-dashboard');
         found = true;
         break;
       }
     }
     if (!found) {
-      notifylogin();
-      document.getElementById("msg").hidden = false;
+      notifyError();
     }
+    
   };
 
 
 
   return (
+    <>
     <div><Header />
       <div className='container'>
         <div className="row">
@@ -109,15 +109,13 @@ const Login = () => {
               <Link className="btn btn-outline-danger mx-2" to="/">
                 Cancel
               </Link>
-
-              <div className='msg' id="msg" hidden>
-                  Incorrect Email or Password
-                </div>
             </form>
           </div>
         </div>
       </div>
     </div>
+    
+    </>
 
   );
 };
