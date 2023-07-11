@@ -1,0 +1,33 @@
+.addButton{
+    padding-left: 80%;
+  }
+
+.dietPreparation{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    text-align: left; 
+}
+.dietImages{
+  padding-left: 8%;
+}
+.rotiStyle{
+  text-align: left;
+}
+.rowItems {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.minusButton {
+  padding: 6px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  
+}
+.plusButton{
+  padding: 6px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+}
