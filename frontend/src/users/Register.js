@@ -52,7 +52,7 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (validated) {
-      axios.post(`${api}user/register`, user).then((r)=>{
+      axios.post(`${api}user/register`, user).then((res)=>{
         toast.success("Registration Successful")
       navigate("/Login");
       })
