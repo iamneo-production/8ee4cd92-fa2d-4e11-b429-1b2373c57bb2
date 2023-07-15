@@ -5,6 +5,7 @@ import Navbar from '../layout/Navbar';
 import gymVideo1 from '../assets/vid/gym.mp4';
 import gymVideo2 from '../assets/vid/gym1.mp4';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
 
 const WorkoutBase = () => {
   const [showModal, setShowModal] = useState(false);
@@ -61,7 +62,7 @@ const WorkoutBase = () => {
         duration: '',
         notes: ''
       });
-      alert('Workout Added Successfully');
+      toast.info('Workout Added Successfully');
     } catch (error) {
       console.error(error);
     }
@@ -80,9 +81,9 @@ const WorkoutBase = () => {
   
   const deleteWorkout = async (workoutId) => {
     try {
-      await axios.delete(`${api}workouts/${workoutId}`);
+      await axios.delete(`${api}workout/${workoutId}`);
       setAllWorkouts(allWorkouts.filter((workout) => workout.id !== workoutId));
-      alert('Workout Deleted Successfully');
+      toast.warning('Workout Deleted Successfully');
     } catch (error) {
       console.error(error);
     }

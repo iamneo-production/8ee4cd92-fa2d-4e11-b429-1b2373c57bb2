@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../layout/Navbar';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
 
 
 const UpdateProfile = () => {
@@ -22,7 +23,7 @@ const UpdateProfile = () => {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
-    axios.get(`${api}users/${id}`)
+    axios.get(`${api}user/${id}`)
       .then(res => {
         const { name, email, height, weight, age, gender } = res.data;
         setUser({ ...user, name, email, height, weight, age, gender });
@@ -36,13 +37,18 @@ const UpdateProfile = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     const user = JSON.parse(localStorage.getItem('user'));
     const id= user.id;
     e.preventDefault();
-    await axios.put(`${api}users/${id}`, { name, email, height, weight, age, gender})
-    alert("Profile Updated Successfully");  
-    navigate("/user-dashboard");
+    axios.put(`${api}user`, { id, name, email, height, weight, age, gender}).then((res)=>{
+      toast("Profile Updated Successfully",{position:'top-center', autoClose:1500});  
+      navigate("/user-dashboard");
+    })
+    .catch((err)=>{
+        toast.error("Update failed",{position:'top-center',autoClose:2000})
+    })
+    
   }
 
   return (
@@ -85,7 +91,7 @@ const UpdateProfile = () => {
                   Height
                 </label>
                 <input
-                  type="number"
+                  type={"text"}
                   className="form-control"
                   placeholder="Enter your Height (in cm)"
                   name="height"
@@ -99,7 +105,7 @@ const UpdateProfile = () => {
                   Weight
                 </label>
                 <input
-                  type="number"
+                  type={"text"}
                   className="form-control"
                   placeholder="Enter your Weight (in kg)"
                   name="weight"
