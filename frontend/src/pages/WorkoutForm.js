@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Navbar from '../layout/Navbar';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
 const WorkoutForm = () => {
   let dic = { "Cardiovascular Workouts":"1","Strength Training":"2", "Flexibility and Mobility":"3","Group Fitness":"4","Outdoor Activities":"5","Mind-Body Exercises":"6" }
   
@@ -38,9 +39,10 @@ const WorkoutForm = () => {
         duration: '',
         notes: '',
       });
-      alert('Workout Added Successfully');
+      toast.info('Workout Added Successfully');
     } catch (error) {
       console.error(error);
+      toast.error('Workout Addition Failed!');
     }
   };
 

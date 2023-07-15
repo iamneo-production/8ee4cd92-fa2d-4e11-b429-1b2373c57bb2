@@ -1,5 +1,6 @@
 package com.example.springapp.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,29 +13,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.springapp.model.Set;
-import com.example.springapp.model.User;
 import com.example.springapp.repository.SetRepository;
 
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfdffccbebc.project.examly.io/")
 @RestController
 public class SetController {
 
 	@Autowired
 	SetRepository sr;
-	@CrossOrigin(origins="http://localhost:3000")
-	@GetMapping("/sets/{id}")
+	
+	
+	@GetMapping("/set")
+	public List<Set> getAllSet(){
+		return sr.findAll();
+	}
+	
+	
+	@GetMapping("/set/{id}")
 	public ResponseEntity<Set> getASet(@PathVariable Long id){
 		Optional<Set> o=sr.findById(id);
 		if(o.isPresent()) {
 			return new ResponseEntity<>(o.get(),HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
-	@CrossOrigin(origins="http://localhost:3000")
-	@PutMapping("/sets/{id}")
+	
+	@PutMapping("/set/{id}")
 	public ResponseEntity<Set> updateSet(@RequestBody Set u, @PathVariable Long id){
 		Optional<Set> o=sr.findById(id);
 		
@@ -46,20 +55,24 @@ public class SetController {
 			return new ResponseEntity<>(sr.save(o.get()),HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		
 	}
-	@CrossOrigin(origins="http://localhost:3000")
-	@DeleteMapping("/set/{id}")
-	public ResponseEntity<Void> deleteSet(@PathVariable Long id){
-		Optional<Set> o=sr.findById(id);
-		if(o.isPresent()) {
-			sr.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-		}
-		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	
+	@DeleteMapping("/set")
+	public ResponseEntity<Void> deleteSet(@RequestParam("id") String id) {
+		try {
+			Long setId = Long.parseLong(id);
+			Optional<Set> o = sr.findById(setId);
+			if (o.isPresent()) {
+				sr.deleteById(setId);
+				return new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.OK);
+			}
+		} catch (NumberFormatException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 	

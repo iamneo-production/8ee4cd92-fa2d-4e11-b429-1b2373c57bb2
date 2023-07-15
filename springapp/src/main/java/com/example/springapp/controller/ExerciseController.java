@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.springapp.model.Exercise;
 import com.example.springapp.model.Set;
-import com.example.springapp.model.User;
-import com.example.springapp.model.Workout;
 import com.example.springapp.repository.ExerciseRepository;
 import com.example.springapp.repository.SetRepository;
 
+@CrossOrigin(origins="https://8081-cabacffafefbebfbcddfdffccbebc.project.examly.io/")
 @RestController
 public class ExerciseController {
 
@@ -32,19 +30,27 @@ public class ExerciseController {
 	
 	@Autowired
 	SetRepository sr;
-	@CrossOrigin(origins="http://localhost:3000")
-	@GetMapping("/exercises/{id}")
+	
+	
+	
+	@GetMapping("/exercise")
+	public List<Exercise> getAllExercises(){
+		return er.findAll();
+	}
+	
+
+	@GetMapping("/exercise/{id}")
 	public ResponseEntity<Exercise> getAnExercise(@PathVariable Long id){
 		Optional<Exercise> o=er.findById(id);
 		if(o.isPresent()) {
 			return new ResponseEntity<>(o.get(),HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
-	@CrossOrigin(origins="http://localhost:3000")
-	@PutMapping("/exercises/{id}")
+	
+	@PutMapping("/exercise/{id}")
 	public ResponseEntity<Exercise> updateExercise(@RequestBody Exercise u, @PathVariable Long id){
 		Optional<Exercise> o=er.findById(id);
 		
@@ -55,25 +61,24 @@ public class ExerciseController {
 			return new ResponseEntity<>(er.save(o.get()),HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		
 	}
-	@CrossOrigin(origins="http://localhost:3000")
-	@DeleteMapping("/exercises/{id}")
+	
+	@DeleteMapping("/exercise/{id}")
 	public ResponseEntity<Void> deleteExercise(@PathVariable Long id){
 		Optional<Exercise> o=er.findById(id);
 		if(o.isPresent()) {
 			er.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 	}
 	
-	@CrossOrigin(origins="http://localhost:3000")
-	@GetMapping("/exercises/{id}/sets")
+	@GetMapping("/exercise/{id}/sets")
 	public List<Set> SetssOfSpecificExercise(@PathVariable Long id){
 		Optional<Exercise> o=er.findById(id);
 		if(o.isPresent()) {
@@ -85,20 +90,18 @@ public class ExerciseController {
 				}
 			}
 			return l1;
-		}
-		return null;
+		}return null;
 	}
-	@CrossOrigin(origins="http://localhost:3000")
-	@PostMapping("/exercises/{id}/sets")
+	
+	@PostMapping("/exercise/{id}/sets")
 	public ResponseEntity<Void> newSetForAnExercise(@PathVariable Long id,@RequestBody Set s){
 		Optional<Exercise> o=er.findById(id);
 		if(o.isPresent()) {
 			s.setExerciseId(id);
 			sr.save(s);
-			return new ResponseEntity<>(HttpStatus.OK);
 		}
 
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 }
