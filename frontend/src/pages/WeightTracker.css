@@ -1,0 +1,42 @@
+.weight-graph {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    height: 400px;
+  }
+  
+  .weight-item {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+  
+  .weight-circle {
+    width: 150px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgb(19, 103, 160);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    
+  }
+  
+  .weight-line {
+    width: 60px;
+    height:2px;
+    background-color: blue;
+    flex: 1;
+    /* margin-bottom: 100px;
+    padding-bottom:10px; */
+    
+  }
+  
+  .weight-date {
+    margin-left: 10px;
+    font-size: 18px;
+  }
+  

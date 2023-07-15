@@ -37,6 +37,7 @@ import NutritionWeightGainPlanFriday from './pages/NutritionWeightLossGain/Nutri
 import NutritionWeightGainPlanSaturday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanSaturday';
 import NutritionWeightGainPlanSunday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanSunday';
 import NutritionWeightGainProgress from './pages/NutritionWeightGainProgress';
+import WeightTracker from './pages/WeightTracker';
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
           <Route exact path='/user-dashboard' element={<UserDashboard />} />
           <Route exact path='/WorkoutBase' element={<WorkoutBase />} />
           <Route exact path='/workout-track' element={<WorkoutTrack />} />
+          <Route exact path='/weight-tracker' element={<WeightTracker />} />
 
           <Route exact path='/nutritionHome' element={<NutritionHome />} />
           <Route exact path='/nutritionWeightLoss' element={<NutritionWeightLoss />} />
