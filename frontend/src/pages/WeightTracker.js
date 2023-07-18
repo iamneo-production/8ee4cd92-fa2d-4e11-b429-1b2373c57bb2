@@ -9,7 +9,7 @@ const WeightTracker = () => {
   const updatedWeights=[]
 
   const user = {id:1};
-  console.log(user.id);
+  
   
     useEffect(()=>{ 
       axios.get("https://8080-bbbefecfaaefbebfbcddfeaeaadbdbabf.project.examly.io/weights")
@@ -19,7 +19,7 @@ const WeightTracker = () => {
             updatedWeights.push(weights[i]);
           }
         }
-  },[]);
+  },[weights]);
 
 
   const handleWeightChange = (e) => {
