@@ -7,6 +7,8 @@ import avatar03 from "../assets/img/im1.jpg";
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
+
 
 
 var c = 0
@@ -37,7 +39,7 @@ function AddExercises(props) {
   let option = ``
   const [exercise, setexercise] = useState({
     id: '',
-    workout_id: '',
+    workoutId: '',
     name: '',
     description: '',
   });
@@ -70,7 +72,7 @@ function AddExercises(props) {
 
 
   const onInputChange = (e) => {
-    if (e.target.name==="workout_id"){
+    if (e.target.name==="workoutId"){
    setexercise({ ...exercise, [e.target.name]: e.target.value.split("#")[0] })
     }
     else{
@@ -97,15 +99,15 @@ function AddExercises(props) {
     try {
 
       const response = await axios.post(
-        `${api}workouts/${exercise.workout_id}/exercises`,
+        `${api}workouts/${exercise.workoutId}/exercises`,
         exercise);
       setexercise({ ...exercise, ['description']: "" });
       console.log(response);// Handle the response as needed
 
-      alert("Exercise Added Successfully");
+      toast.success("Exercise Added Successfully");
     } catch (error) {
       console.error(error);
-      alert("Failed")
+      toast.error("Failed to Add")
     }
 
   }
@@ -133,8 +135,8 @@ function AddExercises(props) {
               </label>
               <select
                 className="form-control"
-                id="workout_id"
-                name="workout_id"
+                id="workoutId"
+                name="workoutId"
                 onChange={function (event) { onInputChange(event); addexercise(event) }}
                 onClick={addopt}
               >
@@ -212,9 +214,9 @@ function ExerciseDisplay(props) {
 
   const removeExercise = async (e) => {
     let temp = e.target.id.split("#")
-    axios.delete(`${api}exercises/${temp[1]}`);
+    axios.delete(`${api}exercise/${temp[1]}`);
     status = 1
-    let select = document.getElementById("workout_id");
+    let select = document.getElementById("workoutId");
     var option;
     for (var i = 0; i < select.options.length; i++) {
       option = select.options[i];
@@ -233,7 +235,7 @@ function ExerciseDisplay(props) {
 
   const displayexercise = async (e) => {
     if (status === 1) {
-      alert("Exercise Deleted")
+      toast.warning("Exercise Deleted")
       status = 0
     }
     var workid=parseInt(e.target.value.split("#")[0])
@@ -245,7 +247,7 @@ function ExerciseDisplay(props) {
         for (let i of exercises) {
 
 
-          option += `<tr><th scope="row">${i.id}</th><td>${i.workout_id}</td><td>${i.name}</td><td>${i.description}</td>
+          option += `<tr><th scope="row">${i.id}</th><td>${i.workoutId}</td><td>${i.name}</td><td>${i.description}</td>
           <td>
           <button type="button" class="btn btn-info" id=${i.id} name=${i.id} }>
           Edit</button>
@@ -287,8 +289,8 @@ function ExerciseDisplay(props) {
             </label>
             <select
               className="form-control"
-              id="workout_id"
-              name="workout_id"
+              id="workoutId"
+              name="workoutId"
               onChange={displayexercise}
               onClick={addopt}
             >
@@ -336,7 +338,7 @@ function UpdateExercise(props) {
 
   
   for (let i of work) {
-      if (i.id==updatex.workout_id){
+      if (i.id==updatex.workoutId){
           workid=i
       }
 
@@ -345,7 +347,7 @@ function UpdateExercise(props) {
   console.log(workid)
 
   let list = []
-  let index = String(updatex.workout_id).slice(1, 2)
+  let index = String(updatex.workoutId).slice(1, 2)
   for (let i in exercise_list[index]) {
     list.push(exercise_list[index][i])
 
@@ -363,7 +365,7 @@ function UpdateExercise(props) {
 
 
   const saveChanges = () => {
-    let updatelist = { 'workout_id': workid.id, }
+    let updatelist = { 'workoutId': workid.id, }
     updatelist['id'] = updatex.id
     updatelist['name'] = updatex.name
 
@@ -375,8 +377,8 @@ function UpdateExercise(props) {
       updatelist['description'] = updateExercise.description
     }
     console.log(updatelist)
-    axios.put(`${api}exercises/${updatex.id}`, updatelist);
-    alert("updated")
+    axios.put(`${api}exercise/${updatex.id}`, updatelist);
+    toast.info("Update Sucessfully")
     setUpdateExercise({ ...updateExercise, ['description']: '' })
 
 

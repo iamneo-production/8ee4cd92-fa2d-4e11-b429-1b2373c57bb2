@@ -71,6 +71,7 @@ const WorkoutBase = () => {
   const fetchWorkouts = async () => {
     try {
       const response = await axios.get(`${api}users/${uid}/workouts`);
+      console.log(response)
       const sortedWorkouts = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
       setAllWorkouts(sortedWorkouts);
     } catch (error) {
