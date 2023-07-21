@@ -65,7 +65,7 @@ const History = () => {
 
   const handleDeleteWorkout = (workoutId) => {
     axios
-      .delete(`${api}workouts/${workoutId}`)
+      .delete(`${api}workout/${workoutId}`)
       .then((res) => {
         const updatedWorkoutData = workoutData.filter((item) => item.id !== workoutId);
         setWorkoutData(updatedWorkoutData);
