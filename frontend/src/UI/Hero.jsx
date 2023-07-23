@@ -1,6 +1,5 @@
 import React from 'react'
 import heroImg from '../assets/img/gym-02.png'
-import dumbleIcon from '../assets/img/dumble.png'
 import '../../src/style/Hero.css'
 import { Link } from 'react-router-dom'
 
