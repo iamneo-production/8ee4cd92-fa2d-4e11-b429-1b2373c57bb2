@@ -29,12 +29,12 @@ const WorkoutTrack = () => {
 
   const extractWeeklyGroupFitnessData = useCallback((workouts) => {
     const weeklyData = Array(7).fill(0);
-
+    console.log(workouts)
     workouts.forEach((workout) => {
       if (selectedExercise === 'Group Fitness' || workout.notes === selectedExercise) {
-        const workoutDate = new Date(workout.date);
+        const workoutDate = new Date(workout.localDate);
         const dayOfWeek = workoutDate.getDay();
-        weeklyData[dayOfWeek] += workout.duration;
+        weeklyData[dayOfWeek] += parseInt(workout.duration);
       }
     });
 
@@ -91,13 +91,21 @@ const WorkoutTrack = () => {
   }
 
   const prepareWeeklyChartData = () => {
+    const categoryColors = {
+      'Flexibility and Mobility': '#BDC581', // light blue
+      'Group Fitness': '#EAB543', // light yellow
+      'Cardiovascular Workouts': '#D6A2E8', // light green
+      'Strength Training': '#25CCF7', // light red
+      'Outdoor Activities': '#FD7272', // light brown
+      'Mind-Body Exercises': '#786fa6', // light grey
+    };
     const data = {
       labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       datasets: [
         {
           label: `${selectedExercise} - Weekly Duration (minutes)`,
           data: weeklyData,
-          backgroundColor: 'rgba(0, 123, 255, 0.7)', // Light blue color
+          backgroundColor: `${categoryColors[selectedExercise]}`, // Light blue color
         },
       ],
     };
@@ -121,11 +129,11 @@ const WorkoutTrack = () => {
     workouts.forEach((workout) => {
       const category = workout.notes;
       if (workoutsByCategory[category]) {
-        workoutsByCategory[category].duration += workout.duration;
+        workoutsByCategory[category].duration += parseInt(workout.duration);
         workoutsByCategory[category].workouts.push(workout);
       } else {
         workoutsByCategory[category] = {
-          duration: workout.duration,
+          duration: parseInt(workout.duration),
           workouts: [workout],
         };
         chartColors.push(categoryColors[category]);
@@ -264,6 +272,7 @@ const WorkoutTrack = () => {
               <option value="Mind-Body Exercises">Mind-Body Exercises</option>
             </select>
           </div>
+
           <div className="bar-chart-container">
             <div className="barchart-wrapper">
               <h4 className='heading'>{selectedExercise} - Weekly Duration</h4>
