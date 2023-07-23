@@ -80,7 +80,7 @@ const Register = () => {
       }
     }
     else if (e.target.name === 'email') {
-      var passw1 = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      var passw1 = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\w{2,3})+$/;
       if (p.match(passw1)) {
         document.getElementById("emailerror").hidden = true;
         document.getElementById("email").classList.remove('is-invalid');

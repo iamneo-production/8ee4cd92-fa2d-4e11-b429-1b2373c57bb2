@@ -75,7 +75,7 @@ const WorkoutTrack = () => {
       const userId = user.id;
       const response = await axios.get(`${api}strike/${userId}`);
       console.log(response)
-      if(response.data==""){
+      if(response.data===""){
         setCurrnentStrike("0");
       setMaxStrike("0");
       }
