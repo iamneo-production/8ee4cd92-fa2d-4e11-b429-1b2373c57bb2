@@ -38,7 +38,7 @@ const WorkoutBase = () => {
   const [workout, setWorkout] = useState({
     user_id: uid,
     id: '',
-    date: '',
+    localDate: '',
     duration: '',
     notes: ''
   });
@@ -70,7 +70,7 @@ const WorkoutBase = () => {
       setWorkout({
         user_id: uid,
         id: '',
-        date: '',
+        LocalDate: '',
         duration: '',
         notes: ''
       });
@@ -93,6 +93,9 @@ const WorkoutBase = () => {
     console.log(strike)
     if (strike == "") {
       const res = await axios.post(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": 1 });
+      toast.success("yohooo! +1 Strike", {
+        icon:{picstrike}
+      });
     }
     else {
       const daysDifference = getDaysDifference(response.data.previousDate, today)
@@ -100,16 +103,17 @@ const WorkoutBase = () => {
       if (daysDifference === 1) {
         var currentStrike = response.data.currentStrike + 1
         const res = await axios.put(`${api}strike/${uid}`, { "currentStrike": currentStrike, "previousDate": today, "maxStrike": Math.max(strike.maxStrike, currentStrike) });
-        alert("Strike")
+        
       }
       else if (daysDifference > 1) {
         const res = await axios.put(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": Math.max(strike.maxStrike, currentStrike) });
 
       }
+      toast.success("yohooo! +1 Strike", {
+        icon:{picstrike}
+      });
     }
-    toast.success("yohooo! +1 Strike", {
-      icon:{picstrike}
-    });
+    
 
   }
 
@@ -117,7 +121,7 @@ const WorkoutBase = () => {
     try {
       const response = await axios.get(`${api}users/${uid}/workouts`);
       console.log(response)
-      const sortedWorkouts = response.data.sort((a, b) => new Date(a.date) - new Date(b.date));
+      const sortedWorkouts = response.data.sort((a, b) => new Date(a.localDate) - new Date(b.localDate));
       setAllWorkouts(sortedWorkouts);
     } catch (error) {
       console.error(error);
@@ -155,13 +159,13 @@ const WorkoutForm = () => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="date">Date</label>
+        <label htmlFor="localDate">Date</label>
         <input
           type="date"
           className="form-control"
-          id="date"
-          name="date"
-          value={workout.date}
+          id="localDate"
+          name="localDate"
+          value={workout.localDate}
           onChange={onInputChange}
           required
         />
@@ -277,7 +281,7 @@ return (
             <tbody>
               {allWorkouts.map((workout) => (
                 <tr key={workout.id}>
-                  <td>{workout.date}</td>
+                  <td>{workout.localDate}</td>
                   <td>{workout.duration}</td>
                   <td>{workout.notes}</td>
                   <td><button

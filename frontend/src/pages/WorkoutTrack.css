@@ -33,7 +33,7 @@
   width: 60%;
   height: 300px;
   border-radius: 8px;
-  background: #fff;
+  background: #f8f9fa;
   position: relative;
   align-items: center;
 }
@@ -78,7 +78,7 @@
   width: 120%;
   max-width: 900px;
   min-height: 375px;
-  background: #f5f6fa;
+  background: #f8f9fa;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -86,7 +86,7 @@
   width: 100%;
   height: 300px;
   border-radius: 8px;
-  background: #fff;
+  background: #ffffff;
 }
 
 .bar-chart h3 {

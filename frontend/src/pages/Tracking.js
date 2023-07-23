@@ -137,6 +137,9 @@ function AddExercises(props) {
     console.log(strike)
     if (strike == "") {
       const res = await axios.post(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": 1 });
+      toast.success("yohooo! +1 Strike", {
+        icon:{picstrike}
+      });
     }
     else {
       const daysDifference = getDaysDifference(response.data.previousDate, today)
@@ -144,16 +147,15 @@ function AddExercises(props) {
       if (daysDifference === 1) {
         var currentStrike = response.data.currentStrike + 1
         const res = await axios.put(`${api}strike/${uid}`, { "currentStrike": currentStrike, "previousDate": today, "maxStrike": Math.max(strike.maxStrike, currentStrike) });
-        alert("Strike")
       }
       else if (daysDifference > 1) {
         const res = await axios.put(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": Math.max(strike.maxStrike, currentStrike) });
 
       }
+      toast.success("yohooo! +1 Strike", {
+        icon:{picstrike}
+      });
     }
-    toast.success("yohooo! +1 Strike", {
-      icon:{picstrike}
-    });
 
   }
 
