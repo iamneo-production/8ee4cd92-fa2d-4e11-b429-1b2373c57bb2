@@ -12,8 +12,6 @@
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/repository/ExerciseRepository.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Workout.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/model/Set.java
-/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/AppSecurityConfig.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/controller/UserController.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/SetServiceInterface.java
-/home/coder/project/workspace/springapp/src/main/java/com/example/springapp/security/SecurityConfig.java
 /home/coder/project/workspace/springapp/src/main/java/com/example/springapp/service/WorkoutServiceInterface.java

@@ -13,7 +13,7 @@ const History = () => {
   const [showModal, setShowModal] = useState(false);
   const [updatedWorkout, setUpdatedWorkout] = useState({
     id: '',
-    date: '',
+    localDate: '',
     duration: '',
     notes: ''
   });
@@ -38,7 +38,7 @@ const History = () => {
 
   useEffect(() => {
     const filtered = workoutData.filter((item) => {
-      const itemDate = new Date(item.date);
+      const itemDate = new Date(item.localDate);
       return (
         itemDate.getFullYear() === selectedDate.getFullYear() &&
         itemDate.getMonth() === selectedDate.getMonth() &&
@@ -57,7 +57,7 @@ const History = () => {
     setShowModal(true);
     setUpdatedWorkout({
       id: workout.id,
-      date: workout.date,
+      localDate: workout.localDate,
       duration: workout.duration,
       notes: workout.notes
     });
@@ -65,7 +65,7 @@ const History = () => {
 
   const handleDeleteWorkout = (workoutId) => {
     axios
-      .delete(`${api}workouts/${workoutId}`)
+      .delete(`${api}workout/${workoutId}`)
       .then((res) => {
         const updatedWorkoutData = workoutData.filter((item) => item.id !== workoutId);
         setWorkoutData(updatedWorkoutData);
@@ -117,7 +117,7 @@ const History = () => {
     setShowModal(false);
     setUpdatedWorkout({
       id: '',
-      date: '',
+      localDate: '',
       duration: '',
       notes: ''
     });
@@ -136,11 +136,11 @@ const History = () => {
               <div className="card-body">
                 <h5 className="card-title">Filter by date</h5>
                 <div className="form-group">
-                  <label htmlFor="date">Select a date:</label>
+                  <label htmlFor="localDate">Select a date:</label>
                   <input
                     type="date"
-                    id="date"
-                    name="date"
+                    id="localDate"
+                    name="localDate"
                     className="form-control"
                     value={selectedDate.toISOString().slice(0, 10)}
                     onChange={handleDateChange}
@@ -155,13 +155,13 @@ const History = () => {
                 <h5 className="card-title">Workout history</h5>
                 <div className="row">
                   {filteredData.map((item) => {
-                    const { id, date, duration, notes } = item;
+                    const { id, localDate, duration, notes } = item;
 
                     return (
                       <div key={id} className="col-md-6 mb-3">
                         <div className="card">
                           <div className="card-body">
-                            <h6 className="card-subtitle mb-2 text-muted">{date}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">{localDate}</h6>
                             <p className="card-text">Duration: {duration} minutes</p>
                             <p className="card-text">Notes: {notes}</p>
                             <br />
@@ -203,8 +203,8 @@ const History = () => {
               <Form.Label>Date</Form.Label>
               <Form.Control
                 type="date"
-                value={updatedWorkout.date}
-                onChange={(e) => setUpdatedWorkout({ ...updatedWorkout, date: e.target.value })}
+                value={updatedWorkout.localDate}
+                onChange={(e) => setUpdatedWorkout({ ...updatedWorkout, localDate: e.target.value })}
                 required
               />
             </Form.Group>
