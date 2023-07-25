@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../pages/WeightTracker.css'
 import axios from 'axios';
+import Navbar from '../layout/Navbar';
 //import { api } from '../APIConnect';
 
 const WeightTracker = () => {
@@ -8,8 +9,8 @@ const WeightTracker = () => {
   const [currentWeight, setCurrentWeight] = useState('');
   const updatedWeights=[]
 
-  const user = {id:1};
   
+  const user = JSON.parse(localStorage.getItem('user'));
   
     useEffect(()=>{ 
       axios.get("https://8080-bbbefecfaaefbebfbcddfeaeaadbdbabf.project.examly.io/weights")
@@ -41,6 +42,10 @@ const WeightTracker = () => {
   };
 
   return (
+    <div>
+      <header style={{ marginTop: "10px" }}>
+        <Navbar />
+      </header>
     <div className="container">
       <h1 className="mt-4 mb-4">Weight Tracker</h1>
       <div className="mb-3">
@@ -64,6 +69,7 @@ const WeightTracker = () => {
         </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

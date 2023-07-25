@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.apiconnect.ConnectApi;
-import com.example.demo.entity.Weight_;
+import com.example.demo.entity.WeightEntity;
 import com.example.demo.repo.WeightRepository;
 
 @RestController
@@ -21,12 +21,12 @@ public class WeightController {
 	private WeightRepository weightRepository;
 	
 	@PostMapping("/addWeight")
-	public Weight_ addWeight(@RequestBody Weight_ weight) {
+	public WeightEntity addWeight(@RequestBody WeightEntity weight) {
 		return weightRepository.save(weight);
 	}
 	
 	@GetMapping("/weights")
-	public List<Weight_> getWeights(){
+	public List<WeightEntity> getWeights(){
 		return weightRepository.findAll();
 	}
 

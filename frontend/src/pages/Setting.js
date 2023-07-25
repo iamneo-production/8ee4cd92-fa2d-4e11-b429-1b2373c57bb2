@@ -14,9 +14,7 @@ const Setting = () => {
 
   const navigate = useNavigate();
   
-  // const user = JSON.parse(localStorage.getItem('user'));
-
-  const user = {id:1};
+  const user = JSON.parse(localStorage.getItem('user'));
 
   const handleGoalChange = (e) => {
     setGoal(e.target.value);
@@ -36,6 +34,9 @@ const Setting = () => {
 
   const handleSubmit =(e) => {
     e.preventDefault();
+    if (goalName.trim() === '' || duration.trim() === '' || targetWeight === 0) {
+      return alert("Please enter valid details..")
+    };
     const user_id = user.id;
     const date = new Date().toISOString().split('T')[0];
     const goalItem = {date,description,duration,goalName,user_id,targetWeight};
@@ -73,11 +74,11 @@ const Setting = () => {
 
   return (
     <>
-    {/* <div>
+    <div>
       <header>
         <Navbar />
       </header>
-    </div> */}
+    </div>
     <div className="fitness-goal-container">
       <h2>Add Fitness Goal</h2>
       <form onSubmit={handleSubmit}>
