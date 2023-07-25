@@ -1,509 +1,496 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from '../layout/Navbar';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import React, { useState, useEffect } from 'react'
+import { Card, Modal, Button } from 'react-bootstrap'
 import avatar01 from "../assets/img/im3.jpg";
 import avatar03 from "../assets/img/im1.jpg";
-import Modal from 'react-bootstrap/Modal';
+import Navbar from '../layout/Navbar';
 import axios from 'axios';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
+import picstrike from '../assets/img/goal.png';
 
-
-var c = 0
-
-const decount = () => {
-  c = 0
+function getDaysDifference(dateString1, dateString2) {
+  const date1 = new Date(dateString1);
+  const date2 = new Date(dateString2);
+  const differenceInMs = date2 - date1;
+  
+  const daysDifference = differenceInMs / (1000 * 60 * 60 * 24);
+  
+ 
+  return Math.round(daysDifference);
 }
 
 
-let work = []
-let exercises = []
-let dic = { 1: "Cardiovascular Workouts", 2: "Strength Training", 3: "Flexibility and Mobility", 4: "Group Fitness", 5: "Outdoor Activities", 6: "Mind-Body Exercises" }
-let val = { "Cardiovascular Workouts":1, "Strength Training":2, "Flexibility and Mobility":3, "Group Fitness":4, "Outdoor Activities":5, "Mind-Body Exercises":6 }
-let workoutids={}
 let exercise_list = {
-  1: ["Running/jogging on a treadmill or outdoors", "Cycling (indoor or outdoor)", "Jumping rope", "High-intensity interval training (HIIT)", "Stair climbing", "Rowing"],
-  2: ["Weightlifting (using dumbbells, barbells, or weight machines)", "Bodyweight exercises (push-ups, squats, lunges, planks)", "Resistance band exercises", "Kettlebell workouts", "Circuit training", "Powerlifting", "CrossFit-style workouts"],
-  3: ["Stretching exercises", "Yoga poses and flows", "Pilates", "Foam rolling", "Mobility drills", "Dynamic warm-up exercises",],
-  4: ["Zumba or dance fitness", "Aerobics", "Kickboxing", "Boot camp-style workouts", "Barre workouts", "Spinning/cycling classes", "Circuit training classes"],
-  5: ["Swimming", "Rock climbing", "Kayaking/canoeing", "Stand-up paddleboarding (SUP)", "Tennis", "Soccer"],
-  6: ["Meditation", "Tai Chi", "Qi Gong", "Mindful yoga", "Breathing exercises"]
 }
 
-function AddExercises(props) {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const uid = user.id;
+function Tracking() {
+    const [addExerciseModelShow, setAddExerciseModelShow] = useState(false);
+    const handleAddExerciseModelClose = () => setAddExerciseModelShow(false);
+    const handleAddExerciseModelShow = () => setAddExerciseModelShow(true);
 
-  let option = ``
-  const [exercise, setexercise] = useState({
-    id: '',
-    workout_id: '',
-    name: '',
-    description: '',
-  });
+    const [dispalyExerciseModelShow, setDispalyExerciseModelShow] = useState(false);
+    const handleDispalyExerciseModelClose = () => setDispalyExerciseModelShow(false);
+    const handleDispalyExerciseModelShow = () => setDispalyExerciseModelShow(true);
+
+    const [updateExerciseModelShow, setUpdateExerciseModelShow] = useState(false);
+    const handleUpdateExerciseModelClose = () => setUpdateExerciseModelShow(false);
+    const handleUpdateExerciseModelShow = () => setUpdateExerciseModelShow(true);
+
+    const [exercises, setExercises] = useState([]);
+    const [uniqueWorkoutIds, setUniqueWorkoutIds] = useState([]);
+
+    const [exerciseOfWorkout, setExerciseOfWorkout] = useState("");
+    const [workoutByIds, setWorkoutByIds] = useState([])
+    const user = JSON.parse(localStorage.getItem('user'));
+    const uid = user.id;
+
+    const [exerxiseList] = useState({
+        "Cardiovascular Workouts": ["Select a Exercise", "Running/jogging on a treadmill or outdoors", "Cycling (indoor or outdoor)", "Jumping rope", "High-intensity interval training (HIIT)", "Stair climbing", "Rowing"],
+        "Strength Training": ["Select a Exercise", "Weightlifting (using dumbbells, barbells, or weight machines)", "Bodyweight exercises (push-ups, squats, lunges, planks)", "Resistance band exercises", "Kettlebell workouts", "Circuit training", "Powerlifting", "CrossFit-style workouts"],
+        "Flexibility and Mobility": ["Select a Exercise", "Stretching exercises", "Yoga poses and flows", "Pilates", "Foam rolling", "Mobility drills", "Dynamic warm-up exercises",],
+        "Group Fitness": ["Select a Exercise", "Zumba or dance fitness", "Aerobics", "Kickboxing", "Boot camp-style workouts", "Barre workouts", "Spinning/cycling classes", "Circuit training classes"],
+        "Outdoor Activities": ["Select a Exercise", "Swimming", "Rock climbing", "Kayaking/canoeing", "Stand-up paddleboarding (SUP)", "Tennis", "Soccer"],
+        "Mind-Body Exercises": ["Select a Exercise", "Meditation", "Tai Chi", "Qi Gong", "Mindful yoga", "Breathing exercises"]
+    });
+
+    const [newExercise, setNewExercise] = useState({
+        id: '',
+        workout: "no choice",
+        workoutId: '',
+        name: '',
+        description: '',
+    })
+
+    const [updateExercise, setUpdateExercise] = useState({
+        id: '',
+        workout: '',
+        workoutId: '',
+        name: '',
+        description: '',
+    })
 
 
-
-  const addopt = (e) => {
-    if (c == 0) {
-      c += 1
-      option = `<option value="">Select a workout</option>`
-      for (let i of work) {
-        
-        option += `<option value=${String(i.id)+"#"+String(val[i.notes])}>${i.notes}</option>`
-      }
-      document.getElementById(e.target.name).innerHTML = option
-    }
-  }
-
-
-
-  useEffect(() => {
-
-    axios.get(`${api}users/${uid}/workouts`)
-      .then(res => {
-        work = res.data
-      })
-      .catch(err => console.log(err));
-  }, []);
-
-
-
-  const onInputChange = (e) => {
-    if (e.target.name==="workout_id"){
-   setexercise({ ...exercise, [e.target.name]: e.target.value.split("#")[0] })
-    }
-    else{
-      setexercise({ ...exercise, [e.target.name]: e.target.value })
-    }
-  
-  };
-
-  const addexercise = (e) => {
-    let temp = `<option value="">Select a Exercise</option>`
-    console.log(parseInt(e.target.value.split("#")[1]))
-    var j=parseInt(e.target.value.split("#")[1])
-    let l = exercise_list[j].length
-    for (let i = 0; i < l; i++) {
-      temp += `<option value='${exercise_list[j][i]}'>${exercise_list[j][i]}</option>`
-    }
-    document.getElementById('name').innerHTML = temp
-
-  }
-
-  const handelSubmit = async (e) => {
-    e.preventDefault();
-    console.log(exercise)
-    try {
-
-      const response = await axios.post(
-        `${api}workouts/${exercise.workout_id}/exercises`,
-        exercise);
-      setexercise({ ...exercise, ['description']: "" });
-      console.log(response);// Handle the response as needed
-
-      alert("Exercise Added Successfully");
-    } catch (error) {
-      console.error(error);
-      alert("Failed")
+    const handleOnChangeExercise = (e) => {
+        setNewExercise({ ...newExercise, [e.target.name]: e.target.value })
     }
 
-  }
-
-
-
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add Exercise
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div>
-          <form onSubmit={handelSubmit}>
-            <div className="mb-3">
-              <label htmlFor="id" className="form-label">
-                Workouts
-              </label>
-              <select
-                className="form-control"
-                id="workout_id"
-                name="workout_id"
-                onChange={function (event) { onInputChange(event); addexercise(event) }}
-                onClick={addopt}
-              >
-                <option value="">Select a workout</option>
-              </select>
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="id" className="form-label">
-                Exercise
-              </label>
-              <select
-                className="form-control"
-                id="name"
-                name="name"
-                onChange={onInputChange}
-              >
-                <option value="">Select a workout First</option>
-              </select>
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="notes" className="form-label">
-                Description
-              </label>
-              <textarea
-                className="form-control"
-                id="description"
-                name="description"
-                value={exercise.description}
-                onChange={onInputChange}
-              ></textarea>
-            </div>
-            <button type="submit" className="btn btn-primary">
-              Add Exercise
-            </button>
-          </form>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
-
-
-
-
-function ExerciseDisplay(props) {
-  var status = 0;
-  const [updateShow, setUpdateShow] = useState({
-    uShow: false,
-    updateId: ""
-  });
-
-  var option = ``
-
-  const addopt = (e) => {
-    if (c=== 0) {
-      c += 1
-      option = `<option value="">Select a workout</option>`
-      for (let i of work) {
-
-        option += `<option value=${String(i.id)+"#"+String(val[i.notes])}>${i.notes}</option>`
-      }
-      document.getElementById(e.target.name).innerHTML = option
+    const handleOnChangeWorkout = (e) => {
+        setExerciseOfWorkout(e.target.value)
     }
-  }
 
-  const showeditform = (e) => {
-    console.log(exercises)
-    setUpdateShow({ ...updateShow, ["updateId"]: e.target.name, ["uShow"]: true })
-  }
-
-  const removeExercise = async (e) => {
-    let temp = e.target.id.split("#")
-    axios.delete(`${api}exercises/${temp[1]}`);
-    status = 1
-    let select = document.getElementById("workout_id");
-    var option;
-    for (var i = 0; i < select.options.length; i++) {
-      option = select.options[i];
-
-      if (option.value == temp[1]) {
-        option.setAttribute('selected', true);
-
-        break;
-      }
-    }
-    const event = new Event("change", { bubbles: true });
-    select.dispatchEvent(event);
-
-
-  }
-
-  const displayexercise = async (e) => {
-    if (status === 1) {
-      alert("Exercise Deleted")
-      status = 0
-    }
-    var workid=parseInt(e.target.value.split("#")[0])
-    axios.get(`${api}workouts/${workid}/exercises`)
-      .then(res => {
-        exercises = res.data
-        console.log(exercises)
-        option = ``
-        for (let i of exercises) {
-
-
-          option += `<tr><th scope="row">${i.id}</th><td>${i.workout_id}</td><td>${i.name}</td><td>${i.description}</td>
-          <td>
-          <button type="button" class="btn btn-info" id=${i.id} name=${i.id} }>
-          Edit</button>
-          &nbsp; <button type="button" class="btn btn-danger" name=${e} id=${'remove' + '#' + String(i.id)}>Delete</button>
-          </td></tr>`;
-
-
-
+    const handleSubmitAddNewExercise = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(
+                `${api}workouts/${newExercise.workoutId}/exercises`,
+                { workoutId: newExercise.workoutId, name: newExercise.name, description: newExercise.description });
+            toast.success("Exercise Added Successfully");
+            handleUpdateStrike();
+            
+        } catch (error) {
+            toast.error("Failed To Add")
         }
-
-        console.log(option)
-        document.getElementById("exercisetable").innerHTML = option
-
-        for (let i of exercises) {
-          const element = document.getElementById(i.id).onclick = showeditform
-          document.getElementById(('remove' + '#' + String(i.id))).onclick = removeExercise
-        }
-      })
-      .catch(err => console.log(err));
-
-  }
-
-  return (
-    <>
-      <Modal
-        size="xl"
-        {...props}
-        aria-labelledby="example-modal-sizes-title-lg"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">
-            Exercises
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="mb-3">
-            <label htmlFor="id" className="form-label" style={{ fontWeight: "bold" }}>
-              Workouts
-            </label>
-            <select
-              className="form-control"
-              id="workout_id"
-              name="workout_id"
-              onChange={displayexercise}
-              onClick={addopt}
-            >
-              <option value="">Select a workout</option>
-            </select>
-          </div>
-
-          <table className="table table-hover" >
-            <thead className="table-light" >
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Workout ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Perform Action</th>
-              </tr>
-            </thead>
-            <tbody id="exercisetable">
-              <tr>
-                <th scope="col" colSpan="5">Select a Workout</th>
-              </tr>
-
-            </tbody>
-            <UpdateExercise
-              show={updateShow.uShow}
-              onHide={() => { setUpdateShow({ ["uShow"]: false }); }}
-              id={updateShow.updateId}
-            />
-          </table>
-        </Modal.Body>
-      </Modal>
-    </>
-  );
-}
-
-let updatex = {}
-let workid={}
-function UpdateExercise(props) {
-
-  for (let i of exercises) {
-    if (i.id == props.id) {
-      updatex = i
     }
-  }
 
-  
-  for (let i of work) {
-      if (i.id==updatex.workout_id){
-          workid=i
-      }
+    const handleDeleteExerciseById = async (id) => {
+        try {
+            await axios.delete(`${api}exercise/${id}`);
+            setExercises(exercises.filter((item) => item.id !== id));
+            toast.warning("Exercise Deleted Successfully")
+        } catch (error) {
+            toast.error("Failed To Delete")
+        }
+    }
 
-  }
-  
-  console.log(workid)
+    const handleUpdateExerciseForm = (exercise) => {
+        setUpdateExercise({ ...updateExercise, ["id"]: exercise.id, ["workoutId"]: exercise.workoutId, ['workout']: exerciseOfWorkout, ["name"]: exercise.name, ['description']: exercise.description })
+    }
 
-  let list = []
-  let index = String(updatex.workout_id).slice(1, 2)
-  for (let i in exercise_list[index]) {
-    list.push(exercise_list[index][i])
+    const handleOnChangeUpdateExercise = (e) => {
+        setUpdateExercise({ ...updateExercise, [e.target.name]: e.target.value })
+    }
 
-  }
+    const handleUpdateExerciseSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.put(
+                `${api}exercise/${updateExercise.id}`,
+                { workoutId: updateExercise.workoutId, name: updateExercise.name, description: updateExercise.description });
+            setExercises((prevExercises) =>
+                prevExercises.map((exercise) =>
+                    exercise.id === updateExercise.id
+                        ? {
+                            id: updateExercise.id,
+                            workoutId: updateExercise.workoutId,
+                            name: updateExercise.name,
+                            description: updateExercise.description,
+                        }
+                        : exercise
+                )
+            ); toast.info("Exercise Updated Successfully");
+        } catch (error) {
+            toast.error("Failed To Update")
+        }
+    }
 
-  const [updateExercise, setUpdateExercise] = useState({
-    description: '',
-  })
-
-
-  const onInputChange = (e) => {
-    setUpdateExercise({ ...updateExercise, [e.target.name]: e.target.value })
-
-  };
-
-
-  const saveChanges = () => {
-    let updatelist = { 'workout_id': workid.id, }
-    updatelist['id'] = updatex.id
-    updatelist['name'] = updatex.name
-
-    if (updateExercise.description == '') {
-      updatelist['description'] = updatex.description
-
+    const handleUpdateStrike = async () => {
+    var date = new Date()
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var today = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`
+    const response = await axios.get(`${api}strike/${uid}`);
+    var strike=response.data
+    console.log(strike)
+    if (strike == "") {
+      const res = await axios.post(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": 1 });
+      toast.success("yohooo! +1 Strike", {
+        icon:{picstrike}
+      });
     }
     else {
-      updatelist['description'] = updateExercise.description
-    }
-    console.log(updatelist)
-    axios.put(`${api}exercises/${updatex.id}`, updatelist);
-    alert("updated")
-    setUpdateExercise({ ...updateExercise, ['description']: '' })
+      const daysDifference = getDaysDifference(response.data.previousDate, today)
+      console.log(daysDifference)
+      if (daysDifference === 1) {
+        var currentStrike = response.data.currentStrike + 1
+        const res = await axios.put(`${api}strike/${uid}`, { "currentStrike": currentStrike, "previousDate": today, "maxStrike": Math.max(strike.maxStrike, currentStrike) });
+      }
+      else if (daysDifference > 1) {
+        const res = await axios.put(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": Math.max(strike.maxStrike, 1) });
 
+      }
+      toast.success("yohooo! +1 Strike", {
+        icon:{picstrike}
+      });
+    }
 
   }
 
 
-  return (
-    <>
-      <Modal {...props}>
-        <Modal.Header closeButton>
-          <Modal.Title>Update Exercise</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div>
-            <form >
-              <div className="mb-3">
-                <label htmlFor="Name" className="form-label">
-                  Workout
-                </label>
-                <input
-                  type={"text"}
-                  className="form-control"
-                  value={workid.notes}
-                  readOnly={true}
-                />
-              </div>
 
-              <div className="mb-3">
-                <label htmlFor="id" className="form-label">
-                  Exercise
-                </label>
-                <input
-                  className="form-control"
-                  id="name"
-                  name="name"
-                  value={updatex.name}
-                  readOnly={true}
+    const fetchWorkoutData = async () => {
+        const res = await axios.get(`${api}users/${uid}/workouts`);
+        var uniqueworkout = {}
+        res.data.forEach((item) => {
+            if (typeof (uniqueworkout[item.notes]) === 'undefined') {
+                uniqueworkout[item.notes] = ["Select a Workout ID", item.id]
+            }
+            else {
+                uniqueworkout[item.notes].push(item.id)
+            }
 
-                />
+        })
+        setUniqueWorkoutIds(uniqueworkout)
+    }
 
-              </div>
+    const fetchExerciseData = (e) => {
+        var ids = uniqueWorkoutIds[e.target.value].slice(1);
+        console.log(ids);
+        setExercises([]);
+        // Use Promise.all to wait for all API requests to complete
+        Promise.all(
+            ids.map((id) => axios.get(`${api}workouts/${id}/exercises`))
+        )
+            .then((responses) => {
+                // Extract the data from each response and concatenate them into a single array
+                const exerciseData = responses.flatMap((res) => res.data);
 
-              <div className="mb-3">
-                <label htmlFor="notes" className="form-label">
-                  Description
-                </label>
-                <textarea
-                  className="form-control"
-                  id="description"
-                  name="description"
-                  value={updateExercise.description}
-                  onChange={onInputChange}
-                ></textarea>
-              </div>
+                setExercises(exerciseData);
 
-              <Modal.Footer>
-                <Button variant="secondary" onClick={props.onHide}>
-                  Close
-                </Button>
-                <Button variant="primary" onClick={() => { props.onHide(); saveChanges() }}>
-                  Save Changes
-                </Button>
-              </Modal.Footer>
-
-            </form>
-          </div>
-        </Modal.Body>
-      </Modal>
-
-    </>
+                console.log(exerciseData);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
 
-  );
+
+    useEffect(() => {
+        fetchWorkoutData()
+
+    }, [])
+
+
+
+    return (
+        <div>
+            <header style={{ marginTop: "10px" }} >
+                <Navbar />
+            </header>
+            <div className='container'>
+
+                {/* Card for Add Exercises */}
+                <div className='row'>
+                    <Card className="text-black" style={{ backgroundColor: "rgb(207, 117, 249)" }}>
+                        <Card.Img src={avatar03} alt="Card image" />
+                        <Card.ImgOverlay>
+                            <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>Transform Yourself</Card.Title>
+                            <Card.Text style={{ fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>
+                                "Take the Next Step Towards a Healthier You:<br /> Activate Exercise Now!"
+                            </Card.Text>
+                            <Card.Text style={{ textAlign: 'right', marginTop: '50px', marginRight: '20px' }}>
+                                <Button variant="primary" onClick={handleAddExerciseModelShow}>Add Exercise</Button>
+                            </Card.Text>
+                        </Card.ImgOverlay>
+                    </Card>
+                </div>
+
+                {/* Card For update and delete Exercise */}
+                <div className='row'>
+                    <Card className="text-black" style={{ backgroundColor: "rgb(207, 117, 249)" }}>
+                        <Card.Img src={avatar01} alt="Card image" />
+                        <Card.ImgOverlay>
+                            <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>Redefine Yourself</Card.Title>
+                            <Card.Text style={{ fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>
+                                "Customize Your Workout:<br /> Delete and Refine Your Exercise Selections!"
+                            </Card.Text>
+                            <Card.Text style={{ textAlign: 'left', marginTop: '50px', marginLeft: '20px' }}>
+                                <Button variant="primary" onClick={handleDispalyExerciseModelShow}>Update and Delete</Button>
+                            </Card.Text>
+                        </Card.ImgOverlay>
+                    </Card>
+                </div>
+
+            </div>
+
+            {/* Add Exercise Modals */}
+            <Modal
+                show={addExerciseModelShow}
+                onHide={handleAddExerciseModelClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Add Exercise</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        <form onSubmit={handleSubmitAddNewExercise}>
+                            <div className="mb-3">
+                                <label htmlFor="workout" className="form-label">
+                                    Workouts
+                                </label>
+                                <select
+                                    className="form-control"
+                                    id="workout"
+                                    name="workout"
+                                    onChange={handleOnChangeExercise}
+                                    required={true}
+                                >
+                                    <option value="no choice">Select a workout</option>
+                                    {Object.entries(uniqueWorkoutIds).map(([key, value]) => (
+                                        <option value={key}>{key}</option>
+                                    ))}
+
+                                </select>
+                            </div>
+
+                            <div className="mb-3">
+                                <label htmlFor="id" className="form-label">
+                                    Workout ID
+                                </label>
+                                <select
+                                    className="form-control"
+                                    id="workoutId"
+                                    name="workoutId"
+                                    onChange={handleOnChangeExercise}
+                                    required={true}
+                                >
+                                    {typeof (uniqueWorkoutIds[newExercise.workout]) != 'undefined' ?
+                                        (uniqueWorkoutIds[newExercise.workout].map((key) => (
+                                            <option value={key}>{key}</option>
+                                        ))) : (<option>Please Select a Workout First</option>
+                                        )
+                                    }
+
+                                </select>
+                            </div>
+
+                            <div className="mb-3">
+                                <label htmlFor="id" className="form-label">
+                                    Exercise
+                                </label>
+                                <select
+                                    className="form-control"
+                                    id="name"
+                                    name="name"
+                                    onChange={handleOnChangeExercise}
+                                    required={true}
+                                >
+                                    {typeof (exerxiseList[newExercise.workout]) != 'undefined' ? (exerxiseList[newExercise.workout].map((value) => (
+                                        <option value={value}>{value}</option>
+                                    ))) : (<option>Select a Workout First</option>)}
+                                </select>
+                            </div>
+
+                            <div className="mb-3">
+                                <label htmlFor="notes" className="form-label">
+                                    Description
+                                </label>
+                                <textarea
+                                    className="form-control"
+                                    id="description"
+                                    name="description"
+                                    value={newExercise.description}
+                                    onChange={handleOnChangeExercise}
+                                    required={true}
+                                ></textarea>
+                            </div>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleAddExerciseModelClose}>
+                                    Close
+                                </Button>
+                                <Button type='submit' variant="primary">Add Exercise</Button>
+                            </Modal.Footer>
+                        </form>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Show All Exercise Models */}
+            <Modal
+                size="xl"
+                aria-labelledby="example-modal-sizes-title-lg"
+                show={dispalyExerciseModelShow}
+                onHide={handleDispalyExerciseModelClose}
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="example-modal-sizes-title-lg">
+                        Exercises
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="mb-3">
+                        <label htmlFor="id" className="form-label" style={{ fontWeight: "bold" }}>
+                            Workouts
+                        </label>
+                        <select
+                            className="form-control"
+                            id="workoutId"
+                            name="workoutId"
+                            onChange={(e) => { handleOnChangeWorkout(e); fetchExerciseData(e) }}
+                        >
+                            <option value="no choice">Select a workout</option>
+                            {Object.entries(uniqueWorkoutIds).map(([key, value]) => (
+                                <option value={key}>{key}</option>
+                            ))}
+
+                        </select>
+                    </div>
+
+                    {(exercises.length === 0) ? (
+                        <p>Select a Workout First</p>
+                    ) : (
+                        <table className="table table-hover" >
+                            <thead className="table-light" >
+                                <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Workout ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Perform Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="exercisetable">
+                                {exercises.map((item) => (
+                                    <tr>
+                                        <td scope="col" >{item.id}</td>
+                                        <td scope="col" >{item.workoutId}</td>
+                                        <td scope="col" >{item.name}</td>
+                                        <td scope="col" >{item.description}</td>
+                                        <td scope="col" >
+                                            <button type="button" class="btn btn-info" onClick={() => { handleUpdateExerciseModelShow(); handleUpdateExerciseForm(item) }}>Edit</button>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-danger" onClick={() => handleDeleteExerciseById(item.id)}>Delete</button>
+                                        </td>
+                                    </tr>
+                                ))}
+
+                            </tbody>
+                        </table>
+                    )}
+                </Modal.Body>
+            </Modal>
+
+
+            {/* Update Exercise Model */}
+            <Modal
+                show={updateExerciseModelShow}
+                onHide={handleUpdateExerciseModelClose}
+                backdrop="static"
+                keyboard={false}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Update Exercise</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div>
+                        <form onSubmit={handleUpdateExerciseSubmit }>
+                            <div className="mb-3">
+                                <label htmlFor="id" className="form-label">
+                                    ID
+                                </label>
+                                <input className="form-control" id="id" name="id" value={updateExercise.id} readOnly={true}></input>
+                            </div>
+
+                            <div className="mb-3">
+                                <label htmlFor="id" className="form-label">
+                                    Workout ID
+                                </label>
+                                <input className="form-control" id="workoutId" name="workoutId" value={updateExercise.workoutId} readOnly={true}></input>
+                            </div>
+
+                            <div className="mb-3">
+                                <label htmlFor="id" className="form-label">
+                                    Exercise
+                                </label>
+                                <select
+                                    className="form-control"
+                                    id="name"
+                                    name="name"
+                                    onChange={handleOnChangeUpdateExercise}
+                                    required={true}
+                                >
+                                    {typeof (exerxiseList[exerciseOfWorkout]) != 'undefined' ? (exerxiseList[exerciseOfWorkout].map((value) => (
+                                        value === updateExercise.name ? (<option value={value} selected>{value}</option>) : (<option value={value}>{value}</option>)
+                                    ))) : (<option>Select a Workout First</option>)}
+                                </select>
+                            </div>
+
+                            <div className="mb-3">
+                                <label htmlFor="notes" className="form-label">
+                                    Description
+                                </label>
+                                <textarea
+                                    className="form-control"
+                                    id="description"
+                                    name="description"
+                                    onChange={handleOnChangeUpdateExercise}
+                                    value={updateExercise.description}
+                                    required={true}
+                                ></textarea>
+                            </div>
+                            <Modal.Footer>
+                                <Button variant="secondary" onChange={handleUpdateExerciseModelClose}>
+                                    Close
+                                </Button>
+                                <Button type='submit' variant="primary">Add Exercise</Button>
+                            </Modal.Footer>
+                        </form>
+                    </div>
+
+                </Modal.Body>
+            </Modal>
+
+        </div>
+    )
 }
 
-const Tracking = () => {
-  
-  const [modalShow, setModalShow] = React.useState(false);
-  const [lgShow, setLgShow] = useState(false);
+export default Tracking
 
 
-  return (
-    <div>
-      <header style={{ marginTop: "10px" }} >
-        <Navbar />
-      </header>
-      <div className='container'>
-        <div className='row'>
-
-          <Card className="text-black" style={{ backgroundColor: "rgb(207, 117, 249)" }}>
-            <Card.Img src={avatar03} alt="Card image" />
-            <Card.ImgOverlay>
-              <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>Transform Yourself</Card.Title>
-              <Card.Text style={{ fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>
-                "Take the Next Step Towards a Healthier You:<br /> Activate Exercise Now!"
-              </Card.Text>
-              <Card.Text style={{ textAlign: 'right', marginTop: '50px', marginRight: '20px' }}><Button variant="primary" onClick={() => setModalShow(true)}>Add Exercise</Button>
-                <AddExercises
-                  show={modalShow}
-                  onHide={() => { setModalShow(false); decount() }}
-                />
-              </Card.Text>
-            </Card.ImgOverlay>
-          </Card>
-        </div>
-        <div className='row'>
-          <Card className="text-black" style={{ backgroundColor: "rgb(207, 117, 249)" }}>
-            <Card.Img src={avatar01} alt="Card image" />
-            <Card.ImgOverlay>
-              <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>Redefine Yourself</Card.Title>
-              <Card.Text style={{ fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>
-                "Customize Your Workout:<br /> Delete and Refine Your Exercise Selections!"
-              </Card.Text>
-              <Card.Text style={{ textAlign: 'left', marginTop: '50px', marginLeft: '20px' }}><Button variant="primary" onClick={() => setLgShow(true)}>Update and Delete</Button>
-                <ExerciseDisplay
-                  show={lgShow}
-                  onHide={() => { setLgShow(false); decount() }}
-                />
-              </Card.Text>
-            </Card.ImgOverlay>
-          </Card>
-
-        </div>
-      </div>
-    </div>
-  )
-}
 
 
-export default Tracking;
+
