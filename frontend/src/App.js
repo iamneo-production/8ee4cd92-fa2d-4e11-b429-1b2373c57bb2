@@ -63,6 +63,7 @@ function App() {
           <Route exact path='/workout-track' element={<WorkoutTrack />} />
           <Route exact path='/weight-tracker' element={<WeightTracker />} />
           <Route exact path='/view-goals' element={<ViewGoals />} />
+          <Route exact path='/update-goal/:id' element={<Setting />} />
 
           <Route exact path='/nutritionHome' element={<NutritionHome />} />
           <Route exact path='/nutritionWeightLoss' element={<NutritionWeightLoss />} />

@@ -49,17 +49,23 @@ public class GoalController {
         return new ResponseEntity<>("Goal deleted successfully", HttpStatus.OK);
     }
 	
-	// @PutMapping("/goal/{id}")
-    // public ResponseEntity<String> updateGoal(@PathVariable int id,@RequestBody Goal goal){
-    //     if (!goalRepository.existsById(id)) {
-    //         return new ResponseEntity<>("Goal not found", HttpStatus.NOT_FOUND);
-    //     }
+	@PutMapping("/goal/{id}")
+    public ResponseEntity<String> updateGoal(@PathVariable int id,@RequestBody Goal goal){
+        if (!goalRepository.existsById(id)) {
+            return new ResponseEntity<>("Goal not found", HttpStatus.NOT_FOUND);
+        }
 
-    //     Goal exGoal = goalRepository.findById(id).get();
+        Goal exGoal = goalRepository.findById(id).get();
         
-    //     exGoal.setApproval(goal.isApproval());
-    //     goalRepository.save(exGoal);
-    //     return new ResponseEntity<>("Goal updated successfully", HttpStatus.OK);
-	// }
+        // exGoal.setApproval(goal.isApproval());
+        exGoal.setGoalName(goal.getGoalName());
+        exGoal.setDate(goal.getDate());
+        exGoal.setDescription(goal.getDescription());
+        exGoal.setDuration(goal.getDuration());
+        exGoal.setTargetWeight(goal.getTargetWeight());
+        
+        goalRepository.save(exGoal);
+        return new ResponseEntity<>("Goal updated successfully", HttpStatus.OK);
+	}
 
 }
