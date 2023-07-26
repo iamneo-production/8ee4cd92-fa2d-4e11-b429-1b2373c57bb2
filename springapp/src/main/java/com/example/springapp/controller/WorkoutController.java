@@ -24,7 +24,7 @@ import com.example.springapp.repository.WorkoutRepository;
 
 
 @RestController
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfdffccbebc.project.examly.io/")
+@CrossOrigin(origins="*")
 public class WorkoutController {
 
 	@Autowired
