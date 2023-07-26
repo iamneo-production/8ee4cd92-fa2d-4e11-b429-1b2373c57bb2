@@ -1,6 +1,9 @@
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {  ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Register from "./users/Register";
 import Login from './users/Login';
 import Dashboard from './pages/Dashboard';
@@ -34,11 +37,14 @@ import NutritionWeightGainPlanFriday from './pages/NutritionWeightLossGain/Nutri
 import NutritionWeightGainPlanSaturday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanSaturday';
 import NutritionWeightGainPlanSunday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanSunday';
 import NutritionWeightGainProgress from './pages/NutritionWeightGainProgress';
+import WeightTracker from './pages/WeightTracker';
+import ViewGoals from './pages/ViewGoals';
 
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer/>
       <Router>
         
         <Routes>
@@ -55,6 +61,9 @@ function App() {
           <Route exact path='/user-dashboard' element={<UserDashboard />} />
           <Route exact path='/WorkoutBase' element={<WorkoutBase />} />
           <Route exact path='/workout-track' element={<WorkoutTrack />} />
+          <Route exact path='/weight-tracker' element={<WeightTracker />} />
+          <Route exact path='/view-goals' element={<ViewGoals />} />
+          <Route exact path='/update-goal/:id' element={<Setting />} />
 
           <Route exact path='/nutritionHome' element={<NutritionHome />} />
           <Route exact path='/nutritionWeightLoss' element={<NutritionWeightLoss />} />
