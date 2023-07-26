@@ -17,6 +17,7 @@ const History = () => {
     duration: '',
     notes: ''
   });
+  
 
   useEffect(() => {
     const fetchWorkoutData = async () => {
@@ -103,14 +104,6 @@ const History = () => {
     }
   };
 
-  const workoutNames = [
-    'Cardiovascular Workouts',
-    'Strength Training',
-    'Flexibility and Mobility',
-    'Group Fitness',
-    'Outdoor Activities',
-    'Mind-Body Exercises'
-  ];
 
   const handleCloseModal = () => {
     setSelectedWorkout(null);

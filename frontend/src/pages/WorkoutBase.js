@@ -106,7 +106,7 @@ const WorkoutBase = () => {
         
       }
       else if (daysDifference > 1) {
-        const res = await axios.put(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": Math.max(strike.maxStrike, currentStrike) });
+        const res = await axios.put(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": Math.max(strike.maxStrike, 1) });
 
       }
       toast.success("yohooo! +1 Strike", {
