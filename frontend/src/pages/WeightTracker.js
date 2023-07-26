@@ -13,7 +13,7 @@ const WeightTracker = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   
     useEffect(()=>{ 
-      axios.get("https://8080-bbbefecfaaefbebfbcddfeaeaadbdbabf.project.examly.io/weights")
+      axios.get("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/weights")
       .then(res=>setWeights(res.data));
         for(let i=0;i<weights.length;i++){
           if(weights[i]['user_id']===user.id){
@@ -37,7 +37,7 @@ const WeightTracker = () => {
     const user_id = user.id;
     const weightItem = {user_id,date,weight};
     console.log(weightItem);
-    axios.post("https://8080-bbbefecfaaefbebfbcddfeaeaadbdbabf.project.examly.io/addWeight",weightItem);
+    axios.post("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/addWeight",weightItem);
 
   };
 

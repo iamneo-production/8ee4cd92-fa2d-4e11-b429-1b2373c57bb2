@@ -1,10 +1,13 @@
-import React, { useState , useEffect } from 'react';
+
+import React, { useState , useEffect} from 'react';
+import { Button, Modal, Form } from 'react-bootstrap';
+import "../style/Setting.css";
 import Navbar from '../layout/Navbar'
-import '../style/Setting.css'
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams,Link} from 'react-router-dom';
 
 const Setting = () => {
+  const [showModal, setShowModal] = useState(false);
   const [goalName, setGoal] = useState('');
   const [description, setDescription] = useState('');
   const [targetWeight, setTargetWeight] = useState(0);
@@ -35,7 +38,7 @@ const Setting = () => {
   const handleSubmit =(e) => {
     e.preventDefault();
     if (goalName.trim() === '' || duration.trim() === '' || targetWeight === 0) {
-      return alert("Please enter valid details..")
+      return alert("Please enter valid details..");
     };
     const user_id = user.id;
     const date = new Date().toISOString().split('T')[0];
@@ -43,13 +46,13 @@ const Setting = () => {
     console.log(goalItem);
     if(id){
       alert("Goal updated Successfully.");
-      axios.put("https://8080-bbbefecfaaefbebfbcddfeaeaadbdbabf.project.examly.io/goal"+"/"+id,goalItem)
+      axios.put("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal"+"/"+id,goalItem)
       .then(navigate("/view-goals"));
     }
     else{
-      alert("Your have created the goal successfully.");
+      alert("Goal Created Successfully.");
       console.log(goalItem);
-      axios.post("https://8080-bbbefecfaaefbebfbcddfeaeaadbdbabf.project.examly.io/goal",goalItem)
+      axios.post("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal",goalItem)
       .then(navigate("/view-goals"));
       setGoal('');
       setDescription('');
@@ -58,20 +61,27 @@ const Setting = () => {
     }
   };
 
+  
+
   useEffect(()=>{
-    axios.get("https://8080-bbbefecfaaefbebfbcddfeaeaadbdbabf.project.examly.io/goal"+"/"+id)
+    axios.get("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal"+"/"+id)
     .then((response) => {
       setGoal(response.data.goalName)
       setDescription(response.data.description)
       setDuration(response.data.duration)
       setTargetWeight(response.data.targetWeight)
+      setShowModal(true)
     }).catch(error => {
             console.log(error)
         })
   },[id])
 
 
+  const handleShowModal = () => setShowModal(true);
 
+  const handleCloseModal = () => setShowModal(false);
+
+ 
   return (
     <>
     <div>
@@ -79,8 +89,28 @@ const Setting = () => {
         <Navbar />
       </header>
     </div>
-    <div className="fitness-goal-container">
-      <h2>Add Fitness Goal</h2>
+    <div class="card text-white bg-secondary mb-3 " style={{width:1150,marginLeft:50,height:500,marginTop:20}}>
+    <div className='main'>
+        <div className='goalButton'>
+            <h3>Set Your Goal</h3>
+            <p className='text-white'>"Your only competition is the person you <br/> were yesterday."</p>
+            <Button variant="primary" onClick={handleShowModal} >
+                  Add Goal
+            </Button>
+        <br/>
+
+            <Link to={"/view-goals"} className="btn btn-info" role="button" style={{marginTop:20}}>
+              View Goals
+            </Link>
+      
+        </div>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Fitness Goal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <div className="fitness-goal-container">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Goal:</label>
@@ -128,14 +158,20 @@ const Setting = () => {
             value={targetWeight}
             onChange={handleTargetWeightChange}
             className='form-tex'
-          /></div>
+          />
+          </div>
         </div>
-        <button type="submit" className="btn btn-primary">Add Goal</button>
+        <button type="submit" className="button">Add Goal</button>
       </form>
+    </div>
+        </Modal.Body>
+      </Modal>
+    </div>
     </div>
     </>
   );
 };
+
 
 export default Setting;
 
