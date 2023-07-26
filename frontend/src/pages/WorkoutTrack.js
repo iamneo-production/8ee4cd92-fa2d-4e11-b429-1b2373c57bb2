@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, useCallback } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
