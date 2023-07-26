@@ -1,0 +1,67 @@
+.main{
+    background-image: url("/home/coder/project/workspace/frontend/src/assets/img/image1.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+.goalButton{
+    padding-top: 200px;
+    margin-left: 800px;
+}
+
+h3{
+   font-family:cursive;
+   font-weight:500;
+   font-size:25px;
+}
+.fitness-goal-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 30px;
+    border: 1px solid #b78a8a;
+    border-radius: 6px;
+  }
+  
+.form-group {
+    margin-bottom: 10px;
+    padding-left: 25px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    font-size: 18px
+  }
+  
+.button {
+    background-color: #3167fa;
+    color: white;
+
+    border: none;
+    padding: 8px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin-left: 100px;
+    }
+  
+ .drop-down{
+    height: 40px;
+    width: 300px;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .form-mem{
+    padding-left:27px
+  }
+  
+  
+  .form-tex{
+    height: 40px;
+    width: 300px;
+    display: block;
+  }
+  
+  .form-con{
+    padding-bottom: 10px;
+  }

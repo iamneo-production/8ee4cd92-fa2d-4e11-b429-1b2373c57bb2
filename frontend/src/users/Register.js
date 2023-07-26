@@ -18,6 +18,7 @@ const Register = () => {
     weight: "",
     age: "",
     gender: "",
+    role:"USER"
   });
 
   const [pass, setPass] = useState({
@@ -52,16 +53,29 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     if (validated) {
-      axios.post(`${api}user/register`, user).then((r)=>{
+      document.getElementById("error").hidden = true;
+      console.log(user)
+      axios.post(`${api}user/register`, user).then((res)=>{
         toast.success("Registration Successful")
       navigate("/Login");
       })
-      .catch((e)=>{
+      .catch((err)=>{
+        console.log(err)
         toast.error("Registration Failed")
       })
+
+    }
+    else {
+      document.getElementById("error").hidden = false;
     }
     
   }
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
   const validate = (e) => {
     var p = e.target.value
     
@@ -80,8 +94,8 @@ const Register = () => {
       }
     }
     else if (e.target.name === 'email') {
-      var passw1 = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (p.match(passw1)) {
+      console.log(isValidEmail(p))
+      if (isValidEmail(p)) {
         document.getElementById("emailerror").hidden = true;
         document.getElementById("email").classList.remove('is-invalid');
         document.getElementById("email").classList.add('is-valid');
@@ -149,7 +163,7 @@ const Register = () => {
                   onChange={(e) => { onInputChange(e); validate(e) }}
                   required
                 />
-                <div id='emailerror' className='emailerror' style={{ fontSize: '12px', color: 'red' }} hidden={true}>Password enter a valid email address ! </div>
+                <div id='emailerror' className='emailerror' style={{ fontSize: '12px', color: 'red' }} hidden={true}>Please Enter a valid email address ! </div>
 
               </div>
 
@@ -250,6 +264,10 @@ const Register = () => {
                   required
 
                 />
+              </div>
+
+              <div id='error' className='erro' style={{ fontSize: '15px', color: 'red' }} hidden={true}>
+                Please complete all the sections to register !
               </div>
 
               <button type="submit" className="btn btn-outline-primary">
