@@ -18,7 +18,7 @@ import com.example.springapp.model.Goal;
 import com.example.springapp.repository.GoalRepository;
 
 @RestController
-@CrossOrigin("https://8081-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/")
+@CrossOrigin("*")
 public class GoalController {
 	
 	@Autowired
