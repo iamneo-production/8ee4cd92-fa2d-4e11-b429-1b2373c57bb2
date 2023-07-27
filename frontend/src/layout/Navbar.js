@@ -34,7 +34,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    toast.warning("LogOut Successful")// Show the toast message
+    toast.success("LogOut Successful")// Show the toast message
     navigate('/');
   };
   const renderAvatar = () => {

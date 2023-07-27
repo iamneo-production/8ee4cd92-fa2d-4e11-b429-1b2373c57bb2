@@ -14,7 +14,7 @@ import com.example.springapp.model.WeightEntity;
 import com.example.springapp.repository.WeightRepository;
 
 @RestController
-@CrossOrigin("https://8081-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/")
+@CrossOrigin("*")
 public class WeightController {
 	
 	@Autowired

@@ -5,6 +5,8 @@ import "../style/Setting.css";
 import Navbar from '../layout/Navbar'
 import axios from 'axios';
 import { useNavigate, useParams,Link} from 'react-router-dom';
+import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
 
 const Setting = () => {
   const [showModal, setShowModal] = useState(false);
@@ -38,21 +40,21 @@ const Setting = () => {
   const handleSubmit =(e) => {
     e.preventDefault();
     if (goalName.trim() === '' || duration.trim() === '' || targetWeight === 0) {
-      return alert("Please enter valid details..");
+      return toast.error("Please enter valid details..");
     };
     const user_id = user.id;
     const date = new Date().toISOString().split('T')[0];
     const goalItem = {date,description,duration,goalName,user_id,targetWeight};
     console.log(goalItem);
     if(id){
-      alert("Goal updated Successfully.");
-      axios.put("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal"+"/"+id,goalItem)
+      toast.success("Goal updated Successfully.");
+      axios.put(`${api}goal/${id}`,goalItem)
       .then(navigate("/view-goals"));
     }
     else{
-      alert("Goal Created Successfully.");
+      toast.success("Goal Created Successfully.");
       console.log(goalItem);
-      axios.post("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal",goalItem)
+      axios.post(`${api}goal`,goalItem)
       .then(navigate("/view-goals"));
       setGoal('');
       setDescription('');
@@ -64,7 +66,7 @@ const Setting = () => {
   
 
   useEffect(()=>{
-    axios.get("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal"+"/"+id)
+    axios.get(`${api}goal/${id}`)
     .then((response) => {
       setGoal(response.data.goalName)
       setDescription(response.data.description)

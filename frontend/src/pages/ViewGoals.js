@@ -3,6 +3,8 @@ import axios from 'axios';
 import Navbar from '../layout/Navbar';
 import { Link } from 'react-router-dom';
 import '../pages/ViewGoals.css'
+import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
 
 
 const ViewGoals = () => {
@@ -17,7 +19,7 @@ const ViewGoals = () => {
   console.log(user);
 
   useEffect(()=>{
-    axios.get("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goals")
+    axios.get(`${api}goals`)
       .then(res=>setGoals(res.data));
   },[])
 
@@ -38,8 +40,9 @@ const ViewGoals = () => {
   
   const handleRemoveGoal = async (goalId) => {
     try {
-      const response = await axios.delete(`https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal/${goalId}`
+      const response = await axios.delete(`${api}goal/${goalId}`
       );
+      toast.warning("Goal Removed !")
       if (response.status===200) {
         const updatedGoals = goals.filter((goal) => goal.id !== goalId);
         setGoals(updatedGoals);
