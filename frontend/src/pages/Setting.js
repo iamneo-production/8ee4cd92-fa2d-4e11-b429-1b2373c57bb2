@@ -4,6 +4,7 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import "../style/Setting.css";
 import Navbar from '../layout/Navbar'
 import axios from 'axios';
+import { api } from '../APIConnect';
 import { useNavigate, useParams,Link} from 'react-router-dom';
 
 const Setting = () => {
@@ -46,13 +47,13 @@ const Setting = () => {
     console.log(goalItem);
     if(id){
       alert("Goal updated Successfully.");
-      axios.put("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal"+"/"+id,goalItem)
+      axios.put(`${api}goal/${id}`,goalItem)
       .then(navigate("/view-goals"));
     }
     else{
       alert("Goal Created Successfully.");
       console.log(goalItem);
-      axios.post("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal",goalItem)
+      axios.post(`${api}goal`,goalItem)
       .then(navigate("/view-goals"));
       setGoal('');
       setDescription('');
@@ -64,7 +65,7 @@ const Setting = () => {
   
 
   useEffect(()=>{
-    axios.get("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal"+"/"+id)
+    axios.get(`${api}goal/${id}`)
     .then((response) => {
       setGoal(response.data.goalName)
       setDescription(response.data.description)
