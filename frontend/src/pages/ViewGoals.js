@@ -9,35 +9,23 @@ import { toast } from 'react-toastify';
 
 const ViewGoals = () => {
   const [goals, setGoals] = useState([]);
-  const updatedGoals=[];
   let currentGoal={};
 
   const user = JSON.parse(localStorage.getItem('user'));
 
-  // const user = {id:1};
-
   console.log(user);
 
   useEffect(()=>{
-    axios.get(`${api}goals`)
+    axios.get(`${api}goals/${user.id}`)
       .then(res=>setGoals(res.data));
   },[])
 
-  for(let i=0;i<goals.length;i++){
-    if(goals[i]['user_id']===user.id ){
-      updatedGoals.push(goals[i]);
-    }
-  }
 
-  if(updatedGoals.length>0){
-    currentGoal = updatedGoals[updatedGoals.length-1];
-    console.log(currentGoal);
+  if(goals.length>0){
+    currentGoal = goals[goals.length-1];
   }
   
 
-  console.log(currentGoal);
-
-  
   const handleRemoveGoal = async (goalId) => {
     try {
       const response = await axios.delete(`${api}goal/${goalId}`
@@ -62,6 +50,19 @@ const ViewGoals = () => {
     return daysLeft;
   }
 
+  const handleChangeStatus = async (id) => {
+    try {
+      await axios.put(`${api}goalStatus/${id}`, { status: "completed" }); 
+      setGoals((prevEntities) =>
+        prevEntities.map((entity) =>
+          entity.id === id ? { ...entity, status: "completed" } : entity
+        )
+      );
+    } catch (error) {
+      console.error('Error changing status', error);
+    }
+  };
+
   
 
   return (
@@ -69,7 +70,7 @@ const ViewGoals = () => {
     <div style={{marginBottom:40}}>
       <Navbar />
     </div>
-    {Object.keys(currentGoal).length === 0 ? (
+    {goals.length === 0 || currentGoal.status === 'completed' ? (
       <>
       <h5>Please set a goal.</h5>
       <Link to={"/goal-setting"} className="btn btn-success">Set your goal</Link>
@@ -97,7 +98,7 @@ const ViewGoals = () => {
     </div>
 
     <div className="container">
-      {updatedGoals.length === 0 ? (
+      {goals.length === 0 ? (
         <p> </p>
       ) : (
         <>
@@ -112,11 +113,12 @@ const ViewGoals = () => {
             <th scope="col">Duration</th>
             <th scope="col">Target Weight</th>
             <th scope="col">Days Left</th>
+            <th scope='col'>Status</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
-          {updatedGoals.map((goal,index)=>(
+          {goals.map((goal,index)=>(
             <tr>
               <th scope="row">{index+1}</th>
               <td>{goal.goalName}</td>
@@ -125,10 +127,14 @@ const ViewGoals = () => {
               <td>{goal.duration}</td>
               <td>{goal.targetWeight}</td>
               <td>{handleDaysLeft(goal)}</td>
+              <td>{goal.status}</td>
               <td>
-                <Link to={`/update-goal/${goal.id}`} className="btn btn-info" role="button">update</Link>
-                <button onClick={() => handleRemoveGoal(goal.id)} className="btn btn-danger">remove</button>
-              </td>
+              {goal.status === 'completed' ? (
+                <span style={{ color: 'green' }}>&#10004;</span> 
+              ) : (
+                <button onClick={() => handleChangeStatus(goal.id)} className="btn btn-success" disabled={goal.status === 'completed'}>completed</button>
+              )}
+            </td>
             </tr>
           ))}
         </tbody>
