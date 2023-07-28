@@ -1,6 +1,5 @@
-
 import React, { useState , useEffect} from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal} from 'react-bootstrap';
 import "../style/Setting.css";
 import Navbar from '../layout/Navbar'
 import axios from 'axios';
@@ -14,6 +13,7 @@ const Setting = () => {
   const [description, setDescription] = useState('');
   const [targetWeight, setTargetWeight] = useState(0);
   const [duration, setDuration] = useState('');
+  const [goals,setGoals] = useState([]);
 
   const {id} = useParams();
 
@@ -37,14 +37,28 @@ const Setting = () => {
     setTargetWeight(e.target.value);
   };
 
+  useEffect(() => {
+    fetchGoals();
+  }, []);
+
+  const fetchGoals = async () => {
+    try {
+      const response = await axios.get(`${api}goals/${user.id}`);
+      setGoals(response.data);
+      console.log(goals);
+    } catch (error) {
+      console.error('Error fetching goals:', error);
+    }
+  };
+
   const handleSubmit =(e) => {
     e.preventDefault();
     if (goalName.trim() === '' || duration.trim() === '' || targetWeight === 0) {
       return toast.error("Please enter valid details..");
     };
-    const user_id = user.id;
+    const userId = user.id;
     const date = new Date().toISOString().split('T')[0];
-    const goalItem = {date,description,duration,goalName,user_id,targetWeight};
+    const goalItem = {date,description,duration,goalName,userId,targetWeight};
     console.log(goalItem);
     if(id){
       toast.success("Goal updated Successfully.");
@@ -52,16 +66,22 @@ const Setting = () => {
       .then(navigate("/view-goals"));
     }
     else{
-      toast.success("Goal Created Successfully.");
-      console.log(goalItem);
-      axios.post(`${api}goal`,goalItem)
-      .then(navigate("/view-goals"));
-      setGoal('');
-      setDescription('');
-      setDuration('');
-      setTargetWeight(0);
-    }
-  };
+        const lastGoal = goals[goals.length - 1];
+        if (lastGoal && lastGoal.status === 'pending') {
+            toast.error("please complete the current goal")
+            navigate("/view-goals")
+        }
+        else{
+          axios.post(`${api}goal`,goalItem)
+          .then(navigate("/view-goals"));
+          setGoal('');
+          setDescription('');
+          setDuration('');
+          setTargetWeight(0);
+        }
+      }
+  }
+  
 
   
 
