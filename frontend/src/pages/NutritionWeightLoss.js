@@ -5,6 +5,7 @@ import "./NutritionRecommandation.css";
 import {useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { api } from '../APIConnect';
+import { toast } from "react-toastify";
 
 const NutritionWeightLoss = () => {
   const morningFoodData = [
@@ -220,10 +221,10 @@ const NutritionWeightLoss = () => {
 
   let calories = 0;
   if (user.gender == "male") {
-    calories = 66 + 6.2 * user.weight + 12.7 * user.height - 6.76 * user.age;
+    calories = 66 + 6.2 * parseInt(user.weight) + 12.7 * parseInt(user.height) - 6.76 * user.age;
     calories = Math.round(calories) - 800;
   } else if (user.gender == "female") {
-    calories = 655.1 + 4.35 * user.weight + 4.7 * user.height - 4.7 * user.age;
+    calories = 655.1 + 4.35 * parseInt(user.weight) + 4.7 * parseInt(user.height) - 4.7 * user.age;
     calories = Math.round(calories) - 800;
   }
 
@@ -310,7 +311,7 @@ const NutritionWeightLoss = () => {
       );
 
 
-      alert("Nutrition Added Successfully");
+      toast.success("Nutrition Added Successfully");
     } catch (error) {
       console.error(error);
     }
@@ -323,7 +324,7 @@ const NutritionWeightLoss = () => {
   const handleWaterPlus = () =>{
     setWater(prevState => prevState + 1);
     if(water == 9){
-      alert("Congrats!!! Water level reached")
+      toast("Congrats!!! Water level reached")
     }
   
   }

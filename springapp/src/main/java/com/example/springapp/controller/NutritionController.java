@@ -22,7 +22,7 @@ import com.example.springapp.repository.NutritionRepository;
 import com.example.springapp.repository.UserRepository;
 
 @RestController
-@CrossOrigin(origins="https://8081-ccbabedeadacabdffefbebfbcddfeaeaadbdbabf.project.examly.io/")
+@CrossOrigin(origins="*")
 public class NutritionController {
 
     @Autowired
