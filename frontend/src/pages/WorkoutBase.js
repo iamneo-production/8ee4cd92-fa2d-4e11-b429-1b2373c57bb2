@@ -91,8 +91,8 @@ const WorkoutBase = () => {
     const response = await axios.get(`${api}strike/${uid}`);
     var strike=response.data
     console.log(strike)
-    if(getDaysDifference(response.data.previousDate, today)!=0){
-    if (strike == "") {
+    if(getDaysDifference(response.data.previousDate, today)!==0){
+    if (strike === "") {
       const res = await axios.post(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": 1 });
       toast.success("yohooo! +1 Strike", {
         icon:{picstrike}

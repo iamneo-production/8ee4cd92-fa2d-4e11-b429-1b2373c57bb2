@@ -34,7 +34,7 @@ const NutritionHome = () => {
         <div className='row'>
 
           <Card className="text-black">
-            <Card.Img style={{ height: '100%',width: '100%'}} src={Jogging} alt="Card image" />
+            <Card.Img style={{ height: '100%',width: '50%'}} src={Jogging} alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>Fat Burner Section</Card.Title>
               <Card.Text style={{ fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>
@@ -49,7 +49,7 @@ const NutritionHome = () => {
         </div>
         <div className='row'>
           <Card className="text-black">
-            <Card.Img src={MuscleGain} alt="Card image" />
+            <Card.Img style={{ height: '100%',width: '50%', marginLeft: 'auto'}} src={MuscleGain} alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>Muscle Gainer</Card.Title>
               <Card.Text style={{ fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>

@@ -119,7 +119,7 @@ const History = () => {
 
   return (
     <div>
-      <header>
+      <header style={{ marginTop: "10px" }} >
         <Navbar />
       </header>
 
