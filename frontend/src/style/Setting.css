@@ -62,5 +62,5 @@ h3{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 75vh; /* If you want the card to take up the full viewport height */
+    /* If you want the card to take up the full viewport height */
   }
