@@ -20,8 +20,6 @@ function getDaysDifference(dateString1, dateString2) {
 }
 
 
-let exercise_list = {
-}
 
 function Tracking() {
     const [addExerciseModelShow, setAddExerciseModelShow] = useState(false);
@@ -142,7 +140,7 @@ function Tracking() {
     const response = await axios.get(`${api}strike/${uid}`);
     var strike=response.data
     console.log(strike)
-    if (strike == "") {
+    if (strike === "") {
       const res = await axios.post(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": 1 });
       toast.success("yohooo! +1 Strike", {
         icon:{picstrike}

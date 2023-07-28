@@ -10,6 +10,7 @@ import Card from 'react-bootstrap/Card';
 import pic1 from '../assets/img/dumbbell.png'
 import pic2 from '../assets/img/muscle.png'
 import pic3 from '../assets/img/flash.png'
+import pic4 from '../assets/img/competition.png'
 import {api} from "../APIConnect"
 
 
@@ -23,6 +24,8 @@ const WorkoutTrack = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const [currentStrike,setCurrnentStrike]=useState();
   const [maxStrike,setMaxStrike]=useState();
+  const [goal,setGoal]=useState("No Goals");
+  const [dayLeft, setDayLeft]=useState(0);
 
   let workoutsByCategory = {};
   let chartColors = [];
@@ -45,6 +48,7 @@ const WorkoutTrack = () => {
   useEffect(() => {
     fetchWorkouts();
     checkStrike();
+    fetchGoalData();
     const date = new Date();
     const hour = date.getHours();
     if (hour >= 5 && hour < 12) {
@@ -60,6 +64,36 @@ const WorkoutTrack = () => {
     const data = extractWeeklyGroupFitnessData(workouts);
     setWeeklyData(data);
   }, [workouts, selectedExercise, extractWeeklyGroupFitnessData]);
+
+  const fetchGoalData=async()=>{
+    try{
+      console.log("fatching...")
+      const response = await axios.get(`${api}goals/${user.id}`)
+      console.log(response.data)
+      response.data.map((item)=>{
+        if(item.status==='pending'){
+          console.log("in map",item)
+          setGoal(item.goalName)
+          setDayLeft(handleDaysLeft(item))
+          return 1
+        }
+      })
+
+
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
+
+  const handleDaysLeft =(goal)=>{
+    const endDate = new Date(goal.date);
+    endDate.setDate(endDate.getDate() + (parseInt(goal.duration)*28));
+    const currentDate = new Date();
+    const daysLeft = Math.ceil((endDate - currentDate) / (1000 * 60 * 60 * 24));
+    console.log(daysLeft)
+    return daysLeft;
+  }
 
   const fetchWorkouts = async () => {
     try {
@@ -176,14 +210,14 @@ const WorkoutTrack = () => {
             <Card style={{ width: '18rem', backgroundColor: "#74b9ff" }}
             >
               <Card.Body>
-                <img width="20%" alt="logo" src={pic1}></img>
-                <Card.Title>Total Workouts </Card.Title>
+                <img width="20%" alt="logo" src={pic4}></img>
+                <Card.Title>Pending Goals</Card.Title>
                 <Card.Text>
-                  324
+                  {goal}
                 </Card.Text>
-                <Card.Title>Total Exercises</Card.Title>
+                <Card.Title>Days Left</Card.Title>
                 <Card.Text>
-                  32
+                  {dayLeft}
                 </Card.Text>
               </Card.Body>
             </Card>
