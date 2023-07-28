@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
@@ -12,7 +12,8 @@ import { useNavigate } from 'react-router-dom';
 
 const NutritionHome = () => {
   
-
+  const [modalShow, setModalShow] = React.useState(false);
+  const [lgShow, setLgShow] = useState(false);
 
   let navigate = useNavigate();
 
