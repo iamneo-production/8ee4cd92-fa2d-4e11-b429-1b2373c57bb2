@@ -112,12 +112,14 @@ const Setting = () => {
  
   return (
     <>
-    <div>
+    <div >
       <header>
         <Navbar />
       </header>
     </div>
-    <div  class="card text-white bg-secondary mb-3 " style={{width:1150,marginLeft:200,height:500,marginTop:20}}>
+
+    <div className='container card-container'>
+    <div  class="card text-white bg-secondary mb-3 " style={{width:1150,alignItem:'center',height:500}}>
     <div className='main'>
         <div className='goalButton'>
             <h3>Set Your Goal</h3>
@@ -195,6 +197,7 @@ const Setting = () => {
     </div>
         </Modal.Body>
       </Modal>
+    </div>
     </div>
     </div>
     </>
