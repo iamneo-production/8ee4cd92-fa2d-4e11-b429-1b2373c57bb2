@@ -241,9 +241,9 @@ const WorkoutTrack = () => {
   return (
     <>
       <div className='container'>
-        <header>
-          <Navbar />
-        </header>
+      <header style={{ marginTop: "10px" }} >
+        <Navbar />
+      </header>
         <div className='maindiv'>
           <div className='greet'>
             {greeting}, {user.name} :)
