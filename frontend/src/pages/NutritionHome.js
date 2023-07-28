@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Jogging from "../assets/img/jogging.jpg";
 import MuscleGain from "../assets/img/muscleGain.jpg"
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 
 const NutritionHome = () => {
-  
-  const [modalShow, setModalShow] = React.useState(false);
-  const [lgShow, setLgShow] = useState(false);
+
 
   let navigate = useNavigate();
 

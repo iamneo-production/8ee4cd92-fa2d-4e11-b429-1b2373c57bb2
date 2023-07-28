@@ -66,8 +66,14 @@ const Setting = () => {
       .then(navigate("/view-goals"));
     }
     else{
-        const lastGoal = goals[goals.length - 1];
-        if (lastGoal && lastGoal.status === 'pending') {
+        var lastGoal = false 
+        const check = goals.map((item)=>{
+          if(item.status=='pending'){
+            lastGoal=true
+            return true
+          }
+        })
+        if (lastGoal) {
             toast.error("please complete the current goal")
             navigate("/view-goals")
         }

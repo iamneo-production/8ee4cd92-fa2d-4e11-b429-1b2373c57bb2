@@ -68,10 +68,31 @@ const WorkoutTrack = () => {
   const fetchGoalData=async()=>{
     try{
       console.log("fatching...")
+      const response = await axios.get(`${api}goals/${user.id}`)
+      console.log(response.data)
+      response.data.map((item)=>{
+        if(item.status==='pending'){
+          console.log("in map",item)
+          setGoal(item.goalName)
+          setDayLeft(handleDaysLeft(item))
+          return 1
+        }
+      })
+
+
     }
     catch(error){
       console.log(error)
     }
+  }
+
+  const handleDaysLeft =(goal)=>{
+    const endDate = new Date(goal.date);
+    endDate.setDate(endDate.getDate() + (parseInt(goal.duration)*28));
+    const currentDate = new Date();
+    const daysLeft = Math.ceil((endDate - currentDate) / (1000 * 60 * 60 * 24));
+    console.log(daysLeft)
+    return daysLeft;
   }
 
   const fetchWorkouts = async () => {
@@ -190,7 +211,7 @@ const WorkoutTrack = () => {
             >
               <Card.Body>
                 <img width="20%" alt="logo" src={pic4}></img>
-                <Card.Title>Pending Goal</Card.Title>
+                <Card.Title>Pending Goals</Card.Title>
                 <Card.Text>
                   {goal}
                 </Card.Text>
