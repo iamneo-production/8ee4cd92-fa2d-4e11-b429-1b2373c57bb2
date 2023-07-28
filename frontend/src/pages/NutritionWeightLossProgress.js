@@ -1,12 +1,12 @@
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../layout/Navbar";
 import { api } from '../APIConnect';
 
 import "./NutritionRecommandation.css";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Button, Card, Modal, Table } from "react-bootstrap";
+import {Table } from "react-bootstrap";
 
 const NutritionWeightLossProgress = () => {
   const [showTable, setShowTable] = React.useState(false);
@@ -14,8 +14,7 @@ const NutritionWeightLossProgress = () => {
   const [date, setDate] = React.useState(null);
 
   const user = JSON.parse(localStorage.getItem("user"));
-  let navigate = useNavigate();
-  let work = [];
+  
 
   const handleDateChange = (e) => {
     setDate(e.target.value);
@@ -24,7 +23,7 @@ const NutritionWeightLossProgress = () => {
 
   const handleTrack = async() => {
     setShowTable(true);
-    console.log(date);
+
     await axios.get(`${api}nutritionWeightloss/${user.id}/${date}/read`)
       .then((res) => {
         setDietProgress(res.data);
@@ -54,7 +53,7 @@ const NutritionWeightLossProgress = () => {
       .get(`${api}nutritionWeightlossWeek/${user.id}/
       ${week[0]}/${week[1]}/${week[2]}/${week[3]}/${week[4]}/${week[5]}/${week[6]}/read`)
       .then((res) => {
-        console.log(res.data);
+        
         setDietProgress(res.data);
       })
       .catch((err) => console.log(err));
