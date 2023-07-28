@@ -21,7 +21,7 @@ import com.example.springapp.model.Set;
 import com.example.springapp.repository.ExerciseRepository;
 import com.example.springapp.repository.SetRepository;
 
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfdffccbebc.project.examly.io/")
+@CrossOrigin(origins="*")
 @RestController
 public class ExerciseController {
 
