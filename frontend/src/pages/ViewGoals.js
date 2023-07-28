@@ -76,7 +76,7 @@ const ViewGoals = () => {
       <Link to={"/goal-setting"} className="btn btn-success">Set your goal</Link>
       </>
     ):(
-      <div className="card text-white bg-secondary mb-3 " style={{width:400,marginLeft:430}} >
+      <div className="card text-white bg-secondary mb-3 " style={{width:700,marginLeft:430}} >
         <div className='card-body'>
           <h3 className="card-title">Current Goal</h3>
           <div className='body' >
