@@ -1,46 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../layout/Navbar";
 import Modal from "react-bootstrap/Modal";
 import "./NutritionRecommandation.css";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { api } from '../APIConnect';
+import { toast } from "react-toastify";
 
 const NutritionWeightLoss = () => {
   const morningFoodData = [
     {
       food: "Boiled Egg (1 cup)",
-      calories: 200,
+      calories: 220,
       id: "boiledEgg",
     },
     {
       food: "Brown Bread (4 slices)",
-      calories: 220,
+      calories: 350,
       id: "brownBread",
     },
     {
       food: "Roti/Chappathi (3 pieces)",
-      calories: 250,
+      calories: 300,
       id: "roti/chappathi",
     },
     {
       food: "Idli (3 pieces)",
-      calories: 190,
+      calories: 130,
       id: "idli",
     },
     {
       food: "Ripe Bananas (3 pieces)",
-      calories: 230,
+      calories: 300,
       id: "ripeBanana",
     },
     {
       food: "Oat Meal (1 cup)",
-      calories: 300,
+      calories: 400,
       id: "oatMeal",
     },
     {
       food: "Upma with Vegetables (1 cup)",
-      calories: 180,
+      calories: 250,
       id: "upmaVegetables",
     },
   ];
@@ -48,37 +49,37 @@ const NutritionWeightLoss = () => {
   const morningMidFoodData = [
     {
       food: "Roasted Chickpeas",
-      calories: 200,
+      calories: 150,
       id: "rostedChickpeas",
     },
     {
       food: "Fruit Salad (1 cup)",
-      calories: 220,
+      calories: 100,
       id: "fruitSalad",
     },
     {
       food: "Sprouted Moong (1 cup)",
-      calories: 250,
+      calories: 120,
       id: "sproutedMoong",
     },
     {
       food: "Water Melon (1cup)",
-      calories: 190,
+      calories: 60,
       id: "watermelon",
     },
     {
       food: "Roasted Peanuts",
-      calories: 230,
+      calories: 170,
       id: "peanunts",
     },
     {
       food: "Chopped cucumber (1cup)",
-      calories: 300,
+      calories:50,
       id: "cucumber",
     },
     {
       food: "Nuts And Seeds (1cup)",
-      calories: 180,
+      calories: 160,
       id: "nuts",
     },
   ];
@@ -86,37 +87,37 @@ const NutritionWeightLoss = () => {
   const lunchFoodData = [
     {
       food: "Spinach Daal and brown rice",
-      calories: 200,
+      calories: 350,
       id: "spinachDaal",
     },
     {
       food: "Grilled Chicken",
-      calories: 220,
+      calories: 400,
       id: "grilledChicken",
     },
     {
       food: "Grilled Fish",
-      calories: 250,
+      calories: 360,
       id: "grilledFish",
     },
     {
       food: "Vegetable Salad",
-      calories: 190,
+      calories: 300,
       id: "vegetableSalad",
     },
     {
       food: "Grilled Panner and rice",
-      calories: 300,
+      calories: 400,
       id: "grilledPanner",
     },
     {
       food: "Soya Chunks and rice",
-      calories: 180,
+      calories: 350,
       id: "soyaChunks",
     },
     {
       food: "Vegtable Briyani",
-      calories: 230,
+      calories: 370,
       id: "vegtableBriyani",
     },
   ];
@@ -124,37 +125,37 @@ const NutritionWeightLoss = () => {
   const eveningFoodData = [
     {
       food: "Fruit Salad",
-      calories: 200,
+      calories: 70,
       id: "fruitSalad",
     },
     {
       food: "Vegetable soup (1cup)",
-      calories: 220,
+      calories: 80,
       id: "vegetableSoup",
     },
     {
       food: "Roasted makhana (foxnuts)",
-      calories: 250,
+      calories: 120,
       id: "roastedMakhana",
     },
     {
       food: "Greek yogurt (1 cup)",
-      calories: 190,
+      calories: 60,
       id: "greenYogurt",
     },
     {
       food: "Cucumber and Carrot Slices",
-      calories: 300,
+      calories: 70,
       id: "cucumberCarrot",
     },
     {
       food: "Moong Dal (1 small cup)",
-      calories: 180,
+      calories: 120,
       id: "moongDal",
     },
     {
       food: "Sprouted Green Gram (1 small cup)",
-      calories: 230,
+      calories: 50,
       id: "greenGram",
     },
   ];
@@ -172,12 +173,12 @@ const NutritionWeightLoss = () => {
     },
     {
       food: "Vegetable Khichdi",
-      calories: 250,
+      calories: 300,
       id: "vegetableKhichdi",
     },
     {
       food: "Egg Curry",
-      calories: 190,
+      calories: 200,
       id: "eggCurry",
     },
     {
@@ -187,12 +188,12 @@ const NutritionWeightLoss = () => {
     },
     {
       food: "Oat Meal (1 cup)",
-      calories: 180,
+      calories: 200,
       id: "oatMeal",
     },
     {
       food: "Egg Dosa (3 pieces)",
-      calories: 230,
+      calories: 250,
       id: "eggDosa",
     },
   ];
@@ -220,11 +221,11 @@ const NutritionWeightLoss = () => {
 
   let calories = 0;
   if (user.gender == "male") {
-    calories = 66 + 6.2 * user.weight + 12.7 * user.height - 6.76 * user.age;
-    calories = Math.round(calories);
+    calories = 66 + 6.2 * parseInt(user.weight) + 12.7 * parseInt(user.height) - 6.76 * user.age;
+    calories = Math.round(calories) - 800;
   } else if (user.gender == "female") {
-    calories = 655.1 + 4.35 * user.weight + 4.7 * user.height - 4.7 * user.age;
-    calories = Math.round(calories);
+    calories = 655.1 + 4.35 * parseInt(user.weight) + 4.7 * parseInt(user.height) - 4.7 * user.age;
+    calories = Math.round(calories) - 800;
   }
 
   const dietProgressPopup = () => {
@@ -288,7 +289,7 @@ const NutritionWeightLoss = () => {
     
 
     const dietDetail = {
-      date: "2023-06-26",
+      date: res,
       breakfast: diet.morningMeal.food,
       breakfast_calories: diet.morningMeal.calories,
       mid_morning_snack: diet.morningSnack.food,
@@ -304,14 +305,13 @@ const NutritionWeightLoss = () => {
     };
 
     try {
-      console.log(dietDetail);
-      console.log(final);
+      
       const response = await axios.post(`${api}nutritionWeightloss/${user.id}/insert`,
         dietDetail
       );
 
 
-      alert("Nutrition Added Successfully");
+      toast.success("Nutrition Added Successfully");
     } catch (error) {
       console.error(error);
     }
@@ -324,7 +324,7 @@ const NutritionWeightLoss = () => {
   const handleWaterPlus = () =>{
     setWater(prevState => prevState + 1);
     if(water == 9){
-      alert("Congrats!!! Water level reached")
+      toast("Congrats!!! Water level reached")
     }
   
   }

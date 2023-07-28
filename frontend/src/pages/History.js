@@ -4,6 +4,7 @@ import axios from 'axios';
 import './History.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
 
 const History = () => {
   const [workoutData, setWorkoutData] = useState([]);
@@ -17,6 +18,7 @@ const History = () => {
     duration: '',
     notes: ''
   });
+  
 
   useEffect(() => {
     const fetchWorkoutData = async () => {
@@ -75,11 +77,11 @@ const History = () => {
         setFilteredData(updatedFilteredData);
 
         console.log(`Workout with ID ${workoutId} deleted successfully. Status: ${res.status}`);
-        alert('Workout deleted successfully');
+        toast.warning('Workout deleted successfully..');
       })
       .catch((err) => {
         console.log(err);
-        alert('An error occurred while deleting the workout');
+        toast.error('An error occurred while deleting the workout');
       });
   };
 
@@ -96,21 +98,13 @@ const History = () => {
       );
       setWorkoutData(updatedWorkoutData);
       localStorage.setItem('workoutData', JSON.stringify(updatedWorkoutData));
-      alert('Workout Updated Successfully');
+      toast.success('Workout Updated Successfully');
       handleCloseModal();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const workoutNames = [
-    'Cardiovascular Workouts',
-    'Strength Training',
-    'Flexibility and Mobility',
-    'Group Fitness',
-    'Outdoor Activities',
-    'Mind-Body Exercises'
-  ];
 
   const handleCloseModal = () => {
     setSelectedWorkout(null);
@@ -125,7 +119,7 @@ const History = () => {
 
   return (
     <div>
-      <header>
+      <header style={{ marginTop: "10px" }} >
         <Navbar />
       </header>
 
