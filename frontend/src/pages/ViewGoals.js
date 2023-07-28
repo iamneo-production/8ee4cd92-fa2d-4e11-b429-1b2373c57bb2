@@ -69,14 +69,15 @@ const ViewGoals = () => {
     <>
     <div style={{marginBottom:40}}>
       <Navbar />
-    </div>
+    </div >
     {goals.length === 0 || currentGoal.status === 'completed' ? (
       <>
       <h5>Please set a goal.</h5>
       <Link to={"/goal-setting"} className="btn btn-success">Set your goal</Link>
       </>
     ):(
-      <div className="card text-white bg-secondary mb-3 " style={{width:700,marginLeft:430}} >
+      <div className="card-container">
+      <div className="card text-white bg-secondary mb-3 " style={{width:500}} >
         <div className='card-body'>
           <h3 className="card-title">Current Goal</h3>
           <div className='body' >
@@ -89,6 +90,7 @@ const ViewGoals = () => {
           <Link to={`/update-goal/${currentGoal.id}`} className="btn btn-primary" role="button" style={{marginRight:20}}>update</Link>
           <button onClick={() => handleRemoveGoal(currentGoal.id)} className="btn btn-danger">remove</button>
         </div>
+      </div>
       </div>
 
     )}
