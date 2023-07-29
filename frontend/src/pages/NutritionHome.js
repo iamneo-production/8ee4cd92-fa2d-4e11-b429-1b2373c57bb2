@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../layout/Navbar';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Jogging from "../assets/img/jogging.jpg";
 import MuscleGain from "../assets/img/muscleGain.jpg"
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 
 const NutritionHome = () => {
-  
-  const [modalShow, setModalShow] = React.useState(false);
-  const [lgShow, setLgShow] = useState(false);
+
 
   let navigate = useNavigate();
 
@@ -36,7 +34,7 @@ const NutritionHome = () => {
         <div className='row'>
 
           <Card className="text-black">
-            <Card.Img style={{ height: '100%',width: '100%'}} src={Jogging} alt="Card image" />
+            <Card.Img  src={Jogging} alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>Fat Burner Section</Card.Title>
               <Card.Text style={{ fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>
@@ -51,7 +49,7 @@ const NutritionHome = () => {
         </div>
         <div className='row'>
           <Card className="text-black">
-            <Card.Img src={MuscleGain} alt="Card image" />
+            <Card.Img style={{ height: '100%',width: '60%', marginLeft: 'auto'}} src={MuscleGain} alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>Muscle Gainer</Card.Title>
               <Card.Text style={{ fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>

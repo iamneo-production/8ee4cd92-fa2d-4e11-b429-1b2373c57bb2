@@ -43,11 +43,18 @@ const Login = () => {
     let found = false;
     for (let i = 0; i < dbData.length; i++) {
       console.log(dbData[i]['email'], user['emailID'], dbData[i]['password'], user['password']);
-      if (dbData[i]['email'] === user['emailID'] && dbData[i]['password'] === user['password']) {
+
+      if (dbData[i]['email'] === user['emailID'] && dbData[i]['password'] === user['password']){
         toast.success("Login Successful");
         // Store user information in local storage
-        localStorage.setItem('user', JSON.stringify(dbData[i]));
-        navigate('/user-dashboard');
+        if(dbData[i]['role']=="ADMIN"){
+          localStorage.setItem('admin', JSON.stringify(dbData[i]));
+          navigate('/admin-dashboard');
+        }
+        else{
+          localStorage.setItem('user', JSON.stringify(dbData[i]));
+          navigate('/user-dashboard');
+        }
         found = true;
         break;
       }

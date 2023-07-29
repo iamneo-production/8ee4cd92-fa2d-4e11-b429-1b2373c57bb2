@@ -1,62 +1,66 @@
+.main{
+    background-image: url("/home/coder/project/workspace/frontend/src/assets/img/image1.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+.goalButton{
+    padding-top: 200px;
+    margin-left: 800px;
+}
+
+h3{
+   font-family:cursive;
+   font-weight:500;
+   font-size:25px;
+}
 .fitness-goal-container {
-    width: 500px;
-    margin: 0 auto;
-    padding: 30px;
-    border: 1px solid #b78a8a;
+    width: 350px;
+    margin : auto;
     border-radius: 6px;
   }
-  
-  .form-group {
-    margin-bottom: 10px;
-  }
+
   
   label {
-    display: block;
     font-weight: bold;
     font-size: 18px
   }
   
-  
-  .btn-primary {
-    background-color: #007bff;
-    color: #fff;
+.button {
+    background-color: #3167fa;
+    color: white;
     border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  
-  .btn-primary:hover {
-    background-color: #0056b3;
-  }
-  
-  .drop-down{
-    height: 40px;
-    width: 250px;
+    padding: 8px 20px;
+    text-align: center;
     font-size: 16px;
-    margin-bottom: 10px;
+    margin-left: 100px;
+    border-radius: 3px;
+    }
+  
+ .drop-down{
+    height: 40px;
+    width: 300px;
+    font-size: 16px;
+    margin-bottom: 5px;
   }
   
   .form-mem{
-    padding-left:95px
+    padding-left:25px
   }
   
-  .description{
-    padding-right: 100px;
-  }
-  
-  .targetWeight{
-    padding-right: 100px;
-  }
   
   .form-tex{
     height: 40px;
-    width: 250px;
-    display: block;
+    width: 300px;
   }
   
   .form-con{
     padding-bottom: 10px;
   }
-  
+
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* If you want the card to take up the full viewport height */
+  }
