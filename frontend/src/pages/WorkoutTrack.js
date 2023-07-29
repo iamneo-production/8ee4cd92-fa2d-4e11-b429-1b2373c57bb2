@@ -7,11 +7,11 @@ import axios from 'axios';
 import './WorkoutTrack.css';
 import { Chart, ArcElement } from 'chart.js/auto';
 import Card from 'react-bootstrap/Card';
-import pic1 from '../assets/img/dumbbell.png'
-import pic2 from '../assets/img/muscle.png'
+import pic2 from '../assets/img/calories.png'
 import pic3 from '../assets/img/flash.png'
 import pic4 from '../assets/img/competition.png'
 import {api} from "../APIConnect"
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 
 Chart.register(ArcElement);
@@ -26,6 +26,11 @@ const WorkoutTrack = () => {
   const [maxStrike,setMaxStrike]=useState();
   const [goal,setGoal]=useState("No Goals");
   const [dayLeft, setDayLeft]=useState(0);
+  const [totalCalories,setTotalCalories]=useState(0)
+  const [reqCaloriesLoss, setReqCaloriesLoss]=useState(0)
+  const [reqCaloriesGain, setReqCaloriesGain]=useState(0)
+  const [caloriesTyp,setCalorieTyp]=useState("No Data found")
+  const [percentage,setPercentage]=useState(0)
 
   let workoutsByCategory = {};
   let chartColors = [];
@@ -33,7 +38,6 @@ const WorkoutTrack = () => {
 
   const extractWeeklyGroupFitnessData = useCallback((workouts) => {
     const weeklyData = Array(7).fill(0);
-    console.log(workouts)
     workouts.forEach((workout) => {
       if (selectedExercise === 'Group Fitness' || workout.notes === selectedExercise) {
         const workoutDate = new Date(workout.localDate);
@@ -49,6 +53,7 @@ const WorkoutTrack = () => {
     fetchWorkouts();
     checkStrike();
     fetchGoalData();
+    fetchCaloriesTaken();
     const date = new Date();
     const hour = date.getHours();
     if (hour >= 5 && hour < 12) {
@@ -58,6 +63,8 @@ const WorkoutTrack = () => {
     } else {
       setGreeting('Good Evening');
     }
+
+
   }, []);
 
   useEffect(() => {
@@ -67,9 +74,7 @@ const WorkoutTrack = () => {
 
   const fetchGoalData=async()=>{
     try{
-      console.log("fatching...")
       const response = await axios.get(`${api}goals/${user.id}`)
-      console.log(response.data)
       response.data.map((item)=>{
         if(item.status==='pending'){
           console.log("in map",item)
@@ -84,6 +89,46 @@ const WorkoutTrack = () => {
     catch(error){
       console.log(error)
     }
+  }
+
+  const fetchCaloriesTaken=async()=>{
+    var date = new Date()
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var today = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`
+    let caloriesLoss = 0;
+    if (user.gender == "male") {
+      caloriesLoss = 66 + 6.2 * parseInt(user.weight) + 12.7 * parseInt(user.height) - 6.76 * user.age;
+      caloriesLoss = Math.round(caloriesLoss) -200;
+    } else if (user.gender == "female") {
+      caloriesLoss = 655.1 + 4.35 * parseInt(user.weight) + 4.7 * parseInt(user.height) - 4.7 * user.age;
+      caloriesLoss = Math.round(caloriesLoss) - 200;
+    }
+    setReqCaloriesLoss(caloriesLoss)
+  let caloriesGain = 0;
+  if (user.gender == "male") {
+    caloriesGain = 66 + 6.2 * parseInt(user.weight) + 12.7 * parseInt(user.height) - 6.76 * user.age;
+    caloriesGain = Math.round(caloriesGain) - 800;
+  } else if (user.gender == "female") {
+    caloriesGain = 655.1 + 4.35 * parseInt(user.weight) + 4.7 * parseInt(user.height) - 4.7 * user.age;
+    caloriesGain = Math.round(caloriesGain) - 800;
+  }
+  setReqCaloriesGain(caloriesGain)
+    const response1=await axios(`${api}nutritionWeightloss/${user.id}/${today}/read`)
+    const response2=await axios(`${api}nutritionWeightgain/${user.id}/${today}/read`)
+    if(response1.data.length){
+      setTotalCalories(response1.data[0].total_calories)
+      setCalorieTyp('Weight Loss')
+      setPercentage(Math.floor((parseInt(response1.data[0].total_calories)/caloriesLoss)*100))
+      
+    }
+    else if(response2.data.length){
+      setTotalCalories(response2.data[0].total_calories)
+      setCalorieTyp('Weight Gain')
+      setPercentage(Math.floor((parseInt(response2.data[0].total_calories)/caloriesGain)*100))
+    }
+
   }
 
   const handleDaysLeft =(goal)=>{
@@ -196,9 +241,9 @@ const WorkoutTrack = () => {
   return (
     <>
       <div className='container'>
-        <header>
-          <Navbar />
-        </header>
+      <header style={{ marginTop: "10px" }} >
+        <Navbar />
+      </header>
         <div className='maindiv'>
           <div className='greet'>
             {greeting}, {user.name} :)
@@ -241,11 +286,11 @@ const WorkoutTrack = () => {
             >
               <Card.Body>
                 <img width="20%" alt="logo" src={pic2}></img>
-                <Card.Title>Average Workout</Card.Title>
+                <Card.Title>Calories Counter</Card.Title>
                 <Card.Text>
-                  Some quick example text to build on the card title and make up the
-                  bulk of the card's content.
+                  {totalCalories}/{caloriesTyp==='Weight Loss' ? reqCaloriesLoss:reqCaloriesGain}
                 </Card.Text>
+                <Card.Text>{percentage}%<ProgressBar variant="success" animated now={percentage} /></Card.Text>
               </Card.Body>
             </Card>
 

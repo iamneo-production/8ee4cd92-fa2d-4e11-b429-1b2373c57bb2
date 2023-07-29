@@ -140,6 +140,7 @@ function Tracking() {
     const response = await axios.get(`${api}strike/${uid}`);
     var strike=response.data
     console.log(strike)
+    if(getDaysDifference(response.data.previousDate, today)!=0){
     if (strike === "") {
       const res = await axios.post(`${api}strike/${uid}`, { "currentStrike": 1, "previousDate": today, "maxStrike": 1 });
       toast.success("yohooo! +1 Strike", {
@@ -161,6 +162,7 @@ function Tracking() {
         icon:{picstrike}
       });
     }
+}
 
   }
 
@@ -220,7 +222,7 @@ function Tracking() {
 
                 {/* Card for Add Exercises */}
                 <div className='row'>
-                    <Card className="text-black" style={{ backgroundColor: "rgb(207, 117, 249)" }}>
+                    <Card className="text-black">
                         <Card.Img src={avatar03} alt="Card image" />
                         <Card.ImgOverlay>
                             <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'right', marginRight: '20px' }}>Transform Yourself</Card.Title>
@@ -236,7 +238,7 @@ function Tracking() {
 
                 {/* Card For update and delete Exercise */}
                 <div className='row'>
-                    <Card className="text-black" style={{ backgroundColor: "rgb(207, 117, 249)" }}>
+                    <Card className="text-black">
                         <Card.Img src={avatar01} alt="Card image" />
                         <Card.ImgOverlay>
                             <Card.Title style={{ marginTop: '20px', fontSize: '20px', textAlign: 'left', marginLeft: '20px' }}>Redefine Yourself</Card.Title>

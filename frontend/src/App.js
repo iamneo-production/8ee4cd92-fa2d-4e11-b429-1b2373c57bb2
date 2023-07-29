@@ -39,6 +39,9 @@ import NutritionWeightGainPlanSunday from './pages/NutritionWeightLossGain/Nutri
 import NutritionWeightGainProgress from './pages/NutritionWeightGainProgress';
 import WeightTracker from './pages/WeightTracker';
 import ViewGoals from './pages/ViewGoals';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminUpdateProfile from './pages/AdminUpdateProfile';
+import DisplayAllUsers from './pages/DisplayAllUsers';
 
 
 function App() {
@@ -85,7 +88,9 @@ function App() {
           <Route exact path='/nutritionWeightGainPlanSaturday' element={<NutritionWeightGainPlanSaturday />} />
           <Route exact path='/nutritionWeightGainPlanSunday' element={<NutritionWeightGainPlanSunday />} />
           <Route exact path='/nutritionWeightGainProgress' element={<NutritionWeightGainProgress />} />
-          
+          <Route exact path='/admin-dashboard' element={<AdminDashboard />} />
+          <Route exact path='/admin-updateprofile' element={<AdminUpdateProfile />} />
+          <Route exact path='/display-AllUser' element={<DisplayAllUsers />} />
         </Routes>
       </Router>
     </div>
