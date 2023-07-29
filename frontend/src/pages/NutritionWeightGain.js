@@ -1,46 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import Navbar from "../layout/Navbar";
 import Modal from "react-bootstrap/Modal";
 import "./NutritionRecommandation.css";
-import { Link, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { api } from '../APIConnect';
+import { toast } from "react-toastify";
 
 const NutritionWeightGain = () => {
   const morningFoodData = [
     {
       food: "Wheat parathas and Paneer",
-      calories: 200,
+      calories: 450,
       id: "wheatParathas",
     },
     {
       food: "Oats and Milk",
-      calories: 220,
+      calories: 350,
       id: "oatMilk",
     },
     {
       food: "Stuffed parathas and Potatoes",
-      calories: 250,
+      calories: 300,
       id: "parathasPotatoes",
     },
     {
       food: "Rice with Mixed Vegetables",
-      calories: 190,
+      calories: 250,
       id: "riceVegetables",
     },
     {
       food: "Eggs (4)",
-      calories: 230,
+      calories: 360,
       id: "eggs",
     },
     {
       food: "Upma with Mixed Vegetables",
-      calories: 300,
+      calories: 250,
       id: "upmaVegetables",
     },
     {
       food: "Egg Dosa (3 pieces)",
-      calories: 180,
+      calories: 360,
       id: "dosa",
     },
   ];
@@ -48,12 +49,12 @@ const NutritionWeightGain = () => {
   const morningMidFoodData = [
     {
       food: "Mixed nuts and Banana",
-      calories: 200,
+      calories: 420,
       id: "nutsBanana",
     },
     {
       food: "Mango Milkshake",
-      calories: 220,
+      calories: 300,
       id: "mangoMilkshake",
     },
     {
@@ -63,7 +64,7 @@ const NutritionWeightGain = () => {
     },
     {
       food: "Banana Smoothie",
-      calories: 190,
+      calories: 350,
       id: "bananaSmoothie",
     },
     {
@@ -73,7 +74,7 @@ const NutritionWeightGain = () => {
     },
     {
       food: "Mango Lassi with Yogurt",
-      calories: 300,
+      calories: 200,
       id: "mangoLassi",
     },
     {
@@ -86,22 +87,22 @@ const NutritionWeightGain = () => {
   const lunchFoodData = [
     {
       food: "Rice and dal (1cup)",
-      calories: 200,
+      calories: 600,
       id: "riceDal",
     },
     {
       food: "Chicken Briyani",
-      calories: 220,
+      calories: 550,
       id: "chickenBriyani",
     },
     {
       food: "Rice and Rajma (1cup)",
-      calories: 250,
+      calories: 400,
       id: "riceRajma",
     },
     {
       food: "Parathas and Potatoes",
-      calories: 190,
+      calories: 450,
       id: "parathasPotatoes",
     },
     {
@@ -111,12 +112,12 @@ const NutritionWeightGain = () => {
     },
     {
       food: "Parathas and ChickPeas",
-      calories: 180,
+      calories: 400,
       id: "parathasChickpeas",
     },
     {
       food: "Rice and Sambhar (1cup)",
-      calories: 230,
+      calories: 450,
       id: "riceSambhar",
     },
   ];
@@ -124,12 +125,12 @@ const NutritionWeightGain = () => {
   const eveningFoodData = [
     {
       food: "Vegetable Samosa",
-      calories: 200,
+      calories: 350,
       id: "vegetableSamosa",
     },
     {
       food: "Peanut butter Sandwich",
-      calories: 220,
+      calories: 330,
       id: "peanutButterSandwich",
     },
     {
@@ -139,22 +140,22 @@ const NutritionWeightGain = () => {
     },
     {
       food: "Besan",
-      calories: 190,
+      calories: 200,
       id: "besan",
     },
     {
       food: "Bread Pakoras ",
-      calories: 300,
+      calories: 400,
       id: "breadPakoras ",
     },
     {
       food: "Cheese and Vegetable Sandwich",
-      calories: 180,
+      calories: 300,
       id: "vegetableSandwich",
     },
     {
       food: "Vegetable Spring Rolls",
-      calories: 230,
+      calories: 300,
       id: "vegetableSpringRolls",
     },
   ];
@@ -162,37 +163,37 @@ const NutritionWeightGain = () => {
   const dinnerFoodData = [
     {
       food: "Rotis and Chicken",
-      calories: 200,
+      calories: 350,
       id: "rotisChicken",
     },
     {
       food: "Rotis and Paneeer",
-      calories: 220,
+      calories: 400,
       id: "rotiPaneer",
     },
     {
       food: "Rotis and Mutton",
-      calories: 250,
+      calories: 450,
       id: "rotisMutton",
     },
     {
       food: "Rotis and Fish",
-      calories: 190,
+      calories: 350,
       id: "rotiFish",
     },
     {
       food: "Rotis and Palak Paneer",
-      calories: 300,
+      calories: 400,
       id: "rotisPalak",
     },
     {
       food: "Rotis and Chicken Tikka Masala",
-      calories: 180,
+      calories: 500,
       id: "rotisChhickenTikka",
     },
     {
       food: "Rotis and Paneer Butter Masala",
-      calories: 230,
+      calories: 400,
       id: "rotisPaneerButter",
     },
   ];
@@ -229,11 +230,11 @@ const NutritionWeightGain = () => {
 
   let calories = 0;
   if (user.gender == "male") {
-    calories = 66 + 6.2 * user.weight + 12.7 * user.height - 6.76 * user.age;
-    calories = Math.round(calories);
+    calories = 66 + 6.2 * parseInt(user.weight) + 12.7 * parseInt(user.height) - 6.76 * user.age;
+    calories = Math.round(calories) -200;
   } else if (user.gender == "female") {
-    calories = 655.1 + 4.35 * user.weight + 4.7 * user.height - 4.7 * user.age;
-    calories = Math.round(calories);
+    calories = 655.1 + 4.35 * parseInt(user.weight) + 4.7 * parseInt(user.height) - 4.7 * user.age;
+    calories = Math.round(calories) - 200;
   }
 
   const dietProgressPopup = () => {
@@ -241,42 +242,41 @@ const NutritionWeightGain = () => {
   };
 
   const onSelectChangeMorning = (e) => {
-    console.log(e.target.id);
+  
     const { name, value } = e.target;
     const res = onSelectChangeFind(morningFoodData, value);
-    console.log(res);
+    
     setDiet({ ...diet, morningMeal: res });
   };
 
   const onSelectChangeMidMorning = (e) => {
-    console.log(e.target.id);
+  
     const { name, value } = e.target;
     const res = onSelectChangeFind(morningMidFoodData, value);
-    console.log(res);
     setDiet({ ...diet, morningSnack: res });
   };
 
   const onSelectChangeLunch = (e) => {
-    console.log(e.target.id);
+    
     const { name, value } = e.target;
     const res = onSelectChangeFind(lunchFoodData, value);
-    console.log(res);
+    
     setDiet({ ...diet, lunch: res });
   };
 
   const onSelectChangeEveSnack = (e) => {
-    console.log(e.target.id);
+
     const { name, value } = e.target;
     const res = onSelectChangeFind(eveningFoodData, value);
-    console.log(res);
+    
     setDiet({ ...diet, eveningSnack: res });
   };
 
   const onSelectChangeDinner = (e) => {
-    console.log(e.target.id);
+  
     const { name, value } = e.target;
     const res = onSelectChangeFind(dinnerFoodData, value);
-    console.log(res);
+    
     setDiet({ ...diet, dinner: res });
   };
 
@@ -311,14 +311,13 @@ const NutritionWeightGain = () => {
     };
 
     try {
-      console.log(dietDetail);
-      console.log(final);
+   
       const response = await axios.post(`${api}nutritionWeightloss/${user.id}/insert`,
         dietDetail
       );
-      console.log(response);
+      
 
-      alert("Nutrition Added Successfully");
+      toast.success("Nutrition Added Successfully");
     } catch (error) {
       console.error(error);
     }
@@ -331,7 +330,7 @@ const NutritionWeightGain = () => {
   const handleWaterPlus = () =>{
     setWater(prevState => prevState + 1);
     if(water == 9){
-      alert("Congrats!!! Water level reached")
+      toast("Congrats!!! Water level reached")
     }
   
   }

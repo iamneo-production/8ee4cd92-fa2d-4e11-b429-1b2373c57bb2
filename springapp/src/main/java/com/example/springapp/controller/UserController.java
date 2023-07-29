@@ -25,8 +25,9 @@ import com.example.springapp.repository.WorkoutRepository;
 // import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/")
+
 @RestController
+@CrossOrigin(origins="*")
 public class UserController {
 
 	// @Autowired
@@ -74,6 +75,7 @@ public class UserController {
 			o.get().setName(u.getName());
 			o.get().setPassword(o.get().getPassword());
 			o.get().setWeight(u.getWeight());
+			o.get().setRole(u.getRole());
 			return new ResponseEntity<>(ur.save(o.get()),HttpStatus.OK);
 		}
 		else {

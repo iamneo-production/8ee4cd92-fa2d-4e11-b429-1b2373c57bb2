@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../layout/Header';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
+
 const Register = () => {
 
   let navigate = useNavigate()
@@ -16,6 +18,7 @@ const Register = () => {
     weight: "",
     age: "",
     gender: "",
+    role:"USER"
   });
 
   const [pass, setPass] = useState({
@@ -47,18 +50,32 @@ const Register = () => {
     }
   };
 
-  const onSubmit = async (e) => {
-    alert("User is Succesfully Registered")
+  const onSubmit = (e) => {
     e.preventDefault();
     if (validated) {
       document.getElementById("error").hidden = true;
-      await axios.post(`${api}users`, user)
+      console.log(user)
+      axios.post(`${api}user/register`, user).then((res)=>{
+        toast.success("Registration Successful")
       navigate("/Login");
+      })
+      .catch((err)=>{
+        console.log(err)
+        toast.error("Registration Failed")
+      })
+
     }
     else {
       document.getElementById("error").hidden = false;
     }
+    
   }
+
+  const isValidEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
   const validate = (e) => {
     var p = e.target.value
     
@@ -77,8 +94,8 @@ const Register = () => {
       }
     }
     else if (e.target.name === 'email') {
-      var passw1 = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      if (p.match(passw1)) {
+      console.log(isValidEmail(p))
+      if (isValidEmail(p)) {
         document.getElementById("emailerror").hidden = true;
         document.getElementById("email").classList.remove('is-invalid');
         document.getElementById("email").classList.add('is-valid');
@@ -146,7 +163,7 @@ const Register = () => {
                   onChange={(e) => { onInputChange(e); validate(e) }}
                   required
                 />
-                <div id='emailerror' className='emailerror' style={{ fontSize: '12px', color: 'red' }} hidden={true}>Password enter a valid email address ! </div>
+                <div id='emailerror' className='emailerror' style={{ fontSize: '12px', color: 'red' }} hidden={true}>Please Enter a valid email address ! </div>
 
               </div>
 

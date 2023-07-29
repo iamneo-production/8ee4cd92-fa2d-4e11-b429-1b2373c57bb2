@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.springapp.model.Set;
 import com.example.springapp.repository.SetRepository;
 
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/")
+@CrossOrigin(origins="*")
 @RestController
 public class SetController {
 

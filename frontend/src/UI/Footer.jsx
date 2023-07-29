@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../src/style/footer.css';
-import logo from '../assets/img/dumble.png';
+import logo from '../assets/img/logo1.png';
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -17,10 +17,8 @@ const Footer = () => {
         <div className='footer_wrapper'>
           <div className='footer_box'>
             <div className='logo'>
-              <div className='logo_img'>
-                <img src={logo} alt='' />
-                <h2>Fitbody</h2>
-              </div>
+                <img src={logo} width="50%" alt='' />
+              
             </div>
 
             <p>Track your fitness journey and achieve your goals with FitBody.</p>

@@ -1,6 +1,5 @@
 import React from 'react'
 import heroImg from '../assets/img/gym-02.png'
-import dumbleIcon from '../assets/img/dumble.png'
 import '../../src/style/Hero.css'
 import { Link } from 'react-router-dom'
 
@@ -36,18 +35,19 @@ const Hero = () => {
               data-aos-delay='200'
               data-aos-duration='2000'
             >
-              <Link className='btn btn-primary' to='/Register'>Register</Link>
+              <Link className='btn btncolor' to='/Register'>Register</Link>
 
             </div>
           </div>
 
           {/* ======= hero img ====== */}
-          <div className='hero_img'>
+          <div className='hero_img'data-aos='fade-left'
+              data-aos-duration='1500'>
             <div className='hero_img-wrapper'>
-              <div className='box-01'>
-                <div className='box-2'>
-                  <div className='box-3'>
-                    <div className='box_img'>
+              <div className='box-01'  style={{background:'#1aafe8'}}>
+                <div className='box-2' style={{background:'#74e4c3'}}>
+                  <div className='box-3'style={{background:'White'}} >
+                    <div className='box_img' >
                       <img src={heroImg} alt='' />
                     </div>
                   </div>
@@ -57,13 +57,6 @@ const Hero = () => {
 
 
 
-              <div
-                className='dumble_icon'
-                data-aos='fade-down'
-                data-aos-duration='1500'
-              >
-                <img src={dumbleIcon} alt='' />
-              </div>
             </div>
           </div>
         </div>
@@ -73,3 +66,8 @@ const Hero = () => {
 }
 
 export default Hero
+
+
+
+
+

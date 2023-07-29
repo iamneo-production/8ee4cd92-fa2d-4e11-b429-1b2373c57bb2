@@ -4,6 +4,7 @@ import axios from 'axios';
 import './History.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { api } from '../APIConnect';
+import { toast } from 'react-toastify';
 
 const History = () => {
   const [workoutData, setWorkoutData] = useState([]);
@@ -13,10 +14,11 @@ const History = () => {
   const [showModal, setShowModal] = useState(false);
   const [updatedWorkout, setUpdatedWorkout] = useState({
     id: '',
-    date: '',
+    localDate: '',
     duration: '',
     notes: ''
   });
+  
 
   useEffect(() => {
     const fetchWorkoutData = async () => {
@@ -38,7 +40,7 @@ const History = () => {
 
   useEffect(() => {
     const filtered = workoutData.filter((item) => {
-      const itemDate = new Date(item.date);
+      const itemDate = new Date(item.localDate);
       return (
         itemDate.getFullYear() === selectedDate.getFullYear() &&
         itemDate.getMonth() === selectedDate.getMonth() &&
@@ -57,7 +59,7 @@ const History = () => {
     setShowModal(true);
     setUpdatedWorkout({
       id: workout.id,
-      date: workout.date,
+      localDate: workout.localDate,
       duration: workout.duration,
       notes: workout.notes
     });
@@ -65,7 +67,7 @@ const History = () => {
 
   const handleDeleteWorkout = (workoutId) => {
     axios
-      .delete(`${api}workouts/${workoutId}`)
+      .delete(`${api}workout/${workoutId}`)
       .then((res) => {
         const updatedWorkoutData = workoutData.filter((item) => item.id !== workoutId);
         setWorkoutData(updatedWorkoutData);
@@ -75,11 +77,11 @@ const History = () => {
         setFilteredData(updatedFilteredData);
 
         console.log(`Workout with ID ${workoutId} deleted successfully. Status: ${res.status}`);
-        alert('Workout deleted successfully');
+        toast.warning('Workout deleted successfully..');
       })
       .catch((err) => {
         console.log(err);
-        alert('An error occurred while deleting the workout');
+        toast.error('An error occurred while deleting the workout');
       });
   };
 
@@ -96,28 +98,20 @@ const History = () => {
       );
       setWorkoutData(updatedWorkoutData);
       localStorage.setItem('workoutData', JSON.stringify(updatedWorkoutData));
-      alert('Workout Updated Successfully');
+      toast.success('Workout Updated Successfully');
       handleCloseModal();
     } catch (error) {
       console.error(error);
     }
   };
 
-  const workoutNames = [
-    'Cardiovascular Workouts',
-    'Strength Training',
-    'Flexibility and Mobility',
-    'Group Fitness',
-    'Outdoor Activities',
-    'Mind-Body Exercises'
-  ];
 
   const handleCloseModal = () => {
     setSelectedWorkout(null);
     setShowModal(false);
     setUpdatedWorkout({
       id: '',
-      date: '',
+      localDate: '',
       duration: '',
       notes: ''
     });
@@ -125,7 +119,7 @@ const History = () => {
 
   return (
     <div>
-      <header>
+      <header style={{ marginTop: "10px" }} >
         <Navbar />
       </header>
 
@@ -136,11 +130,11 @@ const History = () => {
               <div className="card-body">
                 <h5 className="card-title">Filter by date</h5>
                 <div className="form-group">
-                  <label htmlFor="date">Select a date:</label>
+                  <label htmlFor="localDate">Select a date:</label>
                   <input
                     type="date"
-                    id="date"
-                    name="date"
+                    id="localDate"
+                    name="localDate"
                     className="form-control"
                     value={selectedDate.toISOString().slice(0, 10)}
                     onChange={handleDateChange}
@@ -155,13 +149,13 @@ const History = () => {
                 <h5 className="card-title">Workout history</h5>
                 <div className="row">
                   {filteredData.map((item) => {
-                    const { id, date, duration, notes } = item;
+                    const { id, localDate, duration, notes } = item;
 
                     return (
                       <div key={id} className="col-md-6 mb-3">
                         <div className="card">
                           <div className="card-body">
-                            <h6 className="card-subtitle mb-2 text-muted">{date}</h6>
+                            <h6 className="card-subtitle mb-2 text-muted">{localDate}</h6>
                             <p className="card-text">Duration: {duration} minutes</p>
                             <p className="card-text">Notes: {notes}</p>
                             <br />
@@ -203,8 +197,8 @@ const History = () => {
               <Form.Label>Date</Form.Label>
               <Form.Control
                 type="date"
-                value={updatedWorkout.date}
-                onChange={(e) => setUpdatedWorkout({ ...updatedWorkout, date: e.target.value })}
+                value={updatedWorkout.localDate}
+                onChange={(e) => setUpdatedWorkout({ ...updatedWorkout, localDate: e.target.value })}
                 required
               />
             </Form.Group>

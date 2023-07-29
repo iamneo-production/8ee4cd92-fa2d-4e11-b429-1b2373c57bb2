@@ -24,7 +24,7 @@ import com.example.springapp.repository.WorkoutRepository;
 
 
 @RestController
-@CrossOrigin(origins="https://8081-deadefebdddbeefbebfbcddfeaeaadbdbabf.project.examly.io/")
+@CrossOrigin(origins="*")
 public class WorkoutController {
 
 	@Autowired
@@ -53,20 +53,22 @@ public class WorkoutController {
 	
 	@PutMapping("/workouts/{id}")
 	public ResponseEntity<Workout> updateWorkout(@RequestBody Workout u, @PathVariable Long id){
-		Optional<Workout> o=wr.findById(id);
-		
-		if(o.isPresent()) {
-			o.get().setUser_id(u.getUser_id());
-			o.get().setLocalDate(u.getLocalDate());
-			o.get().setDuration(u.getDuration());
-			o.get().setNotes(u.getNotes());
-			return new ResponseEntity<>(wr.save(o.get()),HttpStatus.OK);
-		}
-		else {
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-		
+    	Optional<Workout> o = wr.findById(id);
+
+    	if(o.isPresent()) {
+        	Workout existingWorkout = o.get();
+        	// Retain the user_id from the existing workout
+        	u.setUser_id(existingWorkout.getUser_id());
+        	// Update other fields
+        	existingWorkout.setLocalDate(u.getLocalDate());
+        	existingWorkout.setDuration(u.getDuration());
+        	existingWorkout.setNotes(u.getNotes());
+        	return new ResponseEntity<>(wr.save(existingWorkout), HttpStatus.OK);
+    		} else {
+        		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    		}
 	}
+
 	
 	@DeleteMapping("/workout/{id}")
 	public ResponseEntity<Void> deleteWorkout(@PathVariable Long id){
