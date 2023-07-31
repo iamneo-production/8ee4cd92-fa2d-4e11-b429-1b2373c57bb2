@@ -1,10 +1,11 @@
-
 import React, { useState , useEffect} from 'react';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal} from 'react-bootstrap';
 import "../style/Setting.css";
 import Navbar from '../layout/Navbar'
 import axios from 'axios';
+import { api } from '../APIConnect';
 import { useNavigate, useParams,Link} from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Setting = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,6 +13,7 @@ const Setting = () => {
   const [description, setDescription] = useState('');
   const [targetWeight, setTargetWeight] = useState(0);
   const [duration, setDuration] = useState('');
+  const [goals,setGoals] = useState([]);
 
   const {id} = useParams();
 
@@ -35,36 +37,60 @@ const Setting = () => {
     setTargetWeight(e.target.value);
   };
 
-  const handleSubmit =(e) => {
-    e.preventDefault();
-    if (goalName.trim() === '' || duration.trim() === '' || targetWeight === 0) {
-      return alert("Please enter valid details..");
-    };
-    const user_id = user.id;
-    const date = new Date().toISOString().split('T')[0];
-    const goalItem = {date,description,duration,goalName,user_id,targetWeight};
-    console.log(goalItem);
-    if(id){
-      alert("Goal updated Successfully.");
-      axios.put("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal"+"/"+id,goalItem)
-      .then(navigate("/view-goals"));
-    }
-    else{
-      alert("Goal Created Successfully.");
-      console.log(goalItem);
-      axios.post("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal",goalItem)
-      .then(navigate("/view-goals"));
-      setGoal('');
-      setDescription('');
-      setDuration('');
-      setTargetWeight(0);
+  useEffect(() => {
+    fetchGoals();
+  }, []);
+
+  const fetchGoals = async () => {
+    try {
+      const response = await axios.get(`${api}goals/${user.id}`);
+      setGoals(response.data);
+      console.log(goals);
+    } catch (error) {
+      console.error('Error fetching goals:', error);
     }
   };
 
-  
+  const handleSubmit =(e) => {
+    e.preventDefault();
+    if (goalName.trim() === '' || duration.trim() === '' || targetWeight === 0) {
+      return toast.error("Please enter valid details..");
+    };
+    const userId = user.id;
+    const date = new Date().toISOString().split('T')[0];
+    const goalItem = {date,description,duration,goalName,userId,targetWeight};
+    console.log(goalItem);
+    if(id){
+      toast.success("Goal updated Successfully.");
+      axios.put(`${api}goal/${id}`,goalItem)
+      .then(navigate("/view-goals"));
+    }
+    else{
+        var lastGoal = false 
+        const check = goals.map((item)=>{
+          if(item.status=='pending'){
+            lastGoal=true
+            return true
+          }
+        })
+        if (lastGoal) {
+            toast.error("please complete the current goal")
+            navigate("/view-goals")
+        }
+        else{
+          axios.post(`${api}goal`,goalItem)
+          .then(navigate("/view-goals"));
+          setGoal('');
+          setDescription('');
+          setDuration('');
+          setTargetWeight(0);
+        }
+      }
+  }
+
 
   useEffect(()=>{
-    axios.get("https://8080-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/goal"+"/"+id)
+    axios.get(`${api}goal/${id}`)
     .then((response) => {
       setGoal(response.data.goalName)
       setDescription(response.data.description)
@@ -84,12 +110,14 @@ const Setting = () => {
  
   return (
     <>
-    <div>
-      <header>
+    <div >
+    <header style={{ marginTop: "10px" }} >
         <Navbar />
       </header>
     </div>
-    <div class="card text-white bg-secondary mb-3 " style={{width:1150,marginLeft:50,height:500,marginTop:20}}>
+
+    <div className='container card-container'>
+    <div  class="card text-white bg-secondary mb-3 " style={{width:1150,alignItem:'center',height:500}}>
     <div className='main'>
         <div className='goalButton'>
             <h3>Set Your Goal</h3>
@@ -105,35 +133,36 @@ const Setting = () => {
       
         </div>
 
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal size="m"
+      aria-labelledby="example-modal-sizes-title-lg" show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Fitness Goal</Modal.Title>
+          <Modal.Title id="example-modal-sizes-title-lg">Add Fitness Goal</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <div className="fitness-goal-container">
-      <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Goal:</label>
-          <select value={goalName} onChange={handleGoalChange} className="drop-down">
+          <select value={goalName} onChange={handleGoalChange} className="form-control">
           <option value="">Select a goal</option>
           <option value="weight gain">Weight Gain</option>
           <option value="weight loss">Weight Loss</option>
         </select>
         </div>
-        <div className="form-mem">
+        <div className="form-group">
           <label className="description">Description:</label>
-          <div className="form-con">
+          <div className="form-control">
           <input
             type="text-area"
             value={description}
             onChange={handleDescriptionChange}
-            className='form-tex'
+            className='form-control'
             placeholder='Enter description for your goal..'
           /></div>
         </div>
         <div className="form-group">
           <label>Duration:</label>
-          <select value={duration} onChange={handleDurationChange} className="drop-down">
+          <select value={duration} onChange={handleDurationChange} className="form-control">
             <option>select the duration</option>
             <option value="1 month">1 month</option>
             <option value="2 months">2 months</option>
@@ -149,15 +178,15 @@ const Setting = () => {
             <option value="12 months">12 months</option>
           </select>
         </div>
-        <div className="form-mem" >
+        <div className="form-group" >
           <label className='targetWeight'>Target Weight:</label>
-          <div className="form-con">
+          <div className="form-control">
           <input
             type="number"
             min="0"
             value={targetWeight}
             onChange={handleTargetWeightChange}
-            className='form-tex'
+            className='form-control'
           />
           </div>
         </div>
@@ -166,6 +195,7 @@ const Setting = () => {
     </div>
         </Modal.Body>
       </Modal>
+    </div>
     </div>
     </div>
     </>

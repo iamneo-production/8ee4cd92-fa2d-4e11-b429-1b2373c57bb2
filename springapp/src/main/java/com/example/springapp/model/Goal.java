@@ -1,7 +1,5 @@
 package com.example.springapp.model;
 
-// import org.springframework.beans.factory.annotation.Value;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,14 +12,13 @@ public class Goal {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-	private int user_id;
+	private int userId;
 	private String goalName;
 	private String date;
 	private String duration;
 	private String description;
 	private int targetWeight;
-	// @Value(value = "false")
-	// private boolean approval;
+	private String status="pending";
 	public int getId() {
 		return id;
 	}
@@ -40,13 +37,11 @@ public class Goal {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
-	
-	public int getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	
 	public String getDescription() {
@@ -68,32 +63,34 @@ public class Goal {
 	public void setTargetWeight(int targetWeight) {
 		this.targetWeight = targetWeight;
 	}
-	// public boolean isApproval() {
-	// 	return approval;
-	// }
-	// public void setApproval(boolean approval) {
-	// 	this.approval = approval;
-	// }
 	
-	public Goal(int id, int user_id, String goalName, String description,String duration,int targetWeight, String date) {
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public Goal(int id, int userId, String goalName, String description,String duration,int targetWeight, String date, String status) {
 		super();
 		this.id = id;
-		this.user_id=id;
+		this.userId=userId;
 		this.goalName = goalName;
 		this.date = date;
 		this.description = description;
 		this.duration = duration;
 		this.targetWeight= targetWeight;
+		this.status = status;
 	}
 	
-	public Goal(int user_id, String goalName, String description,String duration,int targetWeight, String date) {
+	public Goal(int userId, String goalName, String description,String duration,int targetWeight, String date,String status) {
 		super();
-		this.user_id=id;
+		this.userId=userId;
 		this.goalName = goalName;
 		this.date=date;
 		this.description = description;
 		this.duration = duration;
 		this.targetWeight= targetWeight;
+		this.status=status;
 	}
 	
 	public Goal() {

@@ -18,7 +18,7 @@ import com.example.springapp.model.Goal;
 import com.example.springapp.repository.GoalRepository;
 
 @RestController
-@CrossOrigin("https://8081-bbbefecfaaefbebfbcddfdffccbebc.project.examly.io/")
+@CrossOrigin("*")
 public class GoalController {
 	
 	@Autowired
@@ -42,7 +42,7 @@ public class GoalController {
 	@DeleteMapping("/goal/{id}")
     public ResponseEntity<String> deleteGoal(@PathVariable int id) {
         if (!goalRepository.existsById(id)) {
-            return new ResponseEntity<>("Goal not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Goal not foud", HttpStatus.NOT_FOUND);
         }
 
         goalRepository.deleteById(id);
@@ -57,7 +57,6 @@ public class GoalController {
 
         Goal exGoal = goalRepository.findById(id).get();
         
-        // exGoal.setApproval(goal.isApproval());
         exGoal.setGoalName(goal.getGoalName());
         exGoal.setDate(goal.getDate());
         exGoal.setDescription(goal.getDescription());
@@ -67,5 +66,25 @@ public class GoalController {
         goalRepository.save(exGoal);
         return new ResponseEntity<>("Goal updated successfully", HttpStatus.OK);
 	}
+    
+    @PutMapping("/goalStatus/{id}")
+    public ResponseEntity<String> updateStatus(@PathVariable int id,@RequestBody Goal goal){
+        if (!goalRepository.existsById(id)) {
+            return new ResponseEntity<>("Goal not found", HttpStatus.NOT_FOUND);
+        }
+
+        Goal exGoal = goalRepository.findById(id).get();
+        
+        exGoal.setStatus(goal.getStatus());
+        
+        
+        goalRepository.save(exGoal);
+        return new ResponseEntity<>("Goal updated successfully", HttpStatus.OK);
+	}
+
+    @GetMapping("/goals/{userId}")
+	public List<Goal> getGoalsByUserId(@PathVariable int userId) {
+        return goalRepository.findByUserId(userId);
+    }
 
 }
