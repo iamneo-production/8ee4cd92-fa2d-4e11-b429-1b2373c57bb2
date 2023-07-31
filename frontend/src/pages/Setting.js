@@ -88,10 +88,7 @@ const Setting = () => {
         }
       }
   }
-  
 
-
-  
 
   useEffect(()=>{
     axios.get(`${api}goal/${id}`)
