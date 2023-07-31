@@ -34,7 +34,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    toast.warning("LogOut Successful")// Show the toast message
+    toast.success("LogOut Successful")// Show the toast message
     navigate('/');
   };
   const renderAvatar = () => {
@@ -53,20 +53,13 @@ const Navbar = () => {
       <header className="header" ref={headerRef}>
         <div className="container">
           <div className="nav_wrapper">
+          <Link className="btn mx-2" to="/user-dashboard">
             <div className='logo'>
               <img src={logo} width="30%" alt='' />
           
           </div>
+          </Link>
             
-
-            <div className="nav_right">
-              <Link className="btn" to="/workout-track">
-                Workout Track
-              </Link>
-              <span className="mobile_menu">
-                <i className="ri-menu-line"></i>
-              </span>
-            </div>
 
             <div className="nav_right">
               <Link className="btn" to="/workout-history">

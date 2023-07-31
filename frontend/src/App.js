@@ -37,6 +37,11 @@ import NutritionWeightGainPlanFriday from './pages/NutritionWeightLossGain/Nutri
 import NutritionWeightGainPlanSaturday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanSaturday';
 import NutritionWeightGainPlanSunday from './pages/NutritionWeightLossGain/NutritionWeightGainPlanSunday';
 import NutritionWeightGainProgress from './pages/NutritionWeightGainProgress';
+import WeightTracker from './pages/WeightTracker';
+import ViewGoals from './pages/ViewGoals';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminUpdateProfile from './pages/AdminUpdateProfile';
+import DisplayAllUsers from './pages/DisplayAllUsers';
 
 
 function App() {
@@ -59,6 +64,9 @@ function App() {
           <Route exact path='/user-dashboard' element={<UserDashboard />} />
           <Route exact path='/WorkoutBase' element={<WorkoutBase />} />
           <Route exact path='/workout-track' element={<WorkoutTrack />} />
+          <Route exact path='/weight-tracker' element={<WeightTracker />} />
+          <Route exact path='/view-goals' element={<ViewGoals />} />
+          <Route exact path='/update-goal/:id' element={<Setting />} />
 
           <Route exact path='/nutritionHome' element={<NutritionHome />} />
           <Route exact path='/nutritionWeightLoss' element={<NutritionWeightLoss />} />
@@ -80,7 +88,9 @@ function App() {
           <Route exact path='/nutritionWeightGainPlanSaturday' element={<NutritionWeightGainPlanSaturday />} />
           <Route exact path='/nutritionWeightGainPlanSunday' element={<NutritionWeightGainPlanSunday />} />
           <Route exact path='/nutritionWeightGainProgress' element={<NutritionWeightGainProgress />} />
-          
+          <Route exact path='/admin-dashboard' element={<AdminDashboard />} />
+          <Route exact path='/admin-updateprofile' element={<AdminUpdateProfile />} />
+          <Route exact path='/display-AllUser' element={<DisplayAllUsers />} />
         </Routes>
       </Router>
     </div>

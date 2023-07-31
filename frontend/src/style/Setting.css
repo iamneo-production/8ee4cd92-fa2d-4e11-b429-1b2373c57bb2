@@ -1,0 +1,66 @@
+.main{
+    background-image: url("/home/coder/project/workspace/frontend/src/assets/img/image1.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+
+.goalButton{
+    padding-top: 200px;
+    margin-left: 800px;
+}
+
+h3{
+   font-family:cursive;
+   font-weight:500;
+   font-size:25px;
+}
+.fitness-goal-container {
+    width: 350px;
+    margin : auto;
+    border-radius: 6px;
+  }
+
+  
+  label {
+    font-weight: bold;
+    font-size: 18px
+  }
+  
+.button {
+    background-color: #3167fa;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    text-align: center;
+    font-size: 16px;
+    margin-left: 100px;
+    border-radius: 3px;
+    }
+  
+ .drop-down{
+    height: 40px;
+    width: 300px;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  
+  .form-mem{
+    padding-left:25px
+  }
+  
+  
+  .form-tex{
+    height: 40px;
+    width: 300px;
+  }
+  
+  .form-con{
+    padding-bottom: 10px;
+  }
+
+  .card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* If you want the card to take up the full viewport height */
+  }
