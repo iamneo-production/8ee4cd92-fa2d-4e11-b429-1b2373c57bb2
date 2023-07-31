@@ -5,7 +5,6 @@ import Navbar from '../layout/Navbar'
 import axios from 'axios';
 import { api } from '../APIConnect';
 import { useNavigate, useParams,Link} from 'react-router-dom';
-import { api } from '../APIConnect';
 import { toast } from 'react-toastify';
 
 const Setting = () => {
