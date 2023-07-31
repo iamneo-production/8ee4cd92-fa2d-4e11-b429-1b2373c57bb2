@@ -39,6 +39,7 @@ const WeightTracker = () => {
     const weightItem = {user_id,date,weight};
     console.log(weightItem);
     axios.post(`${api}addWeight`,weightItem);
+
     toast.success("Weight Added..")
 
   };
