@@ -62,27 +62,11 @@ const Setting = () => {
     const goalItem = {date,description,duration,goalName,userId,targetWeight};
     console.log(goalItem);
     if(id){
-<<<<<<< HEAD
-      alert("Goal updated Successfully.");
-=======
       toast.success("Goal updated Successfully.");
->>>>>>> 5ff57d44322084709cecf1af065f82d7439b93ae
       axios.put(`${api}goal/${id}`,goalItem)
       .then(navigate("/view-goals"));
     }
     else{
-<<<<<<< HEAD
-      alert("Goal Created Successfully.");
-      console.log(goalItem);
-      axios.post(`${api}goal`,goalItem)
-      .then(navigate("/view-goals"));
-      setGoal('');
-      setDescription('');
-      setDuration('');
-      setTargetWeight(0);
-    }
-  };
-=======
         var lastGoal = false 
         const check = goals.map((item)=>{
           if(item.status=='pending'){
@@ -104,10 +88,7 @@ const Setting = () => {
         }
       }
   }
-  
->>>>>>> 5ff57d44322084709cecf1af065f82d7439b93ae
 
-  
 
   useEffect(()=>{
     axios.get(`${api}goal/${id}`)

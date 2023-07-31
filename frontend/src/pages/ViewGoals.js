@@ -4,10 +4,7 @@ import Navbar from '../layout/Navbar';
 import { Link } from 'react-router-dom';
 import '../pages/ViewGoals.css'
 import { api } from '../APIConnect';
-<<<<<<< HEAD
-=======
 import { toast } from 'react-toastify';
->>>>>>> 5ff57d44322084709cecf1af065f82d7439b93ae
 
 
 const ViewGoals = () => {
@@ -19,11 +16,7 @@ const ViewGoals = () => {
   console.log(user);
 
   useEffect(()=>{
-<<<<<<< HEAD
-    axios.get(`${api}goals`)
-=======
     axios.get(`${api}goals/${user.id}`)
->>>>>>> 5ff57d44322084709cecf1af065f82d7439b93ae
       .then(res=>setGoals(res.data));
   },[])
 
