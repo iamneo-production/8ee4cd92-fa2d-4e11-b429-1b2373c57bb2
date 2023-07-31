@@ -3,6 +3,10 @@ import '../pages/WeightTracker.css'
 import axios from 'axios';
 import Navbar from '../layout/Navbar';
 import { api } from '../APIConnect';
+<<<<<<< HEAD
+=======
+import { toast } from 'react-toastify';
+>>>>>>> 5ff57d44322084709cecf1af065f82d7439b93ae
 
 const WeightTracker = () => {
   const [weights, setWeights] = useState([]);
@@ -38,6 +42,10 @@ const WeightTracker = () => {
     const weightItem = {user_id,date,weight};
     console.log(weightItem);
     axios.post(`${api}addWeight`,weightItem);
+<<<<<<< HEAD
+=======
+    toast.success("Weight Added..")
+>>>>>>> 5ff57d44322084709cecf1af065f82d7439b93ae
 
   };
 

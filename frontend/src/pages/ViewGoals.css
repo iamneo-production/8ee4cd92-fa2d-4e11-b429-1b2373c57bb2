@@ -9,3 +9,10 @@
     margin-bottom: 40px;
     align-items: center;
 }
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* If you want the card to take up the full viewport height */
+  }
